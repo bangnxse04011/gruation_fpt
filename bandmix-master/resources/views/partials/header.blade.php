@@ -1,0 +1,131 @@
+
+<section class="container-fluid">
+    <header class="container-fluid head fixed-top">
+        <nav class="navbar  navbar-expand-sm navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">BANDMIX</a>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="nav-content">
+                <ul class="navbar-nav col-12 col-md-8 col-lg-6">
+                    <li class="">
+                        <a class="nav-link active " href="/">TRANG CHỦ</a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link " href="{{route('bands.index')}}">BAN NHẠC</a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link " href="{{route('events.index')}}">SỰ KIỆN</a>
+
+                    </li>
+                    <li class="">
+                        <a class="nav-link " href="{{route('news.index')}}">TIN TỨC</a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link " href="aboutus.html">GIỚI THIỆU</a>
+                    </li>
+                </ul>
+                <div style="display: flex; justify-content: flex-end; align-items: center" class="col-6">
+                    <div class="search-container">
+                        <div class="input-group md-form form-sm form-1 pl-0">
+                            <div class="input-group-prepend">
+                                <form action="">
+                                    <div class="input-group-prepend">
+                                        <input class="form-control" id="search-bar" type="text" placeholder="Tìm kiếm" aria-label="Search">
+                                        <button type="submit"  class="input-group-text cyan lighten-2 button" id="search-button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    @guest
+                    <form class="only_display_on_a form-inline my-2 my-lg-0 main-nav">
+                        <a class="nav-link signin" style="color: white" >Đăng Nhập</a>
+                        <a class="nav-link signup" style="color: white">Đăng Ký</a>
+                    </form>
+                    @else
+
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown show">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Chào {{ Auth::user()->name }} <span class="caret"></span><b class="caret"></b></a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                                <li><a class="dropdown-item" href="{{ route('events.manage') }}">Quản lý Sự kiện</a></li>
+                                <li><a class="dropdown-item" href="{{route('bands.manage')}}">Quản lý Ban nhạc</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.index',Auth::user()->id)}}">Quản lý tài khoản</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul  class="nav navbar-nav"data-toggle="modal" data-target="#modalCart">
+                        <i  class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+                    </ul>
+                    @endguest
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="modalCart" class="modal fade mdcart" role="dialog" style="padding: 0px">
+        <div class="modal-dialog modal-dialogCart " style="">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-contentCart ">
+                <div class="modal-header .modal-headerCart">
+                    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+                    <div class="shopping-cart-total">
+                        <span class="lighter-text">Tổng:</span>
+                        <span class="main-color-text">350.000 VND</span>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body modal-bodyCart" style="">
+                    <!--<div class="shopping-cart">-->
+
+                    <!--end shopping-cart-header -->
+
+                    <ul class="shopping-cart-items">
+                        <li class="items">
+                            <img src="images/event/sukien1.jpg" alt="item1" />
+                            <span class="item-name">Cafe Nhạc</span>
+                            <span class="item-price">100.000 VND</span>
+                            <span class="item-quantity">Số lượng: 01</span>
+                        </li>
+
+                        <li class="items">
+                            <img src="images/event/sukien2.jpg" alt="item1" />
+                            <span class="item-name">Liên Hoan Văn Hoá</span>
+                            <span class="item-price">150.000</span>
+                            <span class="item-quantity">Số lượng: 01</span>
+                        </li>
+
+                        <li class="items">
+                            <img src="images/event/sukien3.jpg" alt="item1" />
+                            <span class="item-name">Đêm nhạc mới</span>
+                            <span class="item-price">100.000</span>
+                            <span class="item-quantity">Số Lượng: 01</span>
+                        </li>
+                    </ul>
+
+                    <a href="{{route('cart.show')}}" class="btnSeeCart">Chi Tiết Giỏ Hàng</a>
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
