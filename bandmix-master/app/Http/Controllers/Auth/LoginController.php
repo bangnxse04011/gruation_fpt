@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use \Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -47,4 +51,28 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //------------------------------------------------------------------------------
+    /**
+     * Method do authen
+     *
+     * @return true if exit and false if not exit
+     */
+    public function authen(Request $request) {
+        $mesage = false;
+        try {
+            $password = $request->input('password');
+            $email = $request->input('email');
+            $credentials = array('email' => $email,
+                'password' => $password
+            );
+            if (Auth::attempt($credentials)) {
+                $mesage = true;
+            }
+        } catch (\Exception $e) {
+            $mesage = false;
+        }
+        return response()->json(['MESSAGE' => $mesage]);
+    }
 }
+

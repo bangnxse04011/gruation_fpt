@@ -104,7 +104,6 @@ class MembersController extends Controller
     public function show($id)
     {
         $member = $this->repository->find($id);
-
         if (request()->wantsJson()) {
 
             return response()->json([

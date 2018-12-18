@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use \Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -67,5 +69,58 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    //------------------------------------------------------------------------------
+    /**
+     * Method sign In and check exist data
+     */
+    public function sign_In(Request $request) {
+        try {
+            $password = $request->input('password');
+            $password_confirmation = $request->input('password_confirmation');
+            //-----------------------------------------------------
+            $name = $request->input('name');
+            $email_signin = $request->input('email');
+            $user =  User::create([
+                'name' => $name,
+                'email' => $email_signin,
+                'password' => Hash::make($password),
+            ]);
+            if($user) {
+                $mesage = "Tạo tài khoản thành công.";
+            }
+        } catch (\Exception $e) {
+            $mesage = "Đã có lỗi trong quá trình xử lý.";
+        }
+        return response()->json(['MESSAGE' => $mesage]);
+    }
+    
+    //------------------------------------------------------------------------------
+    /**
+     * Method check exit user
+     *
+     * @return true if exit and false if not exit
+     */
+    public function check_Exist_User(Request $request) {
+        $email = $request->input('email');
+        try {
+            if($email && $email != null) {
+                $user_Item = User::where('email', $email)->get()->toArray();
+            }
+        } catch (\Exception $e) {
+            $user_Item = null;
+        }
+        return response()->json(['user_item' => $user_Item]);
+    }
+
+    //------------------------------------------------------------------------------
+    /**
+     * Method change pass
+     *
+     * @return true if exit and false if not exit
+     */
+    public function change_Pass(Request $request) {
+        dd(11111);
     }
 }

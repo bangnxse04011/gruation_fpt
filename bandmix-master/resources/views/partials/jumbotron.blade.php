@@ -1,7 +1,5 @@
-
 <section class="container-fluid body">
     <div id="carouselExampleIndicators" class="carousel slide">
-
         <!-- carousel content -->
         <div class="carousel-inner">
             <!-- first slide -->
@@ -35,103 +33,64 @@
             <ul class="switcher">
                 <li><a href="#">Đăng Nhập</a></li>
                 <li><a href="#">Đăng Ký</a></li>
-
             </ul>
-{{--login--}}
             <div id="login">
-                <form class="form" method="POST" action="{{ route('login')}}">
-                    {{ csrf_field() }}
-
-                    <p class="fieldset" {{ $errors->has('email') ? ' has-error' : '' }}>
-                        <label id='email' class="image-replace email" for="signin-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signin-email" type="email"
-                               placeholder="E-mail" value="{{ old('email') }}" required autofocus name="email">
-
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
+                <form id="login_Form" class="form" method="POST" action="{{ route('authen')}}">
+                    <input type="hidden" class="authen" value="{{ route('authen') }}">
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                    <p class="fieldset">
+                        <label id='email' class="image-replace email validate[required, custom[email_Required], custom[email_Type]]" for="signin-email">E-mail</label>
+                        <input class="full-width has-padding has-border" id="authen-email" type="email" placeholder="E-mail" value="{{ old('email') }}" name="email">
                     </p>
 
                     <p class="fieldset">
-                        <label class="image-replace password" for="signin-password"
-                                {{ $errors->has('password') ? ' has-error' : '' }}>Password</label>
-                        <input class="full-width has-padding has-border" id="signin-password" type="password"
-                               placeholder="Mật khẩu" name="password">
+                        <label class="image-replace password" for="signin-password">Mật Khẩu</label>
+                        <input class="full-width has-padding has-border validate[required, custom[password_Required], custom[password_Not_Spacing]]" id="authen-password" type="password" placeholder="Mật khẩu" name="password">
                         <a href="#0" class="hide-password">Hiện</a>
-
-
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                        @endif
                     </p>
 
                     <p class="fieldset" >
-                        <input type="checkbox" name="remember" id="remember-me" checked {{ old('remember') ? 'checked' : '' }}>
+                        <input type="checkbox" name="remember" id="remember-me" checked value="{{ old('remember') ? 'checked' : '' }}">
                         <label for="remember-me">Ghi nhớ</label>
                     </p>
 
                     <p class="fieldset">
-                        <button class="btn btn-secondary btn-lg btn-block" type="submit" >Đăng nhập</button>
+                    <button id="btnSignIn" type="button" class="btn btn-secondary btn-lg btn-block" form="login_Form">Đăng Nhập</button>
                     </p>
                     <p class="form-bottom-message"><a href="{{ route('password.request') }}">Quên mật khẩu?</a></p>
                 </form>
 
             </div>
-{{--register--}}
+            <!-- --------------------------------- SIGN IN----------------------------------------------------- -->
+            <input type="hidden" class="check-exit-email" value="{{ route('check-exit-email') }}">
+            <input type="hidden" class="sign-in" value="{{ route('sign-in') }}">
             <div id="signup">
-                <form class="form" method="POST" action="{{ route('register') }}">
-                    {{ csrf_field() }}
-
-                    <p class="fieldset" {{ $errors->has('name') ? ' has-error' : '' }}>
+                <form id="sign_In_Form" class="form" method="POST" action="{{ route('sign-in') }}">
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                    <p class="fieldset">
                         <label class="image-replace username" for="signup-username">Họ và Tên :</label>
-                        <input class="full-width has-padding has-border" id="signup-firstname" name="name"
-                               type="text" placeholder="Họ và tên đệm" value="{{ old('name') }}" required autofocus>
-
-                        @if ($errors->has('name'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                        @endif
+                        <input class="full-width has-padding has-border validate[required, custom[fullName_Required]]" id="fullName" name="name" type="text" placeholder="Họ và tên đệm" value="{{ old('name') }}">
                     </p>
-                    <p class="fieldset" {{ $errors->has('email') ? ' has-error' : '' }}>
+                    <p class="fieldset">
                         <label class="image-replace email" for="signup-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signup-email" type="email"
-                               placeholder="E-mail" name="email" value="{{ old('email') }}" required>
-
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                        @endif
+                        <input class="full-width has-padding has-border validate[required, custom[email_Required], custom[email_Type]]" id="email_signin" type="email" placeholder="E-mail" value="{{ old('email') }}" name="email_signin">
                     </p>
-                    <p class="fieldset" {{ $errors->has('password') ? ' has-error' : '' }}>
+                    <p class="fieldset">
                         <label class="image-replace password" for="signup-password">Mật khẩu</label>
-                        <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Mật khẩu" name="password" required>
+                        <input class="full-width has-padding has-border validate[required, custom[password_Required], custom[password_Not_Spacing]]" id="password" type="password"  placeholder="Mật khẩu" name="password">
                         <a href="#0" class="hide-password">Hiện</a>
-
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                        @endif
                     </p>
                     <p class="fieldset">
                         <label class="image-replace password" for="signup-password"> Nhập Lại Mật khẩu</label>
-                        <input class="full-width has-padding has-border" id="signup-password" type="password"
-                               placeholder="Nhập Lại Mật khẩu" name="password_confirmation" required >
+                        <input class="full-width has-padding has-border validate[equals[password]]" id="confirm_password" type="password" placeholder="Nhập Lại Mật khẩu" name="password_confirmation" >
                         <a href="#0" class="hide-password">Hiện</a>
                     </p>
-                    <p class="fieldset">
+                    <!-- <p class="fieldset">
                         <input type="checkbox" id="accept-terms">
                         <label for="accept-terms"> Đồng ý với  <a class="accept-terms" href="#0">Điều khoản</a></label>
-                    </p>
-
+                    </p> -->
                     <p class="fieldset">
-                        <button class="btn btn-secondary btn-lg btn-block" type="submit" >Đăng kí</button>
+                        <button id="btnLogin" type="button" class="btn btn-secondary btn-lg btn-block" form="sign_In_Form">Đăng kí</button>
                     </p>
                 </form>
 

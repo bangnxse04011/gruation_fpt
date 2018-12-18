@@ -31,11 +31,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('events','EventsController@store')->name('events.store');
 });
 
-
 //event
 Route::get('events','EventsController@index')->name('events.index');
-
-
 
 //events
 Route::get('/events/create','EventsController@create')->name('events.create');
@@ -45,7 +42,7 @@ Route::get('/events/edit/{slug}','EventsController@edit')->name('events.edit');
 
 Route::get('/events/{slug}','EventsController@show');
 Route::resource('/events','EventsController');
-Route::get('/', 'HomePageController@index');
+Route::get('/', 'HomePageController@index')->name('homepage');
 
 
 //band
@@ -63,5 +60,8 @@ Auth::routes();
 Route::Post('/','Auth\LoginController@login')->name('login');
 Route::get('/login','HomePageController@index');
 
-//gio hang
-
+// Route reg 
+Route::post('/authen','Auth\LoginController@authen')->name('authen');
+Route::post('/sign-in','Auth\RegisterController@sign_In')->name('sign-in');
+Route::post('/check-exit-email','Auth\RegisterController@check_Exist_User')->name('check-exit-email');
+Route::get('/change-pass','Auth\RegisterController@change_Pass')->name('change-pass');
