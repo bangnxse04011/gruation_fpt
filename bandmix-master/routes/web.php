@@ -64,4 +64,6 @@ Route::get('/login','HomePageController@index');
 Route::post('/authen','Auth\LoginController@authen')->name('authen');
 Route::post('/sign-in','Auth\RegisterController@sign_In')->name('sign-in');
 Route::post('/check-exit-email','Auth\RegisterController@check_Exist_User')->name('check-exit-email');
-Route::get('/change-pass','Auth\RegisterController@change_Pass')->name('change-pass');
+
+Route::post('/change-pass','Auth\RegisterController@change_Pass')->name('change-pass');
+Route::post('/reset-pass','Auth\RegisterController@reset_Pass')->name('reset-pass');

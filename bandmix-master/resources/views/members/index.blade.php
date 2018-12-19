@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
->>>>>>> bandmix_v1_kybh
+
                 </div>
             </div>
             <!--user information-->
@@ -128,6 +128,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="col-sm-12" id="change_pass">
                     <div>
                         <div>
@@ -137,10 +138,13 @@
                             <label>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu với người khác</label>
                         </div>
                     </div>
-                    <input type="hidden" class="change-pass" value="{{ route('change-pass') }}">
-                    <form id="change_Pass_Form" class="form" method="GET" action="{{ route('change-pass') }}">
-                        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>                
+                    <form id="change_Pass_Form" class="form" method="POST" action="">
+                        {{ csrf_field() }}           
                             <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-12 msg_error_rp" style="color:red;display:none;margin_bottom:20px">Test</div>
+                                    <div class="col-sm-12 msg_success" style="color:green;display:none;margin_bottom:20px">tess</div>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">
                                         <label>Mật khẩu hiện tại</label>
@@ -154,7 +158,7 @@
                                         <label>Mật khẩu mới</label>
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                        <input id="password" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="password" >
+                                        <input id="new_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="password" >
                                     </div>
                                 </div>
                                 <div class="row">
@@ -172,11 +176,12 @@
                                     <div class="col-sm-5 input-with-label">
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                    <button id="btnChangPass" type="button" class="btn btn-secondary btn-lg btn-block" form="change_Pass_Form">Đổi mật khẩu</button>
+                                    <button id="btnChangPass" type="button" class="btn btn-secondary btn-lg btn-block" data-url="{{ route('change-pass') }}">Đổi mật khẩu</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

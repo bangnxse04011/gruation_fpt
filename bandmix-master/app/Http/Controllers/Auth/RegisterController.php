@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Entities\Member;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailResetPass;
 
 class RegisterController extends Controller
 {
@@ -121,6 +124,25 @@ class RegisterController extends Controller
      * @return true if exit and false if not exit
      */
     public function change_Pass(Request $request) {
-        dd(11111);
+        $request->all();
+    }
+    //------------------------------------------------------------------------------
+    /**
+     * Method reset pass
+     *
+     * @return true if exit and false if not exit
+     */
+    public function reset_Pass(Request $request) {
+        $email = $request->email;
+        $user = Member::where('email', $email)->get();
+        if(count($user) > 0) {
+            $new_pass = str_random(10);
+            $new_pass_hash = Hash::make($new_pass);    
+            Member::where('email', $request->email)->update(['password' => $new_pass_hash]);
+            Mail::to($email)->send(new SendMailResetPass($new_pass));
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
     }
 }

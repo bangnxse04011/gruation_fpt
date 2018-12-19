@@ -101,15 +101,18 @@
                 <p class="form-message">Quên mật khẩu? Vui lòng nhập địa chỉ email của bạn.
                     <br> Bạn sẽ nhận được một liên kết để tạo mật khẩu mới.</p>
 
-                <form class="form">
+                <form class="form" id="reset_Pass_Form">
+                    <p class="msg_success" style="display:none;">
+                        <span style="color:seagreen;">Mật khẩu đã được cập nhật, vui lòng kiểm tra email</span>
+                    </p>
                     <p class="fieldset">
-                        <label class="image-replace email" for="reset-email">E-mail</label>
+                        <label class="image-replace email validate[required, custom[email_Required], custom[email_Type]]" for="reset-email">E-mail</label>
                         <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-                        <span class="error-message">Tài khoản không tồn tại!</span>
+                        <span class="error-message reset_pass_error">Tài khoản không tồn tại!</span>
                     </p>
 
                     <p class="fieldset">
-                        <input class="full-width has-padding" type="submit" value="Gửi yêu cầu">
+                        <input id="email_reset_pass" class="full-width has-padding button_reset_pass" type="submit" data-url="{{ route('reset-pass') }}" value="Gửi yêu cầu">
                     </p>
                 </form>
 

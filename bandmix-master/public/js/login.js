@@ -1,3 +1,8 @@
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 jQuery(document).ready(function($){
   var $form_modal = $('.user-modal'),
     $form_login = $form_modal.find('#login'),
@@ -104,29 +109,82 @@ jQuery(document).ready(function($){
 
   //IE9 placeholder fallback
   //credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
-  if(!Modernizr.input.placeholder){
-    $('[placeholder]').focus(function() {
-      var input = $(this);
-      if (input.val() == input.attr('placeholder')) {
-        input.val('');
-        }
-    }).blur(function() {
-      var input = $(this);
-        if (input.val() == '' || input.val() == input.attr('placeholder')) {
-        input.val(input.attr('placeholder'));
-        }
-    }).blur();
-    $('[placeholder]').parents('form').submit(function() {
-        $(this).find('[placeholder]').each(function() {
-        var input = $(this);
-        if (input.val() == input.attr('placeholder')) {
-          input.val('');
-        }
-        })
-    });
-  }
+  // if(!Modernizr.input.placeholder){
+  //   $('[placeholder]').focus(function() {
+  //     var input = $(this);
+  //     if (input.val() == input.attr('placeholder')) {
+  //       input.val('');
+  //       }
+  //   }).blur(function() {
+  //     var input = $(this);
+  //       if (input.val() == '' || input.val() == input.attr('placeholder')) {
+  //       input.val(input.attr('placeholder'));
+  //       }
+  //   }).blur();
+  //   $('[placeholder]').parents('form').submit(function() {
+  //       $(this).find('[placeholder]').each(function() {
+  //       var input = $(this);
+  //       if (input.val() == input.attr('placeholder')) {
+  //         input.val('');
+  //       }
+  //       })
+  //   });
+  // }
+
+  //Reset password
+  $('.button_reset_pass').on('click', function(e) {
+    e.preventDefault()
+    $('.reset_pass_error').html('Tài khoản không tồn tại!')
+    $('.reset_pass_error').css('visibility', 'hidden')
+    $('.reset_pass_error').css('opacity', 0)
+
+    let email = $('#reset-email').val()
+    if(email != '') {
+      if(validateEmail(email)) {
+        let url = $(this).data('url')
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            'email' : email
+          },
+          success: function (response) {
+            if(response.status == 'error') {
+              $('.reset_pass_error').css('visibility', 'visible')
+              $('.reset_pass_error').css('opacity', 1)
+            } else {
+              $('.msg_success').show()
+              setTimeout(function() {
+                $('.msg_success').hide()
+              }, 5000)
+            }              
+          }
+        });
+      } else {
+        console.log('deo phai email')
+        $('.reset_pass_error').html('Email không hợp lệ')
+        $('.reset_pass_error').css('visibility', 'visible')
+        $('.reset_pass_error').css('opacity', 1)
+      }
+      
+    } else {
+      console.log('show error')
+      $('.reset_pass_error').html('Vui lòng nhập email')
+      $('.reset_pass_error').css('visibility', 'visible')
+      $('.reset_pass_error').css('opacity', 1)
+    }
+    
+    
+
+   
+  })
 
 });
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
 
 //credits https://css-tricks.com/snippets/jquery/move-cursor-to-end-of-textarea-or-input/
