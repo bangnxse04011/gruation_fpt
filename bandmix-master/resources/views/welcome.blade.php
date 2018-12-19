@@ -25,6 +25,7 @@
                         {{--<p>{{$new->}}}</p>--}}
                     </div>
                 @endforeach
+                
                 <div style="width: 100%">
                     <a style="float: right; margin-right: 15px;" href="">Xem tất cả >></a>
                 </div>
@@ -36,11 +37,12 @@
                 <hr>
             </div>
             <div class="row">
+                @foreach($bands as $band)
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="hovereffect">
-                        <img class="img-responsive" src="images/band/a.jpg" alt="">
+                        <img class="img-responsive" src="{{$band->avatar}}" alt="">
                         <div class="overlay">
-                            <h2>Bức Tường Band</h2>
+                            <h2>{{$band->name}}</h2>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="stars-bottom-comment">
@@ -55,87 +57,13 @@
                                 </div>
                             </div>
                             <p>
-                                Đây là ban nhạc được đánh giá cao, quy tụ nhiều nhân tài nghệ sĩ tại Hà Nội
+                               {{$band->about}}
                             </p>
                             <a class="info" href="detailBand.html">Chi tiết</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffect">
-                        <img class="img-responsive" src="images/band/b.jpg" alt="">
-                        <div class="overlay">
-                            <h2>Bức Tường Band</h2>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="stars-bottom-comment">
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star "></span>
-                                        <span style="color: white;"> ( 0 đánh giá)   </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                Đây là ban nhạc được đánh giá cao, quy tụ nhiều nhân tài nghệ sĩ tại Hà Nội
-                            </p>
-                            <a class="info" href="detailBand.html">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffect">
-                        <img class="img-responsive" src="images/band/c.jpg" alt="">
-                        <div class="overlay">
-                            <h2>Bức Tường Band</h2>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="stars-bottom-comment">
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star "></span>
-                                        <span style="color: white;"> ( 0 đánh giá)   </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                Đây là ban nhạc được đánh giá cao, quy tụ nhiều nhân tài nghệ sĩ tại Hà Nội
-                            </p>
-                            <a class="info" href="detailBand.html">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffect">
-                        <img class="img-responsive" src="images/band/c.jpg" alt="">
-                        <div class="overlay">
-                            <h2>Bức Tường Band</h2>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="stars-bottom-comment">
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star "></span>
-                                        <span style="color: white;"> ( 0 đánh giá)   </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                Đây là ban nhạc được đánh giá cao, quy tụ nhiều nhân tài nghệ sĩ tại Hà Nội
-                            </p>
-                            <a class="info" href="detailBand.html">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <!-- Top Event -->
             <div class="title">
@@ -143,55 +71,20 @@
                 <hr>
             </div>
             <div class="row">
+                @foreach($events as $event)
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="hovereffectE">
-                        <img class="img-responsive" src="images/event/sukien1.jpg" alt="">
+                        <img class="img-responsive" src="{{$event->avatar}}" alt="">
                         <div class="overlayE">
-                            <h2>Liên Hoan Âm nhạc</h2>
+                            <h2>$event->name</h2>
                             <p >
-                                Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
+                                $event->descriptions
                             </p>
                             <a class="infoE" href="#">Chi tiết</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffectE">
-                        <img class="img-responsive" src="images/event/sukien2.jpg" alt="">
-                        <div class="overlayE">
-                            <h2>Liên Hoan Âm nhạc</h2>
-                            <p >
-                                Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
-                            </p>
-                            <a class="infoE" href="#">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffectE">
-                        <img class="img-responsive" src="images/event/sukien3.jpg" alt="">
-                        <div class="overlayE">
-                            <h2>Liên Hoan Âm nhạc</h2>
-                            <p >
-                                Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
-                            </p>
-                            <a class="infoE" href="#">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="hovereffectE">
-                        <img class="img-responsive" src="images/event/sukien3.jpg" alt="">
-                        <div class="overlayE">
-                            <h2>Liên Hoan Âm nhạc</h2>
-                            <p >
-                                Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
-                            </p>
-                            <a class="infoE" href="#">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div> <!-- row -->
             <div class="title">
                 <h2>Sản phẩm nổi bật</h2>
