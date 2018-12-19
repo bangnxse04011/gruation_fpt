@@ -142,8 +142,8 @@
                         {{ csrf_field() }}           
                             <div class="col-sm-8">
                                 <div class="row">
-                                    <div class="col-sm-12 msg_error_rp" style="color:red;display:none;margin_bottom:20px">Test</div>
-                                    <div class="col-sm-12 msg_success" style="color:green;display:none;margin_bottom:20px">tess</div>
+                                    <div class="col-sm-12 msg_error_rp" style="color:red; display:none; margin_bottom:20px"></div>
+                                    <div class="col-sm-12 msg_success" style="color:green; display:none; margin_bottom:20px">Đổi mật khẩu thành công</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">

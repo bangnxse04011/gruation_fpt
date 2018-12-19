@@ -124,7 +124,14 @@ class RegisterController extends Controller
      * @return true if exit and false if not exit
      */
     public function change_Pass(Request $request) {
-        $request->all();
+        $user = Member::find(\Auth::user()->id);
+        if(Hash::check($request->old_pass, $user->password)) {
+            $new_pass_hash = Hash::make($request->new_pass);    
+            Member::where('id', \Auth::user()->id)->update(['password' => $new_pass_hash]);
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error','msg' => 'Mật khẩu cũ không hợp lệ!']);
+        }
     }
     //------------------------------------------------------------------------------
     /**

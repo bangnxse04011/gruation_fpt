@@ -161,7 +161,6 @@ jQuery(document).ready(function($){
           }
         });
       } else {
-        console.log('deo phai email')
         $('.reset_pass_error').html('Email không hợp lệ')
         $('.reset_pass_error').css('visibility', 'visible')
         $('.reset_pass_error').css('opacity', 1)

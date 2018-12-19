@@ -32,38 +32,25 @@ $(document).ready(function () {
                 $('.msg_error_rp').html('mat khau khong khop')
                 $('.msg_error_rp').show()
             } else {
-                
                 $.ajax({
-                    url : url,
-                    type : 'POST',
-                    data : {
-                        'test' : 'test'
+                    url: url,
+                    type: "POST",
+                    data: {
+                    'old_pass' : old_pass,
+                    'new_pass' : new_pass
                     },
-                    success : function(response) {
-                        console.log(response)
-                    } 
-
+                    success: function (response) {
+                        if(response.status == 'error') {
+                            $('.msg_error_rp').html(response.msg)
+                            $('.msg_error_rp').show()
+                        } else {
+                            $('.msg_success').show()
+                            setTimeout(function() {
+                            $('.msg_success').hide()
+                            }, 5000)
+                        }              
+                    }
                 });
-
-                        // $.ajax({
-                        //     url: url,
-                        //     type: "POST",
-                        //     data: {
-                        //     'old_pass' : old_pass,
-                        //     'new_pass' : new_pass
-                        //     },
-                        //     success: function (response) {
-                        //         if(response.status == 'error') {
-                        //             $('.msg_error_rp').html('response.msg')
-                        //             $('.msg_error_rp').show()
-                        //         } else {
-                        //             $('.msg_success').show()
-                        //             setTimeout(function() {
-                        //             $('.msg_success').hide()
-                        //             }, 5000)
-                        //         }              
-                        //     }
-                        // });
             }
         }
     });
