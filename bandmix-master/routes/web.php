@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::resource('/events','EventsController');
 Route::resource('/feedback','FeedbackController');
 Route::get('/', 'HomePageController@index');
+Route::get('/search', 'HomePageController@search')->name('masterSearching');;
 
 
 Route::group(['middleware' => 'auth'], function(){

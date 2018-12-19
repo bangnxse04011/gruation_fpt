@@ -31,9 +31,9 @@
                     <div class="search-container">
                         <div class="input-group md-form form-sm form-1 pl-0">
                             <div class="input-group-prepend">
-                                <form action="">
+                                <form action="{{route('masterSearching')}}">
                                     <div class="input-group-prepend">
-                                        <input class="form-control" id="search-bar" type="text" placeholder="Tìm kiếm" aria-label="Search">
+                                        <input class="form-control" id="search-bar" name="searchValue" type="text" placeholder="Tìm kiếm" aria-label="Search">
                                         <button type="submit"  class="input-group-text cyan lighten-2 button" id="search-button">
                                             <i class="fa fa-search"></i>
                                         </button>
