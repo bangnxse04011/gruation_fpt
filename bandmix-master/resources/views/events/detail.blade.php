@@ -11,9 +11,7 @@
 					<div class="avatar_user">
 						<div>
 							<p>
-								@if(!empty($event->avatar))
 								<img src="{{$event->avatar}}">
-								@endif
 							</p>
 						</div>
 						<div class="textUser">
