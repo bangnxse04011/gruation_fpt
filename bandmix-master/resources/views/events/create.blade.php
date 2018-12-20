@@ -166,7 +166,7 @@
                                     </div>
 
                                     <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
+                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required>
                                     </div>
 
                                     <div class="col-sm-2 input-with-label">

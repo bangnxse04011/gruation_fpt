@@ -20,7 +20,7 @@ class Event extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['description','avatar','name','time','event_manager','member_id','salary','location_detail','number_phone','mail','vacancy','price','slug','detail','act'];
+    protected $fillable = ['description','avatar','name','time','date','member_id','salary','location_detail','number_phone','mail','vacancy','price','slug','detail','status'];
 
     public function location(){
         return $this->belongsTo('App\Entities\Location');

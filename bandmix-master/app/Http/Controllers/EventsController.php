@@ -6,6 +6,7 @@ use App\Entities\Band;
 use App\Entities\Genre;
 use App\Entities\Event;
 use App\Entities\EventGenre;
+use App\Entities\Act;
 
 use App\Repositories\BandRepository;
 use App\Repositories\EventGenreRepository;
@@ -137,7 +138,7 @@ class EventsController extends Controller
         //     }
         //     return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         // }
-
+        // dd($request->all());
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
@@ -152,6 +153,19 @@ class EventsController extends Controller
 
             $event = $this->repository->create($data);
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+
+            if(count($data['item_name'] > 1)) {
+                $event_id = $event->id;
+                $total_item = count($data['item_name']);
+                for($i = 1; $i < $total_item; $i++) {
+                    $data_act[] = [
+                        'act' => $data['item_name'][$i],
+                        'band_id' => $data['band'][$i],
+                        'event_id' => $event_id
+                    ];
+                } 
+                Act::insert($data_act);
+            }
         } else {
             if($request->hasFile('myFile')){
                 $data['avatar'] = $this->uploadFile($request->myFile);
@@ -159,6 +173,21 @@ class EventsController extends Controller
             $event = $this->repository->update($data, $data['event_id']);
             EventGenre::where('event_id', $data['event_id'])->delete();
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+
+            Act::where('event_id', $data['event_id'])->delete();
+            if(count($data['item_name'] > 1)) {
+                $event_id = $event->id;
+                $total_item = count($data['item_name']);
+                for($i = 1; $i < $total_item; $i++) {
+                    $data_act[] = [
+                        'act' => $data['item_name'][$i],
+                        'band_id' => $data['band'][$i],
+                        'event_id' => $event_id
+                    ];
+                } 
+                Act::insert($data_act);
+            }
+
         }
         return redirect()->route('events.detail',$event->id)->with('message', 'OK');
     }
@@ -273,7 +302,7 @@ class EventsController extends Controller
         // $event = $this->repository->findByField('id',$id)->first();
         $event_genre = Event::join('event_genre', 'events.id', '=', 'event_genre.event_id')
         ->join('genres', 'genres.id', '=', 'event_genre.genre_id')
-        ->join('locations','locations.id', '=','events.location_id')
+        ->leftJoin('locations','locations.id', '=','events.location_id')
         ->selectRaw('events.* , locations.name as location_name, genres.name as genres_name')
         ->where('events.id', '=', $id)
         ->get();

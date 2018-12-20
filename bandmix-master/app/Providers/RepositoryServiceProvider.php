@@ -36,6 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\BandEventRepository::class, \App\Repositories\BandEventRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\BandGenreRepository::class, \App\Repositories\BandGenreRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\BandLocationRepository::class, \App\Repositories\BandLocationRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ActRepository::class, \App\Repositories\ActRepositoryEloquent::class);
         //:end-bindings:
     }
 }
