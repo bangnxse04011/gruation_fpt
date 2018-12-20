@@ -166,8 +166,7 @@ class EventsController extends Controller
     }
     public function manage(){
         $member_id = Auth::id();
-        // $events = $this->repository->findWhere(['member_id' => $member_id]);
-        $events = $this->repository->paginate(5);
+        $events = $this->repository->findWhere(['member_id' => $member_id]);
         return view('events.manage',compact('events'));
     }
     /**

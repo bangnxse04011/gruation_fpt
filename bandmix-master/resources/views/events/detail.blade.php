@@ -176,15 +176,7 @@
 										
 									</div>
 									<div class=" col-sm-8 input-with-content">
-										<label>Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN<br>
-											Yêu Cầu: 
-											<p>
-												1. Nguyễn Văn A
-												.................<br>
-												2.Nguyễn Văn B
-												...............
-											</p>
-										</label>
+										<label>{{$event->detail}}</label>
 									</div>
 								</div>
 								

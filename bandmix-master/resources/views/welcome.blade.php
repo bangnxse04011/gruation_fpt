@@ -75,9 +75,9 @@
                     <div class="hovereffectE">
                         <img class="img-responsive" src="{{$event->avatar}}" alt="">
                         <div class="overlayE">
-                            <h2>$event->name</h2>
+                            <h2>{{$event->name}}</h2>
                             <p >
-                                $event->descriptions
+                                {{$event->descriptions}}
                             </p>
                             <a class="infoE" href="#">Chi tiết</a>
                         </div>
