@@ -138,8 +138,6 @@ class EventsController extends Controller
         //     return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         // }
 
-
-        dd($request->all());
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
@@ -167,7 +165,6 @@ class EventsController extends Controller
     public function manage(){
         $member_id = Auth::id();
         $events = $this->repository->findWhere(['member_id' => $member_id]);
-        dd($events);
         return view('events.manage',compact('events'));
     }
     /**
