@@ -160,7 +160,7 @@ class EventsController extends Controller
             EventGenre::where('event_id', $data['event_id'])->delete();
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
         }
-        return redirect()->route('events.show',$event->id)->with('message', 'OK');
+        return redirect()->route('events.detail',$event->id)->with('message', 'OK');
     }
     public function manage(){
         $member_id = Auth::id();
