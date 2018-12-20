@@ -6,8 +6,8 @@ function setBold() {
 }
     
     $('#number_of_ticket').on('input', function() {
-        ticket = $(this).val()
-        vacancy = $('#event_vacancy').val() 
+        ticket = parseInt($(this).val())
+        vacancy = parseInt($('#event_vacancy').val())
         if(vacancy < ticket){
             alert('số vé nhiều hơn số vé còn')
         }else{
