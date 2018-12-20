@@ -37,10 +37,12 @@ Route::get('events','EventsController@index')->name('events.index');
 
 //events
 Route::get('/events/create','EventsController@create')->name('events.create');
-Route::get('/events/manage','EventsController@manage')->name('events.manage');
+// Route::get('/events/manage','EventsController@manage')->name('events.manage');
+Route::get('/event/manage','EventsController@manage')->name('events.manage');
 Route::get('/events/{id}','EventsController@show')->name('events.show');
 Route::get('/event/detail/{id}','EventsController@detail')->name('events.detail');
 Route::get('/events/edit/{id}','EventsController@edit')->name('events.edit');
+Route::get('/events/delete/{id}','EventsController@deleteEvent')->name('events.delete');
 
 Route::get('/events/{slug}','EventsController@show');
 Route::resource('/events','EventsController');
