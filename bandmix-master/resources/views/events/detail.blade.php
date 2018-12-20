@@ -180,7 +180,8 @@
 										
 									</div>
 									<div class=" col-sm-8 input-with-content">
-										<label>{{$event->detail}}</label>
+										<label>{{$event->detail}}
+										</label>
 									</div>
 								</div>
 								
