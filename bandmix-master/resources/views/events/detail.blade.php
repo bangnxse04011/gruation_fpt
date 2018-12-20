@@ -11,7 +11,9 @@
 					<div class="avatar_user">
 						<div>
 							<p>
+								@if(!empty($event->avatar))
 								<img src="{{$event->avatar}}">
+								@endif
 							</p>
 						</div>
 						<div class="textUser">
@@ -176,7 +178,8 @@
 										
 									</div>
 									<div class=" col-sm-8 input-with-content">
-										<label>{{$event->detail}}</label>
+										<label>{{$event->detail}}
+										</label>
 									</div>
 								</div>
 								
