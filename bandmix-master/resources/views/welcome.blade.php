@@ -52,7 +52,6 @@
                                         <span class="fa fa-star  checked "></span>
                                         <span class="fa fa-star "></span>
                                         <span style="color: white;"> ( 0 đánh giá)   </span>
-
                                     </div>
                                 </div>
                             </div>

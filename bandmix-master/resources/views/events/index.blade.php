@@ -38,11 +38,6 @@
             <form class="form-inline search-form">
                 <div class="form-group" >
                     <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
-<<<<<<< HEAD
-                    <div class="form-group" >
-                        <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
-=======
->>>>>>> bandmix_v1_kybh
                         <select class="form-control select-op" name="search_select" >
                             <option value="" selected>Giá vé</option>
                             <option {{request()->get('search_select') == 'asc' ?'selected' : ''}} value="asc">Giá: thấp->cao</option>
@@ -73,13 +68,13 @@
                             <p >
                                 Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
                             </p>
-                            <a class="infoE" href="detailEvent.html">Chi tiết</a>
+                            <a class="infoE" href="{{route('events.detail',[$item2->id])}}">Chi tiết</a>
                         </div>
                     </div>
                     <div class="card-body relative">
                         <div class="table w-100 margin-bottom-0" style="text-align: center;">
 
-                            <a class="eventTitle" href="detailEvent.html" title="Liên Hoan Âm Nhạc" target="_blank">
+                            <a class="eventTitle" href="{{route('events.detail',[$item2->id])}}" title="Liên Hoan Âm Nhạc" target="_blank">
                                 <h4>Liên Hoan Âm Nhạc</h4>
                             </a>
                         </div>

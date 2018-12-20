@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Band;
 use App\Entities\Genre;
+use App\Entities\Event;
 use App\Repositories\BandRepository;
 use App\Repositories\EventGenreRepository;
 use App\Repositories\GenreRepository;
@@ -17,6 +18,7 @@ use App\Http\Requests\EventCreateRequest;
 use App\Http\Requests\EventUpdateRequest;
 use App\Repositories\EventRepository;
 use App\Validators\EventValidator;
+
 
 /**
  * Class EventsController.
@@ -75,7 +77,6 @@ class EventsController extends Controller
         $events = $this->repository->findWhere([
             'is_on_top' => 1
         ]);
-
         return view('events.index', compact('events','events_search','locations'));
     }
 
@@ -138,6 +139,7 @@ class EventsController extends Controller
     public function manage(){
         $member_id = Auth::id();
         $events = $this->repository->findWhere(['member_id' => $member_id]);
+        dd($events);
         return view('events.manage',compact('events'));
     }
     /**
@@ -239,5 +241,21 @@ class EventsController extends Controller
         }
 
         return redirect()->back()->with('message', 'Event deleted.');
+    }
+
+    public function detail(Request $request, $id){
+        // $event = $this->repository->findByField('id',$id)->first();
+        $event_genre = Event::join('event_genre', 'events.id', '=', 'event_genre.event_id')
+        ->join('genres', 'genres.id', '=', 'event_genre.genre_id')
+        ->join('locations','locations.id', '=','events.location_id')
+        ->selectRaw('events.* , locations.name as location_name, genres.name as genres_name')
+        ->where('events.id', '=', $id)
+        ->get();
+
+        $event = $event_genre->first();
+        $data['event_genre'] = $event_genre;
+        $data['event'] = $event;
+
+        return view('events.detail', $data);
     }
 }
