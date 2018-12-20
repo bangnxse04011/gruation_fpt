@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     {{--<div class="card-outside">--}}
-    <form method="POST" action="{{ route('events.store') }}" class="cart_status row">
+    <form method="POST" action="{{ route('events.store') }}" class="cart_status row" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="col-sm-3 menu_left">
@@ -53,8 +53,7 @@
                                     <label>Ngày diễn ra :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="date" class="form-control" name="time">
-
+                                    <input type="date" class="form-control" name="date">
                                 </div>
                             </div>
 
@@ -88,7 +87,7 @@
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
                                     <select class="form-control" name="genre" required>
-                                        <option selected>Thể loại</option>
+                                        <option value="">Thể loại</option>
                                         @foreach($genres as $genre)
                                             <option {{ $genre->id == request()->get('genre') ? 'selected':'' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
                                         @endforeach
@@ -131,35 +130,68 @@
                                     <label>Các tiết mục tiêu biểu trong chương trình:</label>
                                 </div>
                             </div>
+
+                            
+
                             <div id="row-contain" style="padding: 0;margin: 0;">
-                                <div class="row">
+                                <div class="row hidden_template" style="display:none;">
                                     <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục số 1:</label>
+                                        <label>Tiết mục:</label>
                                     </div>
+
                                     <div class=" col-sm-3 input-with-content">
                                         <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
                                     </div>
-                                    <div class="col-sm-3 input-with-label">
-                                        <label> Ban nhạc biểu diễn:</label>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
 
-                                        <select  data-toggle="modal" data-target="#modalOnline"
-                                                class="btn btn-primary" name="band[]" required>
-                                            Chọn Ban Nhạc
+                                    <div class="col-sm-2 input-with-label">
+                                        <label> Ban nhạc:</label>
+                                    </div>
+
+                                    <div class=" col-sm-3 input-with-content">
+                                        <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
                                             @foreach($bands as $band)
                                             <option value="{{ $band->id }}">{{ $band->name }}</option>
                                             @endforeach
                                         </select>
-
                                     </div>
-
-                                    <div class=" col-sm-2 input-with-content">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
+                                    <div class=" col-sm-2">
+                                        <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
+                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row ">
+                                    <div class="col-sm-2 input-with-label">
+                                        <label>Tiết mục:</label>
+                                    </div>
+
+                                    <div class=" col-sm-3 input-with-content">
+                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
+                                    </div>
+
+                                    <div class="col-sm-2 input-with-label">
+                                        <label> Ban nhạc:</label>
+                                    </div>
+
+                                    <div class=" col-sm-3 input-with-content">
+                                        <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
+                                            @foreach($bands as $band)
+                                            <option value="{{ $band->id }}">{{ $band->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class=" col-sm-2">
+                                        <button class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></button>
+                                        <button class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></button>
+                                    </div>
+                                    
+
+                                    {{-- <div class=" col-sm-2 input-with-content">
+                                        <input type="checkbox" class="form-control" name="check" value="is_check">
+                                    </div> --}}
+                                </div>
+
+                                {{-- <div class="row">
                                     <div class="col-sm-2 input-with-label">
                                         <label>Tiết mục số 2:</label>
                                     </div>
@@ -231,6 +263,7 @@
                                         <input type="checkbox" class="form-control" name="check" value="is_check">
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-sm-2 input-with-label">
                                         <label>Tiết mục số 5:</label>
@@ -253,7 +286,7 @@
                                     <div class=" col-sm-3 input-with-label">
                                         <input type="checkbox" class="form-control" name="check" value="is_check">
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -271,10 +304,19 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
+                                    <label>Một số hình ảnh</label>
+                                </div>
+                                <div class=" col-sm-5 input-with-content">
+                                    <input type="file" class="form-control-file" id="myFile" name="myFile">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-3 input-with-label">
 
                                 </div>
                                 <div class=" col-sm-1 input-with-content">
-                                    <button type="submit" class="btn btn-danger">Huỷ</button>
+                                    <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
                                 </div>
                                 <div class=" col-sm-1 input-with-content">
                                     <button type="submit" class="btn btn-danger">Tạo Sự Kiện</button>
@@ -294,7 +336,18 @@
     <script type="text/javascript" src="{{url('js/avatar.js')}}"></script>-
     <script type="text/javascript">
         $(document).ready(function() {
-            $('select').select2();
+            // $('select').select2();
+            $(document).on('click','.btnPlus',function(e){
+                e.preventDefault();
+                let obj = $('.hidden_template').clone()
+                obj.removeClass('hidden_template')
+                obj.removeAttr('style')
+                $(this).parent().parent().after(obj)
+            })
+            $(document).on('click','.btnRemove',function(e){
+                e.preventDefault();
+                $(this).parent().parent().remove()
+            })
         });
     </script>
     <script>

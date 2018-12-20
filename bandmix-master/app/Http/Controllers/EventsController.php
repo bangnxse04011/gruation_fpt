@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Entities\Band;
 use App\Entities\Genre;
+use App\Entities\EventGenre;
+use App\Entities\Event;
+
 use App\Repositories\BandRepository;
 use App\Repositories\EventGenreRepository;
 use App\Repositories\GenreRepository;
@@ -97,43 +100,69 @@ class EventsController extends Controller
      */
     public function store(EventCreateRequest $request)
     {
-        try {
-            $data = $request->all();
+        // try {
+        //     $data = $request->all();
 
+        //     $data['member_id'] = Auth::id();
+
+        //     if($request->hasFile('avatar')){
+        //         $data['avatar'] = $this->uploadFile($request['avatar']);
+        //     }else{
+        //         $data['avatar'] = 'uploads/avatar/default.jpg';
+        //     }
+
+        //     $event = $this->repository->create($data);
+
+        //     $request['slug'] = str_slug($event->name, '-') . '-n'. $event->id;
+        //     $this->repository->update($request->only('slug'), $event->id);
+        //     $response = [
+        //         'message' => 'Event created.',
+        //         'data'    => $event->toArray(),
+        //     ];
+        //     $event->bands()->sync($data['band']);
+
+        //     $event->bands()->sync($data['band']);
+        //     foreach ($data['item_name'] as $key => $value)
+        //     {
+        //         $event->bands()->attach($data['band'][$key], ['act' => $value]);
+        //     }
+
+        //     return redirect()->route('events.show',$event->id)->with('message', $response['message']);
+        // } catch (ValidatorException $e) {
+        //     if ($request->wantsJson()) {
+        //         return response()->json([
+        //             'error'   => true,
+        //             'message' => $e->getMessageBag()
+        //         ]);
+        //     }
+        //     return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        // }
+
+
+        dd($request->all());
+        $data = $request->all();
+        if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
+            $data['status'] = '0';
+            $data['slug'] = str_slug($data['name'], '-');
 
-            if($request->hasFile('avatar')){
-                $data['avatar'] = $this->uploadFile($request['avatar']);
-            }else{
+            if($request->hasFile('myFile')){
+                $data['avatar'] = $this->uploadFile($request->myFile);
+            } else {
                 $data['avatar'] = 'uploads/avatar/default.jpg';
             }
 
             $event = $this->repository->create($data);
-
-            $request['slug'] = str_slug($event->name, '-') . '-n'. $event->id;
-            $this->repository->update($request->only('slug'), $event->id);
-            $response = [
-                'message' => 'Event created.',
-                'data'    => $event->toArray(),
-            ];
-            $event->bands()->sync($data['band']);
-
-            $event->bands()->sync($data['band']);
-            foreach ($data['item_name'] as $key => $value)
-            {
-                $event->bands()->attach($data['band'][$key], ['act' => $value]);
+            EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+        } else {
+            if($request->hasFile('myFile')){
+                $data['avatar'] = $this->uploadFile($request->myFile);
             }
-
-            return redirect()->route('events.show',$event->id)->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            $event = $this->repository->update($data, $data['event_id']);
+            EventGenre::where('event_id', $data['event_id'])->delete();
+            EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
         }
+        return redirect()->route('events.show',$event->id)->with('message', 'OK');
     }
     public function manage(){
         $member_id = Auth::id();
@@ -170,9 +199,10 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        $event = $this->repository->find($id);
-
-        return view('events.edit', compact('event'));
+        $bands = Band::all();
+        $genres = Genre::all();
+        $event = Event::find($id);
+        return view('events.edit', compact('event', 'bands', 'genres'));
     }
 
     /**
@@ -239,5 +269,10 @@ class EventsController extends Controller
         }
 
         return redirect()->back()->with('message', 'Event deleted.');
+    }
+
+    public function uploadFile($file) {
+        $file->move(public_path('uploads/avatar'), $file->getClientOriginalName());
+        return 'uploads/avatar/'.$file->getClientOriginalName();
     }
 }
