@@ -128,6 +128,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="iconSED">
+							<a href="detailEvent.html" class="btn btn-default btnicon">
+								<i class="fa fa-eye"></i> Xem
+							</a>
+							<a href="{{route('events.edit',[$event->id])}}" class="btn btn-default btnicon">
+								<i class="fa fa-edit"></i> Sửa
+							</a>
+							<a href="{{route('events.delete',[$event->id])}}" class="btn btn-default btnicon">
+								<i class="fa fa-trash-o"></i> Xoá
+							</a>
+						</div>
                     </div>
 
                 </div>

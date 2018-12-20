@@ -166,8 +166,8 @@ class EventsController extends Controller
     }
     public function manage(){
         $member_id = Auth::id();
-        $events = $this->repository->findWhere(['member_id' => $member_id]);
-        dd($events);
+        // $events = $this->repository->findWhere(['member_id' => $member_id]);
+        $events = $this->repository->paginate(5);
         return view('events.manage',compact('events'));
     }
     /**
@@ -291,5 +291,10 @@ class EventsController extends Controller
     public function uploadFile($file) {
         $file->move(public_path('uploads/avatar'), $file->getClientOriginalName());
         return 'uploads/avatar/'.$file->getClientOriginalName();
+    }
+
+    public function deleteEvent($id) {
+        $deleted = $this->repository->delete($id);
+        return redirect()->back();
     }
 }
