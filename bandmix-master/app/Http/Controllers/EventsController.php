@@ -145,16 +145,16 @@ class EventsController extends Controller
             $data['status'] = '0';
             $data['slug'] = str_slug($data['name'], '-');
 
-            if($request->hasFile('myFile')){
-                $data['avatar'] = $this->uploadFile($request->myFile);
+            if($request->hasFile('avatar')){
+                $data['avatar'] = $this->uploadFile($request->avatar);
             } else {
                 $data['avatar'] = 'uploads/avatar/default.jpg';
             }
 
             $event = $this->repository->create($data);
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
-
-            if(count($data['item_name'] > 1)) {
+            
+            if(count($data['item_name']) > 1) {
                 $event_id = $event->id;
                 $total_item = count($data['item_name']);
                 for($i = 1; $i < $total_item; $i++) {
@@ -167,15 +167,15 @@ class EventsController extends Controller
                 Act::insert($data_act);
             }
         } else {
-            if($request->hasFile('myFile')){
-                $data['avatar'] = $this->uploadFile($request->myFile);
+            if($request->hasFile('avatar')){
+                $data['avatar'] = $this->uploadFile($request->avatar);
             }
             $event = $this->repository->update($data, $data['event_id']);
             EventGenre::where('event_id', $data['event_id'])->delete();
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
 
             Act::where('event_id', $data['event_id'])->delete();
-            if(count($data['item_name'] > 1)) {
+            if(count($data['item_name']) > 1) {
                 $event_id = $event->id;
                 $total_item = count($data['item_name']);
                 for($i = 1; $i < $total_item; $i++) {
@@ -229,7 +229,8 @@ class EventsController extends Controller
         $bands = Band::all();
         $genres = Genre::all();
         $event = Event::find($id);
-        return view('events.edit', compact('event', 'bands', 'genres'));
+        $acts = Act::where('event_id', $id)->get();
+        return view('events.edit', compact('event', 'bands', 'genres', 'acts'));
     }
 
     /**

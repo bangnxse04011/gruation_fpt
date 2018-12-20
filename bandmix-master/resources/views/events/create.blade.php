@@ -7,7 +7,7 @@
         <div class="col-sm-3 menu_left">
             <div class="avatar-upload">
                 <div class="avatar-edit">
-                    <input type="file" id="imageUpload"  name="avatar" accept=".png, .jpg, .jpeg" />
+                    <input type="file" id="imageUpload" name="avatar" accept=".png, .jpg, .jpeg" />
                     <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
@@ -299,15 +299,6 @@
                                     <textarea type="textarea" class="form-control"
                                               placeholder="Mô tả về sự kiện" rows="10" name="detail" required>
                                 </textarea>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Một số hình ảnh</label>
-                                </div>
-                                <div class=" col-sm-5 input-with-content">
-                                    <input type="file" class="form-control-file" id="myFile" name="myFile">
                                 </div>
                             </div>
                             <br>

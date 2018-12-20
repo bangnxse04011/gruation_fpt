@@ -9,10 +9,14 @@
 			<div class="cart_status row">
 				<div class="col-sm-3 menu_left">
 					<div class="avatar_user">
-						<div>
+						{{-- <div>
 							<p>
-								<img src="{{ !empty($event->avatar) ? asset($event->avatar) : "" }}">
+								<img src="{{ url($event->avatar) }}">
 							</p>
+						</div> --}}
+						<div class="avatar-preview">
+							<div id="imagePreview" style="background-image: url({{ url($event->avatar) }});">
+							</div>
 						</div>
 						<div class="textUser">
 							<div>

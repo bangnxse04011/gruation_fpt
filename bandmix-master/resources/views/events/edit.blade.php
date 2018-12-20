@@ -11,7 +11,7 @@
                     <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
-                    <div id="imagePreview" style="background-image: url({{ url('images/icon/default-avatar.png') }});">
+                    <div id="imagePreview" style="background-image: url({{ url($event->avatar) }});">
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <a href="detailBand.html"> <label class="pointer-user"><h3>Chỉnh sửa</h3></label></a>
+                        <a href="detailBand.html"> <label class="pointer-user"><h3>Chỉnh sửa sự kiện</h3></label></a>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,8 @@
                                 </div>
                             </div>
                             <div id="row-contain" style="padding: 0;margin: 0;">
-                                <div class="row">
+
+                                <div class="row hidden_template" style="display:none;">
                                     <div class="col-sm-2 input-with-label">
                                         <label>Tiết mục:</label>
                                     </div>
@@ -154,10 +155,39 @@
                                         </select>
                                     </div>
                                     <div class=" col-sm-2">
-                                        <button class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></button>
-                                        <button class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></button>
+                                        <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
+                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                     </div>
                                 </div>
+
+                                @foreach($acts as $act)
+                                <div class="row">
+                                    <div class="col-sm-2 input-with-label">
+                                        <label>Tiết mục:</label>
+                                    </div>
+
+                                    <div class=" col-sm-3 input-with-content">
+                                    <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required value="{{ $act->act }}">
+                                    </div>
+
+                                    <div class="col-sm-2 input-with-label">
+                                        <label> Ban nhạc:</label>
+                                    </div>
+
+                                    <div class=" col-sm-3 input-with-content">
+                                        <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
+                                            @foreach($bands as $band)
+                                            <option {{ $act->band_id == $band->id ? 'selected' : '' }} value="{{ $band->id }}">{{ $band->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class=" col-sm-2">
+                                        <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
+                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
+                                    </div>
+                                </div>
+                                @endforeach
+
                             </div>
 
                             <div class="row">
@@ -171,22 +201,13 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
-                                    <label>Một số hình ảnh</label>
-                                </div>
-                                <div class=" col-sm-5 input-with-content">
-                                    <input type="file" class="form-control-file" id="myFile" name="myFile">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
 
                                 </div>
                                 <div class=" col-sm-1 input-with-content">
                                 <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
                                 </div>
                                 <div class=" col-sm-1 input-with-content">
-                                    <button type="submit" class="btn btn-danger">Sửa</button>
+                                    <button type="submit" class="btn btn-danger">Lưu lại</button>
                                 </div>
                             </div>
 
@@ -204,6 +225,17 @@
     <script type="text/javascript">
         $(document).ready(function() {
             // $('select').select2();
+            $(document).on('click','.btnPlus',function(e){
+                e.preventDefault();
+                let obj = $('.hidden_template').clone()
+                obj.removeClass('hidden_template')
+                obj.removeAttr('style')
+                $(this).parent().parent().after(obj)
+            })
+            $(document).on('click','.btnRemove',function(e){
+                e.preventDefault();
+                $(this).parent().parent().remove()
+            })
         });
     </script>
     <script>
