@@ -177,11 +177,20 @@
 										<div class="col-sm-5 input-with-label">
 											<label>Mô Tả Chi Tiết:</label>
 										</div>
-										
 									</div>
 									<div class=" col-sm-8 input-with-content">
 										<label>{{$event->detail}}
 										</label>
+									</div>
+									<div class="row">
+										<div class="col-sm-5 input-with-label">
+											<label>Ban nhạc:</label>
+										</div>
+									</div>
+									<div class=" col-sm-8 input-with-content">
+									@foreach($act as $act_item)
+										<p>Tên : {{$act_item->act}}</p>
+									@endforeach
 									</div>
 								</div>
 								

@@ -318,7 +318,9 @@ class EventsController extends Controller
         ->get();
 
         $event = $event_genre->first();
+        $acts = Act::where('event_id', $id)->get();
         $data['event_genre'] = $event_genre;
+        $data['act'] = $acts;
         $data['event'] = $event;
 
         return view('events.detail', $data);
