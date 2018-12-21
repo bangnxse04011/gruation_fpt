@@ -66,7 +66,7 @@
                                                                                  value="l6eIIFcNCFAwOP5i0q7D0Y8OtLmacnsja5pqPCf3">
                         <div class="second-part-chgpass row">
 
-                            <div class="col-sm-8">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">
                                         <label> Tên Sự Kiện :</label>
@@ -144,12 +144,12 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-5 input-with-label">
+                                <div class="col-md-12 input-with-label">
                                     <label>Các tiết mục tiêu biểu: </label>
                                 </div>
                                 @foreach($event->bands as $item)
-                                <div class=" col-sm-5 input-with-content">
-                                    <label>{{ $item->pivot->act}}</label>
+                                <div class=" col-sm-12 input-with-content">
+                                    <label>Tên : {{ $item->pivot->act}} - {{ $item->name}} </label>
                                     <br/>
                                 </div>
                                 @endforeach
@@ -204,29 +204,6 @@
                                 <div class="row">
                                     <div class=" col-sm-6 input-with-content">
                                         <button type="submit" class="btn btn-danger">Mua vé</button>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Mô Tả Chi Tiết:</label>
-                                    </div>
-
-                                </div>
-                                <div class=" col-sm-8 input-with-content">
-                                    <label><br>
-                                        {{ $event->detail }}
-                                    </label>
-                                </div>
-                                    <div class=" col-sm-5 input-with-content">
-                                        <button type="submit" class="btn btn-danger">Mua vé</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="stars-bottom-comment">
-                                        <!-- <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="2"> -->
                                     </div>
                                 </div>
                             </div>

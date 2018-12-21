@@ -168,40 +168,20 @@
 										<div class="col-sm-5 input-with-label">
 
 										</div>
-										<div class=" col-sm-6 input-with-content">
-											<button type="submit" class="btn btn-danger" @if($event->vacancy == 0) disabled @endif>Mua vé</button>
-										</div>
 									</div>
 								
 									<div class="row">
 										<div class="col-sm-5 input-with-label">
 											<label>Mô Tả Chi Tiết:</label>
 										</div>
+										
 									</div>
 									<div class=" col-sm-8 input-with-content">
 										<label>{{$event->detail}}
 										</label>
 									</div>
-									<div class="row">
-										<div class="col-sm-5 input-with-label">
-											<label>Ban nhạc:</label>
-										</div>
-									</div>
-									<div class=" col-sm-8 input-with-content">
-									@foreach($act as $act_item)
-										<p>Tên : {{$act_item->act}}</p>
-									@endforeach
-									</div>
 								</div>
-								
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="stars-bottom-comment">
-											<!-- <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="2"> -->
-										</div>
-									</div>
 								</div>
-							</div>
 						</form>
 					</div>
 				</div>

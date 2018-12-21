@@ -315,6 +315,7 @@ class EventsController extends Controller
         ->leftJoin('locations','locations.id', '=','events.location_id')
         ->selectRaw('events.* , locations.name as location_name, genres.name as genres_name')
         ->where('events.id', '=', $id)
+        ->where('events.status', '=', 1)
         ->get();
 
         $event = $event_genre->first();
