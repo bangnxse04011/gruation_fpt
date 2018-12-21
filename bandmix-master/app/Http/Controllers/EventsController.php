@@ -8,6 +8,9 @@ use App\Entities\Event;
 use App\Entities\EventGenre;
 use App\Entities\Act;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BandConfirm;
+
 use App\Repositories\BandRepository;
 use App\Repositories\EventGenreRepository;
 use App\Repositories\GenreRepository;
@@ -138,7 +141,7 @@ class EventsController extends Controller
         //     }
         //     return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         // }
-        // dd($request->all());
+        // dd($request->all()); 
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
@@ -163,6 +166,8 @@ class EventsController extends Controller
                         'band_id' => $data['band'][$i],
                         'event_id' => $event_id
                     ];
+                    $band = Band::find($data['band'][$i]);
+                    // Mail::to($band->email)->send(new BandConfirm($event->name));
                 } 
                 Act::insert($data_act);
             }
