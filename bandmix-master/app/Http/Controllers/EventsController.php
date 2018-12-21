@@ -77,7 +77,6 @@ class EventsController extends Controller
 
     public function index(Request $request)
     {
-
         $locations = $this->locationRespository->all();
         $events_search = $this->repository->query($request->all())->latest()->paginate(12);
         $events = $this->repository->findWhere([
@@ -194,7 +193,12 @@ class EventsController extends Controller
             }
 
         }
-        return redirect()->route('events.detail',$event->id)->with('message', 'OK');
+        $locations = $this->locationRespository->all();
+        $events_search = $this->repository->query($request->all())->latest()->paginate(12);
+        $events = $this->repository->findWhere([
+            'is_on_top' => 1
+        ]);
+        return view('events.index', compact('events','events_search','locations'));
     }
     public function manage(){
         $member_id = Auth::id();

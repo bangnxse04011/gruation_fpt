@@ -9,7 +9,7 @@
                 <div class="avatar_user">
                     <div>
                         <p>
-                            <img src="{{ $event->avatar }}" >
+                            <img src="/{{ $event->avatar }}" >
                         </p>
                     </div>
                     <div class="textUser">

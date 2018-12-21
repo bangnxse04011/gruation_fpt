@@ -5,7 +5,7 @@
                     <div class="avatar_user">
                         <div style="width: 250px; height: 200px;">
                             <p>
-                                <img src="{{url($band->avatar)}}">
+                                <img src="/{{url($band->avatar)}}">
                             </p>
                         </div>
                         <div class="textUser">

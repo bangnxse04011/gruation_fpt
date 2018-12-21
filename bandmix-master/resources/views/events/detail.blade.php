@@ -11,7 +11,7 @@
 					<div class="avatar_user">
 						{{-- <div>
 							<p>
-								<img src="{{ url($event->avatar) }}">
+								<img src="/{{ url($event->avatar) }}">
 							</p>
 						</div> --}}
 						<div class="avatar-preview">
