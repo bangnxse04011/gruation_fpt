@@ -15,69 +15,26 @@
             <hr>
         </div>
         <div class=" row">
-            <label class="searchE">Tìm kiếm theo : </label>
-
-            <div class=" searchE">
-                <select class="form-control">
-                    <option selected>Địa điểm hoạt động</option>
-                    <option>Quận Hoàn Kiếm</option>
-                    <option>Quận Hai Bà Trưng</option>
-                    <option>Quận Đống Đa</option>
-                    <option>Quận Tây Hồ</option>
-                    <option>Quận Cầu Giấy</option>
-                    <option>Quận Thanh Xuân</option>
-                    <option>Quận Hoàng Mai</option>
-                    <option>Quận Long Biên</option>
-                    <option>Huyện Từ Liêm</option>
-                    <option>Huyện Thanh Trì</option>
-                    <option>Huyện Gia Lâm</option>
-                    <option>Huyện Đông Anh</option>
-                    <option>Huyện Sóc Sơn</option>
-                    <option>Quận Hà Đông</option>
-                    <option>Thị xã Sơn Tây</option>
-                    <option>Huyện Ba Vì</option>
-                    <option>Huyện Phúc Thọ</option>
-                    <option>Huyện Thạch Thất</option>
-                    <option>Huyện Quốc Oai</option>
-                    <option>Huyện Chương Mỹ</option>
-                    <option>Huyện Đan Phượng</option>
-                    <option>Huyện Hoài Đức</option>
-                    <option>Huyện Thanh Oai</option>
-                    <option>Huyện Mỹ Đức</option>
-                    <option>Huyện Ứng Hoà</option>
-                    <option>Huyện Thường Tín</option>
-                    <option>Huyện Phú Xuyên</option>
-                    <option>Huyện Mê Linh</option>
-                </select>
-            </div>
-            <div class=" searchE">
-                <select class="form-control">
-                    <option selected>Thể Loại</option>
-                    <option>Rock</option>
-                    <option>Pop</option>
-                    <option>Dân ca</option>
-                </select>
-            </div>
-            <div class=" searchE">
-                <div class="input-group md-form form-sm form-1 pl-0" >
-                    <input class="form-control my-0 py-1" type="text" placeholder="Tìm tên Sự kiện" aria-label="Search">
+            <form class="form-inline search-form">
+                <div class="form-group" style="margin-left: 54%">
+                    <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
+                    <select class="form-control select-op" name="search_location">
+                        <option value="" selected>Địa điểm</option>
+                        @foreach($locations as $location)
+                            <option {{ $location->id == request()->get('search_location') ? 'selected' : '' }} value="{{ $location->id }}" >{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+                    <select class="form-control select-op" name="search_location">
+                        <option value="" selected>Sắp xếp theo</option>
+                        <option value="">Sắp diễn ra</option>
+                        <option value="">Đã diễn ra</option>
+                    </select>
+                    <button type="submit" class="btn btn-default searchA ">Tìm kiếm</button>
                 </div>
-            </div>
-            <div class="searchE">
-                <button type="button" class="btn btn-primary" style="float: right;">Tìm kiếm
-                </button>
+                {{--<p class="event_count">Tìm thấy {{count($events_search)}} sản phẩm</p>--}}
 
-            </div>
-            <div class="dropdown show search">
-                <a class="btn  dropdown-toggle" href="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sắp xếp theo
-                </a>
+            </form>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Sắp diễn ra</a></li>
-                    <li><a class="dropdown-item" href="#">Đã diễn ra</a></li>
-                </div>
-            </div>
         </div>
         <!--sukien-->
         <div class="row">
