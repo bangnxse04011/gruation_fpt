@@ -59,10 +59,15 @@
 
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
-                                    <label>Mức thù lao (VND) :</label>
+                                    <label>Địa điểm :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control" name="salary" required>
+                                    <select class="form-control" name="location" required>
+                                        <option value="">Chọn thành phố</option>
+                                        @foreach($locations as $location)
+                                            <option {{ $location->id == request()->get('location') ? 'selected':'' }} value="{{ $location->id }}">{{ $location->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-sm-3 input-with-label">
                                     <label>Thời gian :</label>
@@ -75,7 +80,7 @@
 
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
-                                    <label>Địa điểm Tổ chức:</label>
+                                    <label>Địa điểm chi tiết:</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
                                     <input type="text" class="form-control"

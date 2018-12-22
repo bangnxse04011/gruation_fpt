@@ -89,7 +89,8 @@ class EventsController extends Controller
     {
         $bands = Band::all();
         $genres = Genre::all();
-        return view('events.create',compact('genres','bands'))  ;
+        $locations = $this->locationRespository->all();
+        return view('events.create',compact('genres','bands','locations'))  ;
     }
 
     /**
