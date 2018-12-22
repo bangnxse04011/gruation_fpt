@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,6 +29,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/bands/edit/{id}','BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
     Route::post('events','EventsController@store')->name('events.store');
+    Route::get('events/review/{id}','EventsController@review')->name('events.review');
+    Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
+
 });
 
 //event
@@ -71,3 +73,4 @@ Route::post('/check-exit-email','Auth\RegisterController@check_Exist_User')->nam
 
 Route::post('/change-pass','Auth\RegisterController@change_Pass')->name('change-pass');
 Route::post('/reset-pass','Auth\RegisterController@reset_Pass')->name('reset-pass');
+Route::post('events/confirm','EventsController@confirm')->name('events.confirm');

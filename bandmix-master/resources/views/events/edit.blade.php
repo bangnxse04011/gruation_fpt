@@ -62,12 +62,6 @@
 
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
-                                    <label>Mức thù lao (VND) :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control" name="salary" required value="{{ $event->salary }}">
-                                </div>
-                                <div class="col-sm-3 input-with-label">
                                     <label>Thời gian :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
@@ -199,10 +193,7 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-
-                                </div>
+                            <div class="row" style="display: flex; justify-content: center">
                                 <div class=" col-sm-1 input-with-content">
                                 <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
                                 </div>

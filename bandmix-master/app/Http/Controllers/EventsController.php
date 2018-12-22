@@ -145,7 +145,7 @@ class EventsController extends Controller
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
-            $data['status'] = '0';
+            $data['status'] = '2';
             $data['slug'] = str_slug($data['name'], '-');
 
             if($request->hasFile('avatar')){
@@ -153,7 +153,6 @@ class EventsController extends Controller
             } else {
                 $data['avatar'] = 'uploads/avatar/default.jpg';
             }
-
             $event = $this->repository->create($data);
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
             
@@ -178,7 +177,6 @@ class EventsController extends Controller
             $event = $this->repository->update($data, $data['event_id']);
             EventGenre::where('event_id', $data['event_id'])->delete();
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
-
             Act::where('event_id', $data['event_id'])->delete();
             if(count($data['item_name']) > 1) {
                 $event_id = $event->id;
@@ -226,7 +224,6 @@ class EventsController extends Controller
 
         return view('events.show', compact('event'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -234,6 +231,42 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function review($id)
+    {
+        $event = $this->repository->find($id);
+        $acts = Act::where('event_id', $id)->get();
+        $bands = Band::all();
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $event,
+            ]);
+        }
+        return view('events.review', compact('event','acts','bands'));
+    }
+
+    public function confirm(EventUpdateRequest $request)
+    {
+        $data = $request->all();
+        Act::where('event_id', $data['event_id'])->delete();
+        if(count($data['item_name']) > 1) {
+            $total_item = count($data['item_name']);
+            for ($i = 1; $i < $total_item; $i++) {
+                $data_act[] = [
+                    'act' => $data['item_name'][$i],
+                    'band_id' => $data['band'][$i],
+                    'event_id' => $request['event_id'],
+                ];
+            }
+            Act::insert($data_act);
+        }
+        $this->repository->update($request->only('status'), $request['event_id']);
+        $member_id = Auth::id();
+        $events = $this->repository->findWhere(['member_id' => $member_id]);
+        return view('events.manage',compact('events'));
+    }
     public function edit($id)
     {
         $bands = Band::all();
@@ -256,16 +289,12 @@ class EventsController extends Controller
     public function update(EventUpdateRequest $request, $id)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
             $event = $this->repository->update($request->all(), $id);
-
             $response = [
                 'message' => 'Event updated.',
                 'data'    => $event->toArray(),
             ];
-
             if ($request->wantsJson()) {
 
                 return response()->json($response);

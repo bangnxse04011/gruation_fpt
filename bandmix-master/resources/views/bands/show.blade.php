@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class=" col-sm-12 input-with-content">
-                                <label>{!! $band->about !!}}</label>
+                                <label>{!! $band->about !!}</label>
                             </div>
 
                             <div class="row">

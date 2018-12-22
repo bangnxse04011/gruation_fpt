@@ -47,7 +47,7 @@ class EventRepositoryEloquent extends BaseRepository implements EventRepository
 
     public function query($option = [])
     {
-        $query = $this->model->query();
+        $query = $this->model->query()->where('status','=','1');
         //search for name, id
         if(!empty($option['keyword'])){
             $query->where('id',$option['keyword']);

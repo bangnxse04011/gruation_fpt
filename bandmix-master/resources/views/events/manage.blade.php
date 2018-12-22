@@ -138,16 +138,14 @@
 							<a href="{{route('events.delete',[$event->id])}}" class="btn btn-default btnicon">
 								<i class="fa fa-trash-o"></i> Xoá
 							</a>
-                            <a href="{{route('events.delete',[$event->id])}}" class="btn btn-default btnicon">
+                            <a href="{{route('events.review',[$event->id])}}" class="btn btn-default btnicon">
 								<i class="fa fa-eye"></i> {{ $event->status == 1 ? 'Đang diễn ra' : 'Đang tuyển ban nhạc' }}
 							</a>
 						</div>
                     </div>
-
                 </div>
             </div>
                 @endforeach
-
         </div> <!-- row -->
 
         <div class="contact row">

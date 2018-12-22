@@ -62,8 +62,6 @@
                         </div>
                     </div>
                     <form method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="_method" value="POST"> <input type="hidden" name="_token"
-                                                                                 value="l6eIIFcNCFAwOP5i0q7D0Y8OtLmacnsja5pqPCf3">
                         <div class="second-part-chgpass row">
 
                             <div class="col-md-12">
@@ -81,7 +79,7 @@
                                         <label>Ngày diễn ra :</label>
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->time }}}</label>
+                                        <label>{{ $event->time }}</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -128,14 +126,6 @@
 
                             <div class="row">
                                 <div class="col-sm-5 input-with-label">
-                                    <label>Mức Lương:</label>
-                                </div>
-                                <div class=" col-sm-5 input-with-content">
-                                    <label>{{ $event->salary }} </label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
                                     <label>Địa điểm tổ chức:</label>
                                 </div>
                                 <div class=" col-sm-5 input-with-content">
@@ -161,54 +151,10 @@
                                 </div>
                             </div>
                             <div class=" col-sm-8 input-with-content">
-                                <label>{{ $event->detail }}</label>
+                                <label>{!! $event->detail !!}</label>
                             </div>
                         </div>
                     </div>
-                    <form method="POST" enctype="multipart/form-data">
-                        <div class="second-part-chgpass row">
-
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Số Lượng Vé Còn:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <label>200</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Giá vé:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <label>90.000 VND</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Mua Vé:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <input type="number" class="form-control" name="fullName">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Thành Tiền:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <label>90.000 VND</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" col-sm-6 input-with-content">
-                                        <button type="submit" class="btn btn-danger">Mua vé</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
             <!--END user information-->
