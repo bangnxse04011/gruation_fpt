@@ -320,7 +320,7 @@ audio, canvas, img, video {
     text-align: center;
     right: 10px;
     border-radius: 2px;
-    /*margin-left: 60px;*/
+    margin-left: 10%;
 }
 .date-month {
     font-size: 7px;
@@ -473,7 +473,7 @@ audio, canvas, img, video {
   filter:alpha(opacity=0);
   -webkit-transition:all 0s ease-in-out;
   transition:all .2s ease-in-out;
-  margin:20px 0 0;
+    margin: 80% 0 0;
   padding:7px 14px;
 }
 .hovereffectE p {
@@ -1123,6 +1123,11 @@ a .round i {
     font-size: 24px;
     margin-right: 7px;
     float: left;
+}
+.event_count
+{
+    padding-top: 5%;
+    margin-left: 2%;
 }
 
 
