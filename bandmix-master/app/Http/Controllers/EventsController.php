@@ -149,7 +149,7 @@ class EventsController extends Controller
             $data['slug'] = str_slug($data['name'], '-');
 
             if($request->hasFile('avatar')){
-                $data['avatar'] = $this->uploadFile($request->avatar);
+                $data['avatar'] = $this->uploadFile($request['avatar']);
             } else {
                 $data['avatar'] = 'uploads/avatar/default.jpg';
             }
@@ -172,7 +172,7 @@ class EventsController extends Controller
             }
         } else {
             if($request->hasFile('avatar')){
-                $data['avatar'] = $this->uploadFile($request->avatar);
+                $data['avatar'] = $this->uploadFile($request['avatar']);
             }
             $event = $this->repository->update($data, $data['event_id']);
             EventGenre::where('event_id', $data['event_id'])->delete();
@@ -197,7 +197,20 @@ class EventsController extends Controller
         $events = $this->repository->findWhere([
             'is_on_top' => 1
         ]);
-        return view('events.index', compact('events','events_search','locations'));
+        return view('events.manage', compact('events','events_search','locations'));
+    }
+
+    public function contact($id){
+        $event = $this->repository->find($id);
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $event,
+            ]);
+        }
+
+        return view('events.contact', compact('event'));
     }
     public function manage(){
         $locations = $this->locationRespository->all();
@@ -266,7 +279,9 @@ class EventsController extends Controller
         $this->repository->update($request->only('status'), $request['event_id']);
         $member_id = Auth::id();
         $events = $this->repository->findWhere(['member_id' => $member_id]);
-        return view('events.manage',compact('events'));
+        $locations = $this->locationRespository->all();
+
+        return redirect(route('events.manage',compact('events','locations')));
     }
     public function edit($id)
     {
@@ -357,11 +372,7 @@ class EventsController extends Controller
 
         return view('events.detail', $data);
     }
-    
-    public function uploadFile($file) {
-        $file->move(public_path('uploads/avatar'), $file->getClientOriginalName());
-        return 'uploads/avatar/'.$file->getClientOriginalName();
-    }
+
 
     public function deleteEvent($id) {
         $deleted = $this->repository->delete($id);

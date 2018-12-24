@@ -3,210 +3,244 @@
     {{--<div class="card-outside">--}}
     <form method="POST" action="{{ route('events.store') }}" class="cart_status row" enctype="multipart/form-data">
         {{ csrf_field() }}
-
-        <div class="col-sm-3 menu_left">
-            <div class="avatar-upload">
-                <div class="avatar-edit">
-                    <input type="file" id="imageUpload"  name="avatar" accept=".png, .jpg, .jpeg" />
-                    <label for="imageUpload"></label>
-                </div>
-                <div class="avatar-preview">
-                    <div id="imagePreview" style="background-image: url({{ url($event->avatar) }});">
-                    </div>
-                </div>
-            </div>
-            <div class="change-user-infor">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        <div class="card-outside">
+            <div class="cart_status row">
+                <div class="col-sm-3 menu_left">
+                    <div class="avatar_user">
+                        <div>
+                            <p>
+                                <img src="{{ url($event->avatar) }}" >
+                            </p>
+                        </div>
+                        <div class="textUser">
+                            <div>
+                                <label><h4> {{ $event->name }} </h4>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div>
-                        <a href="detailBand.html"> <label class="pointer-user"><h3>Chỉnh sửa sự kiện</h3></label></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--user information-->
-        <div class="menu-right-chgpass">
-            <div class="col-sm-12">
-            <input type="hidden" name="event_id" value="{{ $event->id }}">
-            <input type="hidden" name="member_id" value="{{ $event->member_id }}">
-            <input type="hidden" name="status" value="{{ $event->status }}">
-            <input type="hidden" name="slug" value="{{ $event->slug }}">
-            <input type="hidden" name="avatar" value="{{ $event->avatar }}">
-                <div>
-                    <strong><label>Giới Thiệu</label></strong>
-                </div>
-                <div class="">
-                    <textarea type="textarea" class="form-control" placeholder="Giói thiệu chung" rows="3" name="description" required>{{ $event->description }}</textarea>
-                </div>
-                <div enctype="multipart/form-data">
-                    <div class="second-part-chgpass row">
-                        <div class="col-sm-12">
+                        <div class="change-user-infor">
                             <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label> Tên Sự Kiện :</label>
+                                <div class="col-sm-2">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                 </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control"
-                                           placeholder="Tên Sự Kiện" name="name" required value="{{ $event->name }}">
-                                </div>
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Ngày diễn ra :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="date" class="form-control" name="date" value="{{ $event->date }}">
-
+                                <div>
+                                    <a href="{{route('events.show',$event->id)}}"> <label class="pointer-user">Thông tin Sự Kiện</label></a>
                                 </div>
                             </div>
-
+                            <div class="menu-child">
+                                <a href="{{route('events.edit',$event->id)}}"><label class="pointer-user">Chỉnh sửa thông tin</label></a>
+                            </div>
+                            <div class="menu-child">
+                                <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
+                            </div>
+                        </div>
+                        <div class="lesson-menu">
                             <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Thời gian :</label>
+                                <div class="col-sm-2">
+                                    <i class="fa fa-book" aria-hidden="true"></i>
                                 </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="time" class="form-control" name="time" required value="{{ $event->time }}">
+                                <div>
+                                    <a href="product.html"> <label class="pointer-user">Một số hình ảnh</label></a>
                                 </div>
-
+                                <a href="infoDetail.html"><label class="pointer-user">Mua vé</label></a>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Địa điểm Tổ chức:</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control" placeholder="Địa điểm tổ chức" name="location_detail" required value="{{ $event->location_detail }}">
-
-                                </div>
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Thể Loại yêu cầu:</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <select class="form-control" name="genre" required>
-                                        <option value="">Thể loại</option>
-                                        @foreach($genres as $genre)
-                                            <option {{ $genre->id == $event->genre ? 'selected':'' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Số Lượng vé :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="number" class="form-control" name="vacancy" value="{{ $event->vacancy }}">
-                                </div>
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Email chương trình :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="email" class="form-control" name="mail" required value="{{ $event->mail }}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Hot-line :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control" name="number_phone" required value="{{ $event->number_phone }}">
-                                </div>
-
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Giá vé :</label>
-                                </div>
-                                <div class=" col-sm-3 input-with-content">
-                                    <input type="number" class="form-control" name="price" value="{{ $event->price }}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                </br>
-                                <div class="col-sm-12 input-with-label">
-                                    <label>Các tiết mục tiêu biểu trong chương trình:</label>
-                                </div>
-                            </div>
-                            <div id="row-contain" style="padding: 0;margin: 0;">
-
-                                <div class="row hidden_template" style="display:none;">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục:</label>
-                                    </div>
-
-                                    <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
-                                    </div>
-
-                                    <div class="col-sm-2 input-with-label">
-                                        <label> Ban nhạc:</label>
-                                    </div>
-
-                                    <div class=" col-sm-3 input-with-content">
-                                        <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
-                                            @foreach($bands as $band)
-                                            <option value="{{ $band->id }}">{{ $band->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-2">
-                                        <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
-                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
-                                    </div>
-                                </div>
-
-                                @foreach($acts as $act)
-                                <div class="row">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục:</label>
-                                    </div>
-
-                                    <div class=" col-sm-3 input-with-content">
-                                    <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required value="{{ $act->act }}">
-                                    </div>
-
-                                    <div class="col-sm-2 input-with-label">
-                                        <label> Ban nhạc:</label>
-                                    </div>
-
-                                    <div class=" col-sm-3 input-with-content">
-                                        <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
-                                            @foreach($bands as $band)
-                                            <option {{ $act->band_id == $band->id ? 'selected' : '' }} value="{{ $band->id }}">{{ $band->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-2">
-                                        <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
-                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
-                                    </div>
-                                </div>
-                                @endforeach
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 input-with-label">
-                                    <label>Mô Tả Chi Tiết:</label>
-                                </div>
-                                <div class=" col-sm-16 input-with-content">
-                                    <textarea type="textarea" class="form-control" placeholder="Mô tả về sự kiện" rows="10" name="detail" required>{{ $event->detail }}</textarea>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row" style="display: flex; justify-content: center">
-                                <div class=" col-sm-1 input-with-content">
-                                <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
-                                </div>
-                                <div class=" col-sm-1 input-with-content">
-                                    <button type="submit" class="btn btn-danger">Lưu lại</button>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
+                <!--user information-->
+                <div class="menu-right-chgpass">
+                    <div class="col-sm-12">
+                        <input type="hidden" name="event_id" value="{{ $event->id }}">
+                        <input type="hidden" name="member_id" value="{{ $event->member_id }}">
+                        <input type="hidden" name="status" value="{{ $event->status }}">
+                        <input type="hidden" name="slug" value="{{ $event->slug }}">
+                        <input type="hidden" name="avatar" value="{{ $event->avatar }}">
+                        <div>
+                            <strong><label>Giới Thiệu</label></strong>
+                        </div>
+                        <div class="">
+                            <textarea type="textarea" class="form-control" placeholder="Giói thiệu chung" rows="3" name="description" required>{{ $event->description }}</textarea>
+                        </div>
+                        <div enctype="multipart/form-data">
+                            <div class="second-part-chgpass row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-3 input-with-label">
+                                            <label> Tên Sự Kiện :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="text" class="form-control"
+                                                   placeholder="Tên Sự Kiện" name="name" required value="{{ $event->name }}">
+                                        </div>
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Ngày diễn ra :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="date" class="form-control" name="date" value="{{ $event->date }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Địa điểm :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <select class="form-control" name="location" required>
+                                                <option value="">Chọn thành phố</option>
+                                                @foreach($locations as $location)
+                                                    <option {{ $location->id == request()->get('location') ? 'selected':'' }} value="{{ $location->id }}">{{ $location->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Thời gian :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="time" class="form-control" name="time" required value="{{ $event->time }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Địa điểm Tổ chức:</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="text" class="form-control" placeholder="Địa điểm tổ chức" name="location_detail" required value="{{ $event->location_detail }}">
+
+                                        </div>
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Thể Loại yêu cầu:</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <select class="form-control" name="genre" required>
+                                                <option value="">Thể loại</option>
+                                                @foreach($genres as $genre)
+                                                    <option {{ $genre->id == $event->genre ? 'selected':'' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Số Lượng vé :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="number" class="form-control" name="vacancy" value="{{ $event->vacancy }}">
+                                        </div>
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Email chương trình :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="email" class="form-control" name="mail" required value="{{ $event->mail }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Hot-line :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="text" class="form-control" name="number_phone" required value="{{ $event->number_phone }}">
+                                        </div>
+
+                                        <div class="col-sm-3 input-with-label">
+                                            <label>Giá vé :</label>
+                                        </div>
+                                        <div class=" col-sm-3 input-with-content">
+                                            <input type="number" class="form-control" name="price" value="{{ $event->price }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        </br>
+                                        <div class="col-sm-12 input-with-label">
+                                            <label>Các tiết mục tiêu biểu trong chương trình:</label>
+                                        </div>
+                                    </div>
+                                    <div id="row-contain" style="padding: 0;margin: 0;">
+
+                                        <div class="row hidden_template" style="display:none;">
+                                            <div class="col-sm-2 input-with-label">
+                                                <label>Tiết mục:</label>
+                                            </div>
+
+                                            <div class=" col-sm-3 input-with-content">
+                                                <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
+                                            </div>
+
+                                            <div class="col-sm-2 input-with-label">
+                                                <label> Ban nhạc:</label>
+                                            </div>
+
+                                            <div class=" col-sm-3 input-with-content">
+                                                <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
+                                                    @foreach($bands as $band)
+                                                        <option value="{{ $band->id }}">{{ $band->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class=" col-sm-2">
+                                                <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
+                                                <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
+                                            </div>
+                                        </div>
+
+                                        @foreach($acts as $act)
+                                            <div class="row">
+                                                <div class="col-sm-2 input-with-label">
+                                                    <label>Tiết mục:</label>
+                                                </div>
+
+                                                <div class=" col-sm-3 input-with-content">
+                                                    <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required value="{{ $act->act }}">
+                                                </div>
+
+                                                <div class="col-sm-2 input-with-label">
+                                                    <label> Ban nhạc:</label>
+                                                </div>
+
+                                                <div class=" col-sm-3 input-with-content">
+                                                    <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
+                                                        @foreach($bands as $band)
+                                                            <option {{ $act->band_id == $band->id ? 'selected' : '' }} value="{{ $band->id }}">{{ $band->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
+                                                    <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 input-with-label">
+                                            <label>Mô Tả Chi Tiết:</label>
+                                        </div>
+                                        <div class=" col-sm-12 input-with-content">
+                                            <textarea type="textarea" class="form-control" placeholder="Mô tả về sự kiện" rows="10" name="detail" required>{{ $event->detail }}</textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row" style="display: flex; justify-content: center">
+                                        <div class=" col-sm-1 input-with-content">
+                                            <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
+                                        </div>
+                                        <div class=" col-sm-1 input-with-content">
+                                            <button type="submit" class="btn btn-success">Lưu lại</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--END user information-->
             </div>
-        </div><!--END user information-->
+        </div>
     </form>
     {{--</div>--}}
 @endsection

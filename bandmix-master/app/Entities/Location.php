@@ -22,5 +22,8 @@ class Location extends Model implements Transformable
      */
     protected $fillable = ['name'];
 
+    protected function event(){
+        return $this->hasOne('App\Entities\Event');
+    }
 
 }

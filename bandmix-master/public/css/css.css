@@ -316,11 +316,11 @@ audio, canvas, img, video {
 }
 .event-date {
     cursor: pointer;
-    width: 70px;
+    width: 100px;
     text-align: center;
     right: 10px;
     border-radius: 2px;
-    margin-left: 10%;
+    margin-left: 5%;
 }
 .date-month {
     font-size: 7px;
@@ -334,8 +334,8 @@ audio, canvas, img, video {
 }
 .date-detail {
     display: inline-block;
-    height: 40px;
-    width: 70px;
+    height: 45px;
+    width: 100px;
     background: #FFF;
     border: 1px solid #CCC;
     border-bottom-width: 3px;
@@ -366,6 +366,7 @@ audio, canvas, img, video {
 }
 /*///////////////////*/
 .hovereffectE {
+    margin-top: 20px;
     width: 100%;
     height: 63%;
     float: left;
@@ -375,8 +376,6 @@ audio, canvas, img, video {
     cursor: default;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    margin-top: 10px;
-
 }
 .hovereffectE .overlayE {
     width:100%;
@@ -392,58 +391,12 @@ audio, canvas, img, video {
 }
 
 .hovereffectE img {
-    display:block;
-    position:relative;
-    -webkit-transition:all .4s linear;
-    transition:all .4s linear;
-    max-width: 280px;
-    max-height: 220px;
-    border-radius: 3px;
-}
-
-.hovereffectE h2 {
-    text-transform:uppercase;
-    color:#fff;
-    text-align:center;
-    position:relative;
-    font-size:17px;
-    background:rgba(0,0,0,0.6);
-    -webkit-transform:translatey(-100px);
-    -ms-transform:translatey(-100px);
-    transform:translatey(-100px);
-    -webkit-transition:all .2s ease-in-out;
-    transition:all .2s ease-in-out;
-    padding:10px;
-}
-
-.hovereffectE a.infoE {
-    text-decoration:none;
-    display:inline-block;
-    text-transform:uppercase;
-    color:#fff;
-    border:1px solid #fff;
-    background-color:transparent;
-    opacity:0;
-    filter:alpha(opacity=0);
-    -webkit-transition:all 0s ease-in-out;
-    transition:all .2s ease-in-out;
-    margin:20px 0 0;
-    padding:7px 14px;
-  width:100%;
-  height:100%;
-  position:absolute;
-  overflow:hidden;
-  top:0;
-  left:0;
-}
-
-.hovereffectE img {
   display:block;
   position:relative;
   -webkit-transition:all .4s linear;
   transition:all .4s linear;
-  max-width: 280px;
-  max-height: 220px;
+  max-width: 330px;
+  max-height: 223px;
   border-radius: 3px;
 }
 
@@ -463,35 +416,21 @@ audio, canvas, img, video {
 }
 
 .hovereffectE a.infoE {
-  text-decoration:none;
-  display:inline-block;
-  text-transform:uppercase;
-  color:#fff;
-  border:1px solid #fff;
-  background-color:transparent;
-  opacity:0;
-  filter:alpha(opacity=0);
-  -webkit-transition:all 0s ease-in-out;
-  transition:all .2s ease-in-out;
-    margin: 80% 0 0;
-  padding:7px 14px;
+    text-decoration:none;
+    display:inline-block;
+    text-transform:uppercase;
+    color:#fff;
+    border:1px solid #fff;
+    background-color:transparent;
+    opacity:0;
+    filter:alpha(opacity=0);
+    -webkit-transition:all 0s ease-in-out;
+    transition:all .2s ease-in-out;
+    margin:20px 0 0;
+    padding:7px 14px;
 }
-.hovereffectE p {
-  color: #FFF;
-text-decoration:none;
-display:inline-block;
-text-transform:uppercase;
-border:1px solid #fff;
-background-color:transparent;
-opacity:0;
-filter:alpha(opacity=0);
--webkit-transition:all 0s ease-in-out;
-transition:all .2s ease-in-out;
-margin:20px 0 0;
-padding:7px 14px;
-=======
->>>>>>> bandmix_v1_kybh
-}
+
+
 .hovereffectE p {
     color: #FFF;
     margin-bottom: 5px;
@@ -504,20 +443,8 @@ padding:7px 14px;
     -webkit-transform: translate3d(0,100%,0);
     transform: translate3d(0,100%,0);
 }
-
 .hovereffectE a.infoE:hover {
     box-shadow:0 0 5px #fff;
-}
-
-.hovereffectE:hover img {
-    -ms-transform:scale(1.2);
-    -webkit-transform:scale(1.2);
-    transform:scale(1.1);
-}
-
-.hovereffectE:hover .overlayE {
-    opacity:1;
-    filter:alpha(opacity=100);
 }
 
 .hovereffectE:hover h2,.hovereffectE:hover a.infoE,.hovereffectE:hover p  {
@@ -526,12 +453,6 @@ padding:7px 14px;
     -ms-transform:translatey(0);
     -webkit-transform:translatey(0);
     transform:translatey(0);
-}
-
-.hovereffectE:hover a.infoE {
-    -webkit-transition-delay:0s;
-    transition-delay:.2s;
-  box-shadow:0 0 5px #fff;
 }
 
 .hovereffectE:hover img {
@@ -556,9 +477,6 @@ padding:7px 14px;
 .hovereffectE:hover a.infoE {
   -webkit-transition-delay:0s;
   transition-delay:.2s;
->>>>>>> bandmix_v1_kybh
-=======
->>>>>>> bandmix_v1_kybh
 }
 /*=======================contact============================*/
 .contact{
@@ -983,17 +901,15 @@ a .round i {
 .btnicon{
     font-weight: bold;
     color: #fff;
-    width: 31.333%;
-    margin-left: 0.5%;
+    width: 100%;
     padding: 8px 0;
     border: 0;
     border-radius: 0;
 
 }
 .btnicon:hover{
-    border-radius:0;
+    /*border-radius:0%;*/
     background-color: #fff;
-    border-radius: 0;
 }
 .iconSED{
     background-color: #00AFD1;
@@ -1008,8 +924,6 @@ a .round i {
     position: absolute;
     width: 95%;
     margin-top: 82%;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
     text-align: center;
 }
 .col-sm-6 {

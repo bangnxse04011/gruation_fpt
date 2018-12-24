@@ -16,7 +16,7 @@
             @foreach($events as $item)
                 <div class="col-xs-18 col-sm-6 col-md-4">
                     <div class="hovereffectE">
-                        <img class="img-responsive" src="{{ $item->avatar }}" alt="">
+                        <img class="img-responsive" src="{{ url($item->avatar) }}" alt="">
                         <div class="overlayE">
                             <h2>{{ $item->name }}</h2>
                             <h2>{{ $item->price }}</h2>
@@ -58,37 +58,33 @@
 
         <div class="row">
             @foreach($events_search as $item2)
-            <div class="col-xs-18 col-sm-6 col-md-4 ">
+            <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
 
                 <div class="hovereffectE">
-                    <img class="img-responsive" src="{{ $item2->avatar }}}" alt="">
-
+                    <img class="img-responsive" src="{{ url($item2->avatar) }}" alt="">
                     <div class="overlayE">
                         <h2>{{ $item2->name }}</h2>
                         <p >
                             {{ substr($item2->description,0,50).'....' }}
                         </p>
-
-                        <a class="infoE" href="detailEvent.html">Chi tiết</a>
-
                     </div>
                 </div>
 
                 <div class="card-body relative">
                     <div class="table w-100 margin-bottom-0">
 
-                        <a class="eventTitle" href="detailEvent.html" title="Liên Hoan Âm Nhạc" target="_blank">
-                            <h4>{{ $item2->name }}</h4>
+                        <a class="eventTitle" href="{{route('events.show', $item2->id)}}"target="_blank">
+                            <h4 style="text-align: center">{{ $item2->name }}</h4>
                         </a>
                     </div>
                     <div class="row">
-                        <div class="table-cell">
+                        <div class="table-cell" style="width: 170px;">
                             <div class="event-price w-100">
                                 <span class="color-6">Gía vé :</span> <strong> {{ number_format($item2->price) }} VNĐ</strong>
                             </div>
                             <div class="event-tags w-100">
 									<span class="tag-venues">
-										<span class="tag-venue smooth-trans label-default uppercase">Hà Nội</span>
+										<span class="tag-venue smooth-trans label-default uppercase">{{$item2->locations->name}}</span>
 									</span>
 
                             </div>
@@ -96,14 +92,14 @@
                         <div class="event-date">
                             <div class="relative">
                                 <div class="date-month">
-                                    December
+                                    {{date("F", strtotime($item2->date))}}
                                 </div>
                                 <div class="date-detail">
                                     <div class="date-num color-6">
-                                        16
+                                        {{date("d", strtotime($item2->date))}}
                                     </div>
                                     <div class="date-day">
-                                        Sunday
+                                        {{date("D", strtotime($item2->date))}}
                                     </div>
                                 </div>
                             </div>
@@ -112,55 +108,7 @@
                 </div>
             </div>
             @endforeach
-            {{--@foreach($events_search as $item2)--}}
-                {{--<div class="col-xs-12 col-sm-7 col-md-4">--}}
-                    {{--<div class="hovereffectE">--}}
-                        {{--<img class="img-responsive" src="{{ $item2->avatar }}" alt="">--}}
 
-                        {{--<div class="overlayE">--}}
-                            {{--<h2>{{ $item2->name }}</h2>--}}
-                            {{--<p >--}}
-                                {{--Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN--}}
-                            {{--</p>--}}
-                            {{--<a class="infoE" href="{{route('events.detail',[$item2->id])}}">Chi tiết</a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="card-body relative">--}}
-                        {{--<div class="table w-100 margin-bottom-0" style="text-align: center;">--}}
-
-                            {{--<a class="eventTitle" href="{{route('events.detail',[$item2->id])}}" title="Liên Hoan Âm Nhạc" target="_blank">--}}
-                                {{--<h4>Liên Hoan Âm Nhạc</h4>--}}
-                            {{--</a>--}}
-                        {{--</div>--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="table-cell col-md-6">--}}
-                                {{--<div class="event-price w-100">--}}
-                                    {{--<span class="color-6">Từ</span> <strong> 100,000 VNĐ</strong>--}}
-                                {{--</div>--}}
-                                {{--<div class="event-tags w-100">--}}
-									{{--<span class="tag-venues">--}}
-										{{--<span class="tag-venue smooth-trans label-default uppercase">Hồ Chí Minh</span>--}}
-									{{--</span>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="event-date col-md-6">--}}
-                                {{--<div class="relative">--}}
-                                    {{--<div class="date-month">December</div>--}}
-                                    {{--<div class="date-detail">--}}
-                                        {{--<div class="date-num color-6">--}}
-                                            {{--16--}}
-                                        {{--</div>--}}
-                                        {{--<div class="date-day">--}}
-                                            {{--Sunday--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--@endforeach--}}
             {{$events_search->links()}}
         </div> <!-- row -->
         <div class="title">

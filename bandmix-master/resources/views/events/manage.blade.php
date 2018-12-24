@@ -39,69 +39,67 @@
         <!--sukien-->
         <div class="row">
             @foreach($events as $event)
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="hovereffectE">
-                    <img class="img-responsive" src="{{ $event->avatar }}" alt="">
+                <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
 
-                    <div class="overlayE">
-                        <h2>{{ $event->name }}</h2>
-                        <p >
-                            Sự kiện vô cùng lớn ! Diễn ra trong suốt 3 ngày tạ trung tâm hội nghị quốc gia VN
-                        </p>
-                        <a class="infoE" href="{{ route('events.show',$event->id) }}">Chi tiết</a>
+                    <div class="hovereffectE">
+                        <img class="img-responsive" src="{{ url($event->avatar) }}" alt="">
+                        <div class="overlayE">
+                            <h2>{{ $event->name }}</h2>
+                            <p >
+                                {{ substr($event->description,0,50).'....' }}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body relative">
-                    <div class="table w-100 margin-bottom-0">
 
-                        <a class="eventTitle" href="detailEvent.html" title="Liên Hoan Âm Nhạc" target="_blank">
-                            <h4>{{ $event->name }}</h4>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="table-cell">
-                            <div class="event-price w-100">
-                                <span class="color-6">Thù Lao : </span> <strong>{{ $event->salary }} VND</strong>
-                            </div>
-                            <div class="event-tags w-100">
+                    <div class="card-body relative">
+                        <div class="table w-100 margin-bottom-0">
+
+                            <a class="eventTitle" href="{{route('events.show', $event->id)}}" >
+                                <h4 style="text-align: center">{{ $event->name }}</h4>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="table-cell" style="width: 170px;">
+                                <div class="event-price w-100">
+                                    <span class="color-6">Gía vé :</span> <strong> {{ number_format($event->price) }} VNĐ</strong>
+                                </div>
+                                <div class="event-tags w-100">
 									<span class="tag-venues">
-										<span class="tag-venue smooth-trans label-default uppercase">{{ $event->location_detail }}</span>
+										<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>
 									</span>
 
-                            </div>
-                        </div>
-                        <div class="event-date">
-                            <div class="relative">
-                                <div class="date-month">
-                                    {{ $event->time }}
                                 </div>
-                                <div class="date-detail">
-                                    <div class="date-num color-6">
-                                        {{ $event->time }}
+                            </div>
+                            <div class="event-date">
+                                <div class="relative">
+                                    <div class="date-month">
+                                        {{date("F", strtotime($event->date))}}
                                     </div>
-                                    <div class="date-day">
-                                        {{ $event->time }}
+                                    <div class="date-detail">
+                                        <div class="date-num color-6">
+                                            {{date("d", strtotime($event->date))}}
+                                        </div>
+                                        <div class="date-day">
+                                            {{date("D", strtotime($event->date))}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="iconSED">
-							<a href="detailEvent.html" class="btn btn-default btnicon">
-								<i class="fa fa-eye"></i> Xem
-							</a>
-							<a href="{{route('events.edit',[$event->id])}}" class="btn btn-default btnicon">
-								<i class="fa fa-edit"></i> Sửa
-							</a>
-							<a href="{{route('events.delete',[$event->id])}}" class="btn btn-default btnicon">
-								<i class="fa fa-trash-o"></i> Xoá
-							</a>
-                            <a href="{{route('events.review',[$event->id])}}" class="btn btn-default btnicon">
-								<i class="fa fa-eye"></i> {{ $event->status == 1 ? 'Đang diễn ra' : 'Đang tuyển ban nhạc' }}
-							</a>
-						</div>
+                            @if($event->status == 2)
+                            <a href="{{route('events.review',$event->id)}}" class="btn btn-default btnicon">
+                                <i class="fa fa-edit"></i> Đang chờ duyệt...
+                            </a >
+                            @endif
+                            @if($event->status == 1)
+                                <a href="{{route('events.confirm')}}" class="btn btn-default btnicon">
+                                    <i class="fa fa-star"></i> Đang diễn ra
+                                </a >
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
                 @endforeach
         </div> <!-- row -->
 

@@ -29,28 +29,21 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/bands/edit/{id}','BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
     Route::post('events','EventsController@store')->name('events.store');
-    Route::get('events/review/{id}','EventsController@review')->name('events.review');
+    Route::get('events/{id}/review','EventsController@review')->name('events.review');
     Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
-
 });
 
 //event
 Route::get('events','EventsController@index')->name('events.index');
+Route::get('events/{id}/contact','EventsController@contact')->name('events.contact');
 
 //events
-Route::get('/events/create','EventsController@create')->name('events.create');
-// Route::get('/events/manage','EventsController@manage')->name('events.manage');
 Route::get('/event/manage','EventsController@manage')->name('events.manage');
 Route::get('/events/{id}','EventsController@show')->name('events.show');
 Route::get('/event/detail/{id}','EventsController@detail')->name('events.detail');
-Route::get('/events/edit/{id}','EventsController@edit')->name('events.edit');
-Route::get('/events/delete/{id}','EventsController@deleteEvent')->name('events.delete');
-
-Route::get('/events/{slug}','EventsController@show');
-Route::resource('/events','EventsController');
+Route::get('/events/{id}/edit','EventsController@edit')->name('events.edit');
+Route::get('/events/{id}/delete','EventsController@deleteEvent')->name('events.delete');
 Route::get('/', 'HomePageController@index')->name('homepage');
-
-
 //band
 Route::get('/bands','BandsController@index')->name('bands.index');
 Route::get('/bands/{slug}','BandsController@show')->name('bands.show');

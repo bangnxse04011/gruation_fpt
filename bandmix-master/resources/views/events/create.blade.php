@@ -189,113 +189,8 @@
                                         <button class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></button>
                                         <button class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></button>
                                     </div>
-                                    
-
-                                    {{-- <div class=" col-sm-2 input-with-content">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
-                                    </div> --}}
                                 </div>
-
-                                {{-- <div class="row">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục số 2:</label>
-                                    </div>
-                                    <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
-                                    </div>
-                                    <div class="col-sm-3 input-with-label">
-                                        <label> Ban nhạc biểu diễn:</label>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <select  data-toggle="modal" data-target="#modalOnline"
-                                                 class="btn btn-primary" name="band[]">
-                                            Chọn Ban Nhạc
-                                            @foreach($bands as $band1)
-                                                <option value="{{ $band1->id }}">{{ $band1->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class=" col-sm-2 input-with-content">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục số 3:</label>
-                                    </div>
-                                    <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
-                                    </div>
-                                    <div class="col-sm-3 input-with-label">
-                                        <label> Ban nhạc biểu diễn:</label>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <select  data-toggle="modal" data-target="#modalOnline"
-                                                 class="btn btn-primary" name="band[]">
-                                            Chọn Ban Nhạc
-                                            @foreach($bands as $band)
-                                                <option value="{{ $band->id }}">{{ $band->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục số 4:</label>
-                                    </div>
-                                    <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
-                                    </div>
-                                    <div class="col-sm-3 input-with-label">
-                                        <label> Ban nhạc biểu diễn:</label>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <select  data-toggle="modal" data-target="#modalOnline"
-                                                 class="btn btn-primary" name="band[]">
-                                            Chọn Ban Nhạc
-                                            @foreach($bands as $band)
-                                                <option value="{{ $band->id }}">{{ $band->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-2 input-with-label">
-                                        <label>Tiết mục số 5:</label>
-                                    </div>
-                                    <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
-                                    </div>
-                                    <div class="col-sm-2 input-with-label">
-                                        <label> Ban nhạc biểu diễn:</label>
-                                    </div>
-                                    <div class=" col-sm-2 input-with-content">
-                                        <select  data-toggle="modal" data-target="#modalOnline"
-                                                 class="btn btn-primary" name="band[]">
-                                            Chọn Ban Nhạc
-                                            @foreach($bands as $band)
-                                                <option value="{{ $band->id }}">{{ $band->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-3 input-with-label">
-                                        <input type="checkbox" class="form-control" name="check" value="is_check">
-                                    </div>
-                                </div> --}}
-
                             </div>
-
-
                             <div class="row">
                                 <div class="col-sm-12 input-with-label">
                                     <label>Mô Tả Chi Tiết:</label>
@@ -307,18 +202,14 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-
-                                </div>
+                            <div class="row" style="display: flex; justify-content: center">
                                 <div class=" col-sm-1 input-with-content">
                                     <a href="{{ route('events.index') }}" class="btn btn-danger">Huỷ</a>
                                 </div>
                                 <div class=" col-sm-1 input-with-content">
-                                    <button type="submit" class="btn btn-danger">Tạo Sự Kiện</button>
+                                    <button type="submit" class="btn btn-success">Tạo Sự Kiện</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
