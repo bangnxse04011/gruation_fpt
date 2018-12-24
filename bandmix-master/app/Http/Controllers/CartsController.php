@@ -2,43 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\EventRepository;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\NewsCreateRequest;
-use App\Http\Requests\NewsUpdateRequest;
-use App\Repositories\NewsRepository;
-use App\Validators\NewsValidator;
+use App\Http\Requests\CartCreateRequest;
+use App\Http\Requests\CartUpdateRequest;
+use App\Repositories\CartRepository;
+use App\Validators\CartValidator;
 
 /**
- * Class NewsController.
+ * Class CartsController.
  *
+ * @property EventRepository eventRepository
  * @package namespace App\Http\Controllers;
  */
-class NewsController extends Controller
+class CartsController extends Controller
 {
     /**
-     * @var NewsRepository
+     * @var CartRepository
      */
     protected $repository;
 
     /**
-     * @var NewsValidator
+     * @var CartValidator
      */
     protected $validator;
 
     /**
-     * NewsController constructor.
+     * CartsController constructor.
      *
-     * @param NewsRepository $repository
-     * @param NewsValidator $validator
+     * @param CartRepository $repository
+     * @param CartValidator $validator
      */
-    public function __construct(NewsRepository $repository, NewsValidator $validator)
+    public function __construct(CartRepository $repository, CartValidator $validator,EventRepository $eventRepository)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -48,53 +53,40 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->repository->paginate(8);
-        $news_top = $this->repository->findWhere(['is_show_home' => '0']);
-        $news_middle = $this->repository->findWhere(['is_show_home' => '1']);
-        $news_end = $this->repository->findWhere(['is_show_home' => '2']);
-        return view('news.index', compact('news','news_top','news_middle','news_end'));
+//        $this->eventRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+//        $carts = $this->eventRepository->all();
+//
+//        if (request()->wantsJson()) {
+//
+//            return response()->json([
+//                'data' => $carts,
+//            ]);
+//        }
+
+        return view('cart.show');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  NewsCreateRequest $request
+     * @param  CartCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(NewsCreateRequest $request)
+    public function store($id)
     {
-        try {
+        $member = Auth::id();
+            $event = $this->eventRepository->find($id);
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            Cart::add($event->id,$event->name,1,$event->price);
 
-            $news = $this->repository->create($request->all());
-
-            $response = [
-                'message' => 'News created.',
-                'data'    => $news->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return view('cart.show',compact('event','member'));
     }
-
+    public function empty(){
+        Cart::destroy();
+    }
     /**
      * Display the specified resource.
      *
@@ -104,16 +96,16 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = $this->repository->find($id);
+        $cart = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $news,
+                'data' => $cart,
             ]);
         }
 
-        return view('news.show', compact('news'));
+        return view('carts.show', compact('cart'));
     }
 
     /**
@@ -125,32 +117,32 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = $this->repository->find($id);
+        $cart = $this->repository->find($id);
 
-        return view('news.edit', compact('news'));
+        return view('carts.edit', compact('cart'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  NewsUpdateRequest $request
+     * @param  CartUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(NewsUpdateRequest $request, $id)
+    public function update(CartUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $news = $this->repository->update($request->all(), $id);
+            $cart = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'News updated.',
-                'data'    => $news->toArray(),
+                'message' => 'Cart updated.',
+                'data'    => $cart->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -188,11 +180,11 @@ class NewsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'News deleted.',
+                'message' => 'Cart deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'News deleted.');
+        return redirect()->back()->with('message', 'Cart deleted.');
     }
 }

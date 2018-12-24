@@ -4,26 +4,53 @@
         <!--giỏ hàng-->
         <br>
         <h2 class="text-center">GIỎ HÀNG CỦA BẠN</h2>
+
         <div class="container">
-            <table  class="table table-hover table-condensed">
+
+            @if(session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                        </ul>
+                    </div>
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+                @if(\Gloudemans\Shoppingcart\Facades\Cart::count() >0)
+
+            <h2>{{ \Gloudemans\Shoppingcart\Facades\Cart::count() }} mặt hàng trong giỏ hàng</h2>
+            <table class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th style="width:50%">Tên sản phẩm</th>
+                    <th style="width:50%">Tên sự kiện</th>
                     <th style="width:10%">Giá</th>
                     <th style="width:10%">Số lượng</th>
                     <th style="width: 10%" class="text-center">Thành tiền</th>
-                    <th style="width:10%"> </th>
+                    <th style="width:10%"></th>
                 </tr>
                 </thead>
-                <tbody><tr>
+                <tbody>
+
+                <tr>
                     <td data-th="Product">
                         <div class="row">
-                            <div class="col-sm-2 hidden-xs"><img src="images/event/sukien1.jpg" alt="Sản phẩm 1" class="img-responsive" width="120%">
+                            <div class="col-sm-2 hidden-xs"><img src="{{ $event->avatar }}" alt="Sản phẩm 1"
+                                                                 class="img-responsive" width="120%">
                             </div>
                             <div class="col-sm-10">
-                                <h4 class="nomargin">Cafe nhạc</h4>
+                                <h4 class="nomargin">{{ $event->name }}</h4>
                                 <label>Địa điểm :</label>
-                                <p>42, Cầu Giấy, Hà Nội</p>
+                                <p>{{$event->location_detail }},{{ $event->location }}</p>
                             </div>
                         </div>
                     </td>
@@ -39,10 +66,12 @@
                         </button>
                     </td>
                 </tr>
+
                 <tr>
                     <td data-th="Product">
                         <div class="row">
-                            <div class="col-sm-2 hidden-xs"><img src="images/event/sukien2.jpg" alt="Sản phẩm 1" class="img-responsive" width="120%">
+                            <div class="col-sm-2 hidden-xs"><img src="images/event/sukien2.jpg" alt="Sản phẩm 1"
+                                                                 class="img-responsive" width="120%">
                             </div>
                             <div class="col-sm-10">
                                 <h4 class="nomargin">Liên Hoan Văn hoá</h4>
@@ -62,25 +91,31 @@
                         </button>
                     </td>
                 </tr>
-                </tbody><tfoot>
+                </tbody>
+                <tfoot>
                 <tr>
                     <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
                     </td>
-                    <td colspan="2" class="hidden-xs"> </td>
+                    <td colspan="2" class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong>Tổng tiền 500.000 đ</strong>
                     </td>
                     <td>
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-large btn-block btn-primary btn-checkout">
+                        <button type="button" data-toggle="modal" data-target="#myModal"
+                                class="btn btn-large btn-block btn-primary btn-checkout">
                             Thanh toán khi nhận hàng
                         </button>
 
-                        <button type="button" data-toggle="modal" data-target="#modalOnline" class="btn btn-large btn-block btn-success btn-checkout">
+                        <button type="button" data-toggle="modal" data-target="#modalOnline"
+                                class="btn btn-large btn-block btn-success btn-checkout">
                             Thanh toán trực tuyến
                         </button>
                     </td>
                 </tr>
                 </tfoot>
             </table>
+                    @else
+                    <h3>Không có mặt hàng nào trong giỏ hàng</h3>
+                    @endif
         </div>
         <!--Modal-->
         <div id="myModal" style="z-index: 999999 " class="modal fade" role="dialog">
@@ -94,11 +129,13 @@
                     </div>
                     <div class="modal-body" style="">
                         <form action="" method="post" role="form">
-                            <input type="hidden" name="_token" value="mASmdAPFonklySW34TDx9qvKkbsv7xG0bb4o3k0M">                            <div class="row">
+                            <input type="hidden" name="_token" value="mASmdAPFonklySW34TDx9qvKkbsv7xG0bb4o3k0M">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for=""><strong>Họ tên</strong></label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập họ tên" name="name" value="" required="" minlength="3">
+                                        <input type="text" class="form-control" id="name" placeholder="Nhập họ tên"
+                                               name="name" value="" required="" minlength="3">
                                     </div>
                                 </div>
 
@@ -300,7 +337,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for=""><strong>Quận/Huyện</strong></label>
-                                        <input type="text" class="form-control" id="district" placeholder="Nhập quận/huyện" name="district" value="" minlength="5" required="">
+                                        <input type="text" class="form-control" id="district"
+                                               placeholder="Nhập quận/huyện" name="district" value="" minlength="5"
+                                               required="">
                                     </div>
 
                                 </div>
@@ -310,7 +349,8 @@
 
                                     <div class="form-group">
                                         <label for=""><strong>Địa chỉ</strong></label>
-                                        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ" name="address" value="" minlength="10" required="">
+                                        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ"
+                                               name="address" value="" minlength="10" required="">
                                     </div>
                                 </div>
 
@@ -318,7 +358,8 @@
 
                                     <div class="form-group">
                                         <label for=""><strong>Email</strong></label>
-                                        <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email" value="datnq.fuhl@gmail.com" required="">
+                                        <input type="email" class="form-control" id="email" placeholder="Nhập email"
+                                               name="email" value="datnq.fuhl@gmail.com" required="">
                                     </div>
                                 </div>
 
@@ -327,7 +368,9 @@
 
                                     <div class="form-group">
                                         <label for=""><strong>Số điện thoại</strong></label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" value="" minlength="9" required="">
+                                        <input type="text" class="form-control" id="phone"
+                                               placeholder="Nhập số điện thoại" name="phone" value="" minlength="9"
+                                               required="">
                                     </div>
                                 </div>
 
@@ -335,14 +378,28 @@
 
                                     <div class="form-group">
                                         <label for=""><strong>Ghi chú</strong></label>
-                                        <input type="text" class="form-control" id="note" placeholder="Nhập ghi chú" name="note" value="">
+                                        <input type="text" class="form-control" id="note" placeholder="Nhập ghi chú"
+                                               name="note" value="">
                                     </div>
                                 </div>
 
                             </div>
 
 
-                            <div id="recaptcha" class="g-recaptcha" data-sitekey="6LdiZWIUAAAAAEOWtPTwWwYWEsS9AbnkMoqD0ppc"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdiZWIUAAAAAEOWtPTwWwYWEsS9AbnkMoqD0ppc&amp;co=aHR0cDovL3B0by5kZXZtYXN0ZXIuZWR1LnZuOjgw&amp;hl=en&amp;v=v1542004393985&amp;size=normal&amp;cb=gjf0lr47l429" width="304" height="78" role="presentation" name="a-pm8u6wso9nl8" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div>
+                            <div id="recaptcha" class="g-recaptcha"
+                                 data-sitekey="6LdiZWIUAAAAAEOWtPTwWwYWEsS9AbnkMoqD0ppc">
+                                <div style="width: 304px; height: 78px;">
+                                    <div>
+                                        <iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdiZWIUAAAAAEOWtPTwWwYWEsS9AbnkMoqD0ppc&amp;co=aHR0cDovL3B0by5kZXZtYXN0ZXIuZWR1LnZuOjgw&amp;hl=en&amp;v=v1542004393985&amp;size=normal&amp;cb=gjf0lr47l429"
+                                                width="304" height="78" role="presentation" name="a-pm8u6wso9nl8"
+                                                frameborder="0" scrolling="no"
+                                                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
+                                    </div>
+                                    <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+                                              class="g-recaptcha-response"
+                                              style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+                                </div>
+                            </div>
                             <span class="msg-error error"></span>
                             <br>
                             <button type="submit" class="btn btn-primary">Thanh Toán</button>

@@ -1130,6 +1130,19 @@ a .round i {
     margin-left: 2%;
 }
 
+.tab-rate
+{
+    width: 100%;
+    border-top: 1px solid #e6e2e2;
+    padding: 5px;
+    margin: 0 auto;
+    TEXT-ALIGN: CENTER;
+}
+.img-news{
+    width: 100%;
+    height: 45%;
+}
+
 
 @media only screen and (max-width: 800px) {
     .search-container {

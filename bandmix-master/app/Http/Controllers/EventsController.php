@@ -338,4 +338,5 @@ class EventsController extends Controller
         $deleted = $this->repository->delete($id);
         return redirect()->back();
     }
+
 }

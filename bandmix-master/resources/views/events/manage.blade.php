@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="iconSED">
-							<a href="detailEvent.html" class="btn btn-default btnicon">
+							<a href="{{ route('events.show',$event->id) }}" class="btn btn-default btnicon">
 								<i class="fa fa-eye"></i> Xem
 							</a>
 							<a href="{{route('events.edit',[$event->id])}}" class="btn btn-default btnicon">
