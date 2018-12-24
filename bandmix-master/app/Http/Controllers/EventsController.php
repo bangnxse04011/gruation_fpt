@@ -200,9 +200,10 @@ class EventsController extends Controller
         return view('events.index', compact('events','events_search','locations'));
     }
     public function manage(){
+        $locations = $this->locationRespository->all();
         $member_id = Auth::id();
         $events = $this->repository->findWhere(['member_id' => $member_id]);
-        return view('events.manage',compact('events'));
+        return view('events.manage',compact('events','locations'));
     }
     /**
      * Display the specified resource.
@@ -366,4 +367,5 @@ class EventsController extends Controller
         $deleted = $this->repository->delete($id);
         return redirect()->back();
     }
+
 }

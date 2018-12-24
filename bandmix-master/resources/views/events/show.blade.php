@@ -62,6 +62,8 @@
                         </div>
                     </div>
                     <form method="POST" enctype="multipart/form-data">
+                        <div  enctype="multipart/form-data">
+                        {{--{{ csrf_field() }}--}}
                         <div class="second-part-chgpass row">
 
                             <div class="col-md-12">
@@ -83,19 +85,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Giá vé :</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->price }} </label>
-                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">
                                         <label>Địa điểm tổ chức:</label>
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->location }}</label>
+                                        <label>{{ $event->location_detail }}</label>
                                     </div>
                                 </div>
                         <div class="col-sm-8">
@@ -123,7 +120,6 @@
                                     <label>{{ $event->time }}</label>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-5 input-with-label">
                                     <label>Địa điểm tổ chức:</label>
@@ -155,10 +151,56 @@
                             </div>
                         </div>
                     </div>
+                    <div method="POST" enctype="multipart/form-data">
+                        <div class="second-part-chgpass row">
+
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-5 input-with-label">
+                                        <label>Số Lượng Vé Còn:</label>
+                                    </div>
+                                    <div class=" col-sm-6 input-with-content">
+                                        <label>200</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 input-with-label">
+                                        <label>Giá vé :</label>
+                                    </div>
+                                    <div class=" col-sm-6 input-with-content">
+                                        <label>{{ $event->price }} </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 input-with-label">
+                                        <label>Mua Vé:</label>
+                                    </div>
+                                    <div class=" col-sm-6 input-with-content">
+                                        <input type="number" class="form-control" name="fullName">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 input-with-label">
+                                        <label>Thành Tiền:</label>
+                                    </div>
+                                    <div class=" col-sm-6 input-with-content">
+                                        <label>90.000 VND</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class=" col-sm-6 input-with-content">
+                                        <a href="{{ route('cart.store',$event->id) }}" class="btn btn-danger">Mua vé</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+                    </form>
             <!--END user information-->
-
         </div>
     </div>
 @endsection
