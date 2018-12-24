@@ -54,7 +54,7 @@
                     <div class="card-body relative">
                         <div class="table w-100 margin-bottom-0">
 
-                            <a class="eventTitle" href="{{route('events.show', $event->id)}}" >
+                            <a class="eventTitle" href="{{route('events.show', $event->id)}}"target="_blank">
                                 <h4 style="text-align: center">{{ $event->name }}</h4>
                             </a>
                         </div>

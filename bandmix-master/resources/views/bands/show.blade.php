@@ -57,14 +57,8 @@
                             <button type="submit" id="btn-delete" class="btn btn-danger">Xóa ban nhạc</button>
                             {{--</form>--}}
                         </div>
-
-
-
                     </div>
-
                 </div>
-
-
                 <!--user information-->
                 <div class="menu-right-chgpass">
                     <div class="col-sm-12">
@@ -76,7 +70,6 @@
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
                                         <label> {{$band->name}} </label>
-
                                     </div>
                                 </div>
                                 <div class="row">

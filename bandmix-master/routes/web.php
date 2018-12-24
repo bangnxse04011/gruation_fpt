@@ -25,12 +25,17 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/bands/management','BandsController@management')->name('bands.manage');
     Route::post('/bands','BandsController@store')->name('bands.store');
     Route::get('/bands/create','BandsController@create')->name('bands.create');
-    Route::get('/show-cart','CartController@index')->name('cart.show');
+    //cart
+    Route::get('/cart','CartsController@index')->name('cart.show');
+    Route::post('/cart','CartsController@store')->name('cart.store');
+    Route::get('empty','CartsController@empty')->name('cart.empty');
     Route::get('/bands/edit/{id}','BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
     Route::post('events','EventsController@store')->name('events.store');
     Route::get('events/{id}/review','EventsController@review')->name('events.review');
     Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
+    Route::resource('/events','EventsController');
+
 });
 
 //event
@@ -50,6 +55,8 @@ Route::get('/bands/{slug}','BandsController@show')->name('bands.show');
 
 //news
 Route::get('/news','NewsController@index')->name('news.index');
+Route::get('/news/{id}','NewsController@show')->name('news.show');
+
 //search
 Route::get('/user/{id}','MembersController@show')->name('members.index');
 Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
