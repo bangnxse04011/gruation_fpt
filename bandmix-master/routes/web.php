@@ -23,18 +23,22 @@ Route::get('/search', 'HomePageController@search')->name('masterSearching');;
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/events/create','EventsController@create')->name('events.create');
     Route::get('/bands/management','BandsController@management')->name('bands.manage');
+
     Route::post('/bands','BandsController@store')->name('bands.store');
     Route::get('/bands/create','BandsController@create')->name('bands.create');
     //cart
     Route::get('/cart','CartsController@index')->name('cart.show');
     Route::post('/cart','CartsController@store')->name('cart.store');
+    Route::get('/cart/{id}','CartsController@destroy')->name('cart.destroy');
+
     Route::get('empty','CartsController@empty')->name('cart.empty');
+
     Route::get('/bands/edit/{id}','BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
     Route::post('events','EventsController@store')->name('events.store');
     Route::get('events/{id}/review','EventsController@review')->name('events.review');
     Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
-    Route::resource('/events','EventsController');
+    Route::post('cart/buy','CartController@buySuccess')->name('cart.buy');
 
 });
 
@@ -61,6 +65,7 @@ Route::get('/news/{id}','NewsController@show')->name('news.show');
 Route::get('/user/{id}','MembersController@show')->name('members.index');
 Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
 Route::Post('/user/{id}','MembersController@update')->name('members.update');
+Route::get('/user/manage','MembersController@manage')->name('members.manage');
 //login
 Auth::routes();
 Route::Post('/','Auth\LoginController@login')->name('login');

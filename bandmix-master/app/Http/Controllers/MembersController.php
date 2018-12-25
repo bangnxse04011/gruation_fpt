@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CartRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,17 +29,20 @@ class MembersController extends Controller
      * @var MemberValidator
      */
     protected $validator;
+    protected $cartRepository;
 
     /**
      * MembersController constructor.
      *
      * @param MemberRepository $repository
      * @param MemberValidator $validator
+     * @param CartRepository $cartRepository
      */
-    public function __construct(MemberRepository $repository, MemberValidator $validator)
+    public function __construct(MemberRepository $repository, MemberValidator $validator,CartRepository $cartRepository)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->cartRepository = $cartRepository;
     }
 
     /**
@@ -92,6 +96,12 @@ class MembersController extends Controller
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
+    }
+    public function manage()
+    {
+        $member_id = Auth::id();
+        $cart = $this->cartRepository->findWhere(['member_id' => $member_id]);
+        return view('member.manage',compact('cart'));
     }
 
     /**

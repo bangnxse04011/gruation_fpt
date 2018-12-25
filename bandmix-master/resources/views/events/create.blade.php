@@ -62,7 +62,7 @@
                                     <label>Địa điểm :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <select class="form-control" name="location" required>
+                                    <select class="form-control" name="location_id" required>
                                         <option value="">Chọn thành phố</option>
                                         @foreach($locations as $location)
                                             <option {{ $location->id == request()->get('location') ? 'selected':'' }} value="{{ $location->id }}">{{ $location->name }}</option>

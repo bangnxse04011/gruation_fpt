@@ -21,5 +21,7 @@ class Member extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['name','email','password','dob','phone_number','gender','avatar'];
-
+    public function events(){
+        return $this->belongsToMany('\App\Entities\Event','books','member_id','event_id');
+    }
 }

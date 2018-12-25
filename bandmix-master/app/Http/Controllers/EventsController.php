@@ -276,7 +276,7 @@ class EventsController extends Controller
             }
             Act::insert($data_act);
         }
-        $this->repository->update($request->only('status'), $request['event_id']);
+        $this->repository->update($request->only('status') , $request['event_id']);
         $member_id = Auth::id();
         $events = $this->repository->findWhere(['member_id' => $member_id]);
         $locations = $this->locationRespository->all();
