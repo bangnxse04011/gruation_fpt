@@ -7,7 +7,7 @@
         <div class="col-sm-3 menu_left">
             <div class="avatar-upload">
                 <div class="avatar-edit">
-                    <input type="file" id="imageUpload" name="avatar" accept=".png, .jpg, .jpeg" />
+                    <input type="file" id="imageUpload" name="avatar"/>
                     <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
@@ -161,7 +161,6 @@
                                     </div>
                                     <div class=" col-sm-2">
                                         <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
-                                        <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                     </div>
                                 </div>
 
@@ -186,7 +185,6 @@
                                         </select>
                                     </div>
                                     <div class=" col-sm-2">
-                                        <button class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></button>
                                         <button class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></button>
                                     </div>
                                 </div>

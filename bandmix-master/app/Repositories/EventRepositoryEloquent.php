@@ -51,10 +51,12 @@ class EventRepositoryEloquent extends BaseRepository implements EventRepository
         //search for name, id
         if(!empty($option['keyword'])){
             $query->where('id',$option['keyword']);
-            $query->orWhere('name', $option['keyword']);
+            $query->orWhere('name', 'like' , "%" . $option['keyword'].'%');
         }
 
-
+        if(!empty($option['member_id'])){
+            $query->where('member_id',$option['member_id']);
+        }
         //search for price
         if(!empty($option['search_select'])){
             $query->orderBy('price',$option['search_select']);
@@ -68,5 +70,6 @@ class EventRepositoryEloquent extends BaseRepository implements EventRepository
         return $query;
 
     }
+
 
 }

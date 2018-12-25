@@ -12,7 +12,7 @@ $(document).ready(function () {
     /**
      * Method show hide when user click to button change pass
      */
-    $(".pointer-user").click(function () {
+    $("#changePass").click(function () {
         $("#id_info").hide();
         $("#change_pass").show();
     });

@@ -20,7 +20,7 @@ class Genre extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['id','name'];
 
     public function bands()
     {
@@ -28,7 +28,7 @@ class Genre extends Model implements Transformable
     }
     public function events()
     {
-        return $this->belongsToMany('App\Entities\Event');
+        return $this->hasOne('App\Entities\Event');
     }
 
 

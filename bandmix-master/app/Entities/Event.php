@@ -20,22 +20,18 @@ class Event extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['description','avatar','name','time','date','member_id','location_id','salary','location_detail','number_phone','mail','vacancy','price','slug','detail','status'];
 
+    protected $fillable = ['description','avatar','name','time','date','member_id','salary','location_id','location_detail','number_phone','mail','vacancy','price','slug','detail','status', 'genre_id'];
     public function locations(){
         return $this->belongsTo('App\Entities\Location','location_id');
     }
     public function genres()
     {
-        return $this->belongsToMany('App\Entities\Genre');
+        return $this->belongsTo('App\Entities\Genre');
     }
     public function item()
     {
         return $this->belongsToMany(('App\Entities\Item'));
-    }
-    public  function image()
-    {
-        return $this->hasMany('App\Entities\Image');
     }
     public function  bands(){
         return $this->belongsToMany('App\Entities\Band','act','event_id','band_id')->withPivot('act');

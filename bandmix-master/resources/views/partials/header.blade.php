@@ -38,8 +38,8 @@
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
-
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -99,22 +99,19 @@
                     <!--end shopping-cart-header -->
 
                     <ul class="shopping-cart-items">
-                       @foreach (\Gloudemans\Shoppingcart\Facades\Cart::content() as $key => $cart)
-                        <li class="items">
-                            <img src="{{url($cart->options->avatar)}}" alt="item1" />
-                            <span class="item-name">{{ $cart->name }}</span>
-                            <span class="item-price">Giá vé : {{ $cart->price }}</span>
-                            <span class="item-quantity">Số lượng vé đặt : {{ $cart->options->number_of_ticket }} vé</span>
-                        </li>
-                      @endforeach
-
+                        @foreach (\Gloudemans\Shoppingcart\Facades\Cart::content() as $key => $cart)
+                            <li class="items">
+                                <img src="{{url($cart->options->avatar)}}" alt="item1" />
+                                <span class="item-name">{{ $cart->name }}</span>
+                                <span class="item-price">Giá vé : {{ $cart->price }}</span>
+                                <span class="item-quantity">Số lượng vé đặt : {{ $cart->options->number_of_ticket }} vé</span>
+                            </li>
+                        @endforeach
                     </ul>
-
                     <a href="{{route('cart.show')}}" class="btnSeeCart">Chi Tiết Giỏ Hàng</a>
                     <!--</div>-->
                 </div>
             </div>
-
         </div>
     </div>
 </section>

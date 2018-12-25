@@ -36,7 +36,7 @@
         <div class="row">
             <form class="form-inline search-form">
                 <div class="form-group" style="margin-left: 40%">
-                    <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
+                    <input type="text" value="{{request()->get('keyword')}}" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
                         <select class="form-control select-op" name="search_select" >
                             <option value="" selected>Giá vé</option>
                             <option {{request()->get('search_select') == 'asc' ?'selected' : ''}} value="asc">Giá: thấp->cao</option>

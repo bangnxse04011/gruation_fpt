@@ -16,6 +16,7 @@
         </div>
         <div class=" row">
             <form class="form-inline search-form">
+                <input type="hidden" name="member_id" value="{{Auth::id()}}">
                 <div class="form-group" style="margin-left: 54%">
                     <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
                     <select class="form-control select-op" name="search_location">
@@ -32,13 +33,12 @@
                     <button type="submit" class="btn btn-default searchA ">Tìm kiếm</button>
                 </div>
                 {{--<p class="event_count">Tìm thấy {{count($events_search)}} sản phẩm</p>--}}
-
             </form>
 
         </div>
         <!--sukien-->
         <div class="row">
-            @foreach($events as $event)
+                @foreach($events as $event)
                 <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
 
                     <div class="hovereffectE">
@@ -54,7 +54,7 @@
                     <div class="card-body relative">
                         <div class="table w-100 margin-bottom-0">
 
-                            <a class="eventTitle" href="{{route('events.show', $event->id)}}"target="_blank">
+                            <a class="eventTitle" href="{{route('events.show', $event->id)}}">
                                 <h4 style="text-align: center">{{ $event->name }}</h4>
                             </a>
                         </div>
@@ -86,6 +86,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="iconSED">
                             @if($event->status == 2)
                             <a href="{{route('events.review',$event->id)}}" class="btn btn-default btnicon">
