@@ -33,7 +33,7 @@
                             <a href="detailEvent.html"> <label class="pointer-user">Giới Thiệu</label></a>
                         </div>
                         <div class="menu-child">
-                            <a href="infoDetail.html"><label class="pointer-user">Thông tin liên hệ</label></a>
+                            <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
                         </div>
                     </div>
                     <div class="lesson-menu">
@@ -44,7 +44,6 @@
                             <div>
                                 <a href="product.html"> <label class="pointer-user">Một số hình ảnh</label></a>
                             </div>
-                            <a href="infoDetail.html"><label class="pointer-user">Mua vé</label></a>
                         </div>
                     </div>
                 </div>
@@ -77,10 +76,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">
-                                        <label>Ngày diễn ra :</label>
+                                        <label>Thời gian diễn ra :</label>
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->time }}</label>
+                                        <label>{{ $event->time}} Ngày {{date("d", strtotime($event->date))}} tháng {{date("m", strtotime($event->date))}} năm {{date("Y", strtotime($event->date))}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -88,39 +87,7 @@
                                         <label>Giá vé :</label>
                                     </div>
                                     <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->price }} </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Địa điểm tổ chức:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <label>{{ $event->location }}</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label> Tên Sự Kiện :</label>
-                                    </div>
-                                    <div class=" col-sm-5 input-with-content">
-                                        <label> {{ $event->name }}</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Ngày diễn ra :</label>
-                                    </div>
-                                    <div class=" col-sm-5 input-with-content">
-                                        <label>{{ $event->date }}</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 input-with-label">
-                                        <label>Thời gian diễn ra :</label>
-                                    </div>
-                                    <div class=" col-sm-5 input-with-content">
-                                        <label>{{ $event->time }}</label>
+                                        <label>{{ number_format($event->price) }} VND</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -128,7 +95,7 @@
                                         <label>Địa điểm tổ chức:</label>
                                     </div>
                                     <div class=" col-sm-5 input-with-content">
-                                        <label>{{ $event->location_detail }}</label>
+                                        <label>{{ $event->location_detail.', '.$event->locations->name}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -161,7 +128,6 @@
                                         </div>
                                         <div class=" col-sm-2">
                                             <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
-                                            <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                         </div>
                                     </div>
 
@@ -187,7 +153,6 @@
                                                 </select>
                                             </div>
                                             <div class=" col-sm-2">
-                                                <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
                                                 <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                             </div>
                                         </div>

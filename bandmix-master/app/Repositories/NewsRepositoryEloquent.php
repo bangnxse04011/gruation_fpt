@@ -45,5 +45,15 @@ class NewsRepositoryEloquent extends BaseRepository implements NewsRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    
+    public function query($option = [])
+    {
+        $query = $this->model->query();
+        //search for name, id
+        if(!empty($option['keyword'])){
+            $query->where('id',$option['keyword']);
+            $query->orWhere('title', $option['keyword']);
+        }
+        return $query;
+
+    }
 }

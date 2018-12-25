@@ -7,10 +7,17 @@
             <div class="cart_status row">
                 <div class="col-sm-3 menu_left">
                     <div class="avatar_user">
-                        <div>
-                            <p>
-                                <img src="{{ url($event->avatar) }}" >
-                            </p>
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input  name="avatar" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview" style="width: 250px; height: 200px;">
+                                <div id="imagePreview" style="background-image: url({{url('images/default.jpg')}});">
+                                    <img src="{{url($event->avatar)}}" alt="">
+                                </div>
+                            </div>
+
                         </div>
                         <div class="textUser">
                             <div>
@@ -34,17 +41,6 @@
                             </div>
                             <div class="menu-child">
                                 <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
-                            </div>
-                        </div>
-                        <div class="lesson-menu">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <i class="fa fa-book" aria-hidden="true"></i>
-                                </div>
-                                <div>
-                                    <a href="product.html"> <label class="pointer-user">Một số hình ảnh</label></a>
-                                </div>
-                                <a href="infoDetail.html"><label class="pointer-user">Mua vé</label></a>
                             </div>
                         </div>
                     </div>
@@ -91,7 +87,7 @@
                                             <select class="form-control" name="location" required>
                                                 <option value="">Chọn thành phố</option>
                                                 @foreach($locations as $location)
-                                                    <option {{ $location->id == request()->get('location') ? 'selected':'' }} value="{{ $location->id }}">{{ $location->name }}</option>
+                                                    <option value="{{$location->id}}" {{$event->location_id == $location->id ? 'selected' : ''}}>{{$location->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -118,7 +114,7 @@
                                             <select class="form-control" name="genre" required>
                                                 <option value="">Thể loại</option>
                                                 @foreach($genres as $genre)
-                                                    <option {{ $genre->id == $event->genre ? 'selected':'' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                                    <option value="{{$genre->id}}" {{$event->genres->id == $genre->id ? 'selected' : ''}} >{{$genre->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

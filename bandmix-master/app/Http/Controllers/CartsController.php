@@ -39,10 +39,10 @@ class CartsController extends Controller
      * @param CartRepository $repository
      * @param CartValidator $validator
      */
-    public function __construct(CartRepository $repository, CartValidator $validator,EventRepository $eventRepository)
+    public function __construct(CartRepository $repository, CartValidator $validator, EventRepository $eventRepository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
         $this->eventRepository = $eventRepository;
     }
 
@@ -53,6 +53,7 @@ class CartsController extends Controller
      */
     public function index()
     {
+//            $event = $this->eventRepository->all();
 //        $this->eventRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 //        $carts = $this->eventRepository->all();
 //
@@ -75,18 +76,39 @@ class CartsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store($id)
+    public function store(Request $request)
     {
-        $member = Auth::id();
-            $event = $this->eventRepository->find($id);
-
-            Cart::add($event->id,$event->name,1,$event->price);
-
-            return view('cart.show',compact('event','member'));
+        $data = $request->all();
+        $data['member_id'] = Auth::id();
+        $data['event_id'] = $request['event_id'];
+        $this->repository->create($data);
+        $event = $this->eventRepository->find($data['event_id']);
+        $total = $event->price*$data['number_of_ticket'];
+        Cart::add(['id' => $data['event_id'], 'name' => $event->name, 'qty' => 1, 'price' => $event->price,
+            'options' => [
+                'location_detail' => $event->location_detail,
+                'avatar' => $event->avatar,
+                'number_of_ticket' => $data['number_of_ticket'],
+                'total' => $total,
+                'member_id' => $data['member_id']
+            ]]);
+        ;
+        $event = $this->eventRepository->update(['vacancy' => $event->vacancy - $data['number_of_ticket']],$data['event_id']);
+        return redirect()->route('cart.show')->with('success_message', 'Đã thêm thành công vào giỏ hàng');
     }
-    public function empty(){
+
+
+    public function buySuccess(Request $request){
+        $book = $request->all();
+
+    }
+   
+    public function empty()
+    {
+
         Cart::destroy();
     }
+
     /**
      * Display the specified resource.
      *
@@ -126,7 +148,7 @@ class CartsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  CartUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      *
@@ -142,7 +164,7 @@ class CartsController extends Controller
 
             $response = [
                 'message' => 'Cart updated.',
-                'data'    => $cart->toArray(),
+                'data' => $cart->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -156,7 +178,7 @@ class CartsController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -175,15 +197,16 @@ class CartsController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Cart deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
+        Cart::remove($id);
+//        $deleted = $this->repository->delete($id);
+//        if (request()->wantsJson()) {
+//
+//            return response()->json([
+//                'message' => 'Cart deleted.',
+//                'deleted' => $deleted,
+//            ]);
+//        }
 
         return redirect()->back()->with('message', 'Cart deleted.');
     }

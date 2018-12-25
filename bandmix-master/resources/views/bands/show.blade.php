@@ -5,7 +5,7 @@
                     <div class="avatar_user">
                         <div style="width: 250px; height: 200px;">
                             <p>
-                                <img src="/{{url($band->avatar)}}">
+                                <img src="{{url($band->avatar)}}">
                             </p>
                         </div>
                         <div class="textUser">
@@ -27,7 +27,7 @@
                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                 </div>
                                 <div>
-                                    <a href="{{url('band->slug')}}"> <label class="pointer-user">Thông tin Ban Nhạc</label></a>
+                                    <a href="{{route('bands.show',$band->slug)}}"> <label class="pointer-user">Thông tin Ban Nhạc</label></a>
                                 </div>
                             </div>
                         </div>
@@ -52,10 +52,8 @@
                             </div>
                         </div>
                         <div style="margin-top: 20px; display: flex; justify-content: center; width: 100%;" >
-                            {{--<form action="{{route('bands.destroy', $band->id)}}" method="DELETE">--}}
-                            {{--                            {{csrf_field()}}--}}
-                            <button type="submit" id="btn-delete" class="btn btn-danger">Xóa ban nhạc</button>
-                            {{--</form>--}}
+
+
                         </div>
                     </div>
                 </div>
@@ -112,25 +110,12 @@
                                 <div class=" col-sm-8 input-with-content">
                                     <label>{{$band->achievements}}</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
-                                    <label>Mô Tả Chi Tiết:</label>
-                                </div>
-                            </div>
-                            <div class=" col-sm-12 input-with-content">
-                                <label>{!! $band->about !!}</label>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="stars-bottom-comment">
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star  checked "></span>
-                                        <span class="fa fa-star "></span>
-                                        <span> ( 5.0 Sao/10 đánh giá )   </span>
+                                <div class="row">
+                                    <div class="col-sm-5 input-with-label">
+                                        <label>Mô Tả Chi Tiết:</label>
+                                    </div>
+                                    <div class=" col-sm-12 input-with-content">
+                                        <label>{!! $band->about !!}</label>
                                     </div>
                                 </div>
                             </div>
@@ -147,3 +132,35 @@
                 <!--END user information-->
             </div>
 @endsection
+@push('footer')
+    <script type="text/javascript" src="{{url('js/main.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/avatar.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(document).on('click','#btn-delete',function (event) {
+                // confirm('cos xoa hay khong');
+
+                var form = $(this).parent('form');
+                event.preventDefault();
+
+                swal({
+                    title: "Bạn có chắc chắn muốn xóa ?",
+                    text: "Một khi đã xóa thì không thể lấy lại dữ liệu",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            form.submit();
+                        }
+                    });
+            });
+
+            // $('.btn-delete').click(function () {
+            //     alert();
+            // });
+        });
+    </script>
+@endpush

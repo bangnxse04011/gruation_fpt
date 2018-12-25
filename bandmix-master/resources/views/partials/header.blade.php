@@ -38,8 +38,8 @@
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
-
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
             <!-- Modal content-->
             <div class="modal-content modal-contentCart ">
                 <div class="modal-header .modal-headerCart">
-                    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+                    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge"><?php echo Cart::count(); ?></span>
                     <div class="shopping-cart-total">
                         <span class="lighter-text">Tổng:</span>
                         <span class="main-color-text">350.000 VND</span>
@@ -99,33 +99,21 @@
                     <!--end shopping-cart-header -->
 
                     <ul class="shopping-cart-items">
-                        <li class="items">
-                            <img src="images/event/sukien1.jpg" alt="item1" />
-                            <span class="item-name">Cafe Nhạc</span>
-                            <span class="item-price">100.000 VND</span>
-                            <span class="item-quantity">Số lượng: 01</span>
-                        </li>
+                        @foreach (\Gloudemans\Shoppingcart\Facades\Cart::content() as $key => $cart)
+                            <li class="items">
+                                <img src="{{url($cart->options->avatar)}}" alt="item1" />
+                                <span class="item-name">{{ $cart->name }}</span>
+                                <span class="item-price">Giá vé : {{ $cart->price }}</span>
+                                <span class="item-quantity">Số lượng vé đặt : {{ $cart->options->number_of_ticket }} vé</span>
+                            </li>
+                        @endforeach
 
-                        <li class="items">
-                            <img src="images/event/sukien2.jpg" alt="item1" />
-                            <span class="item-name">Liên Hoan Văn Hoá</span>
-                            <span class="item-price">150.000</span>
-                            <span class="item-quantity">Số lượng: 01</span>
-                        </li>
-
-                        <li class="items">
-                            <img src="images/event/sukien3.jpg" alt="item1" />
-                            <span class="item-name">Đêm nhạc mới</span>
-                            <span class="item-price">100.000</span>
-                            <span class="item-quantity">Số Lượng: 01</span>
-                        </li>
                     </ul>
 
                     <a href="{{route('cart.show')}}" class="btnSeeCart">Chi Tiết Giỏ Hàng</a>
                     <!--</div>-->
                 </div>
             </div>
-
         </div>
     </div>
 </section>

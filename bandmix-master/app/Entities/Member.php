@@ -20,6 +20,6 @@ class Member extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name','email','password','dob','phone_number','gender','avatar'];
+    protected $fillable = ['name','email','password','dob','phone_number','address','gender','avatar','status'];
 
 }

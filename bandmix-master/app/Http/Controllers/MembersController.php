@@ -29,16 +29,20 @@ class MembersController extends Controller
      */
     protected $validator;
 
+    protected $cartRepository;
+
     /**
      * MembersController constructor.
      *
      * @param MemberRepository $repository
      * @param MemberValidator $validator
      */
-    public function __construct(MemberRepository $repository, MemberValidator $validator)
+    public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->cartRepository = $cartRepository;
+
     }
 
     /**
@@ -94,6 +98,14 @@ class MembersController extends Controller
         }
     }
 
+    public function manage()
+    {
+        $member_id = Auth::id();
+        $cart = $this->cartRepository->findWhere(['member_id' => $member_id]);
+        return view('member.manage',compact('cart'));
+    }
+
+
     /**
      * Display the specified resource.
      *
@@ -143,7 +155,6 @@ class MembersController extends Controller
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-//            dd($request->all());
             if($request->hasFile($request['avatar'])){
                 $member = $this->repository->update($request->all(), $id);
             }else{

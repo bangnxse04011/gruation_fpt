@@ -20,6 +20,7 @@ class Cart extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table = 'books';
+    protected $fillable = ['book_time','total_price','number_of_ticket','member_id','event_id','number_phone','address','name','email','note'];
 
 }

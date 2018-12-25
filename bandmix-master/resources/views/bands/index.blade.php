@@ -70,19 +70,6 @@
                     <img class="img-responsive" src="{{$band->avatar}}" alt="">
                     <div class="overlay">
                         <h2>{{$band->name}}</h2>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="stars-bottom-comment">
-                                    <span class="fa fa-star  checked "></span>
-                                    <span class="fa fa-star  checked "></span>
-                                    <span class="fa fa-star  checked "></span>
-                                    <span class="fa fa-star  checked "></span>
-                                    <span class="fa fa-star "></span>
-                                    <span style="color: white;"> ( 0 đánh giá)   </span>
-
-                                </div>
-                            </div>
-                        </div>
                         <p>
                             {{substr($band->about,0,50).'...'}}
                         </p>

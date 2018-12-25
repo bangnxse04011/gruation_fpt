@@ -49,25 +49,18 @@ class BandRepositoryEloquent extends BaseRepository implements BandRepository
     public function query($option = [])
     {
         $query = $this->model->query();
-
+        //search for name, id
         if(!empty($option['keyword'])){
-            $query->where('id', $option['keyword']);
-            $query->orWhere('name','like', '%'. $option['keyword'].'%');
+            $query->where('id','=' ,$option['keyword']);
+            $query->orWhere('name', 'like','%'.$option['keyword'].'%');
         }
 
-        if(!empty($option['genre'])){
-            $query->whereHas('genres', function ($q) use ($option) {
-                $q->where('genres.id', $option['genre']);
-            });
+        if(!empty($option['search_location'])){
 
-//            $query->with('genres')->where('genres.id', $option['genre']);
-
+            $query->where('location_id',$option['search_location']);
         }
-//        dd($query);
-//        var_dump($query);
+
         return $query;
-
-
     }
     
 }

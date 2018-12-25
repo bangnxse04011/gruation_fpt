@@ -35,18 +35,12 @@
                         <div class="menu-child">
                             <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
                         </div>
+                        <form action="{{route('events.delete', $event->id)}}" method="delete">
+                            {{csrf_field()}}
+                            <button type="submit" id="btn-delete" class="btn btn-danger" >Xóa sự kiện</button>
+                        </form>
                     </div>
-                    <div class="lesson-menu">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                <a href="product.html"> <label class="pointer-user">Một số hình ảnh</label></a>
-                            </div>
-                            <a href="infoDetail.html"><label class="pointer-user">Mua vé</label></a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <!--user information-->

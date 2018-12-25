@@ -10,11 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
 //events
-Route::resource('/events','EventsController');
+//Route::resource('/events','EventsController');
 Route::resource('/feedback','FeedbackController');
 Route::get('/', 'HomePageController@index');
 Route::get('/search', 'HomePageController@search')->name('masterSearching');;
@@ -25,17 +26,19 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/bands/management','BandsController@management')->name('bands.manage');
     Route::post('/bands','BandsController@store')->name('bands.store');
     Route::get('/bands/create','BandsController@create')->name('bands.create');
+//    Route::delete('/bands/{id}','BandsController@destroy')->name('bands.destroy');
+    Route::get('/bands/delete/{id}','BandsController@deleteBand')->name('bands.delete');
     //cart
     Route::get('/cart','CartsController@index')->name('cart.show');
     Route::post('/cart','CartsController@store')->name('cart.store');
-    Route::get('empty','CartsController@empty')->name('cart.empty');
+    Route::get('/cart/{id}','CartsController@destroy')->name('cart.destroy');
     Route::get('/bands/edit/{id}','BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
+
     Route::post('events','EventsController@store')->name('events.store');
     Route::get('events/{id}/review','EventsController@review')->name('events.review');
     Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
-    Route::resource('/events','EventsController');
-
+    Route::post('cart/buy','CartController@buySuccess')->name('cart.buy');
 });
 
 //event
@@ -73,4 +76,5 @@ Route::post('/check-exit-email','Auth\RegisterController@check_Exist_User')->nam
 
 Route::post('/change-pass','Auth\RegisterController@change_Pass')->name('change-pass');
 Route::post('/reset-pass','Auth\RegisterController@reset_Pass')->name('reset-pass');
-Route::post('events/confirm','EventsController@confirm')->name('events.confirm');
+
+Route::get('/ajax-search','Controller@ajaxSearch');

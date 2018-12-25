@@ -82,13 +82,6 @@ class FeedbackController extends Controller
                 'message' => 'Feedback created.',
                 'data'    => $feedback->toArray(),
             ];
-
-//            if ($request->wantsJson()) {
-//
-//                return response()->json($response);
-//            }
-
-
             return redirect($request->url())->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {

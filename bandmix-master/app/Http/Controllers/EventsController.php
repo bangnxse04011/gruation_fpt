@@ -104,58 +104,19 @@ class EventsController extends Controller
      */
     public function store(EventCreateRequest $request)
     {
-        // try {
-        //     $data = $request->all();
-
-        //     $data['member_id'] = Auth::id();
-
-        //     if($request->hasFile('avatar')){
-        //         $data['avatar'] = $this->uploadFile($request['avatar']);
-        //     }else{
-        //         $data['avatar'] = 'uploads/avatar/default.jpg';
-        //     }
-
-        //     $event = $this->repository->create($data);
-
-        //     $request['slug'] = str_slug($event->name, '-') . '-n'. $event->id;
-        //     $this->repository->update($request->only('slug'), $event->id);
-        //     $response = [
-        //         'message' => 'Event created.',
-        //         'data'    => $event->toArray(),
-        //     ];
-        //     $event->bands()->sync($data['band']);
-
-        //     $event->bands()->sync($data['band']);
-        //     foreach ($data['item_name'] as $key => $value)
-        //     {
-        //         $event->bands()->attach($data['band'][$key], ['act' => $value]);
-        //     }
-
-        //     return redirect()->route('events.show',$event->id)->with('message', $response['message']);
-        // } catch (ValidatorException $e) {
-        //     if ($request->wantsJson()) {
-        //         return response()->json([
-        //             'error'   => true,
-        //             'message' => $e->getMessageBag()
-        //         ]);
-        //     }
-        //     return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        // }
-        // dd($request->all()); 
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
             $data['status'] = '2';
             $data['slug'] = str_slug($data['name'], '-');
-
             if($request->hasFile('avatar')){
                 $data['avatar'] = $this->uploadFile($request['avatar']);
-            } else {
+            }else{
                 $data['avatar'] = 'uploads/avatar/default.jpg';
             }
             $event = $this->repository->create($data);
+
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
-            
             if(count($data['item_name']) > 1) {
                 $event_id = $event->id;
                 $total_item = count($data['item_name']);
@@ -197,7 +158,7 @@ class EventsController extends Controller
         $events = $this->repository->findWhere([
             'is_on_top' => 1
         ]);
-        return view('events.manage', compact('events','events_search','locations'));
+        return redirect(route('events.manage',compact('events','events_search','locations')) );
     }
 
     public function contact($id){
@@ -285,11 +246,12 @@ class EventsController extends Controller
     }
     public function edit($id)
     {
+        $locations = $this->locationRespository->all();
         $bands = Band::all();
         $genres = Genre::all();
         $event = Event::find($id);
         $acts = Act::where('event_id', $id)->get();
-        return view('events.edit', compact('event', 'bands', 'genres', 'acts'));
+        return view('events.edit', compact('event', 'bands', 'genres', 'acts','locations'));
     }
 
     /**

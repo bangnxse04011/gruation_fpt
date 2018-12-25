@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\Genre;
 use App\Repositories\BandGenreRepository;
 use App\Repositories\GenreRepository;
+use App\Repositories\LocationRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Class BandsController.
  *
+ * @property LocationRepository locationRepository
  * @package namespace App\Http\Controllers;
  */
 class BandsController extends Controller
@@ -33,17 +35,20 @@ class BandsController extends Controller
      * @var BandValidator
      */
     protected $validator;
+    protected $locationRepository;
 
     /**
      * BandsController constructor.
      *
      * @param BandRepository $repository
      * @param BandValidator $validator
+     * @param LocationRepository $locationRepository
      */
-    public function __construct(BandRepository $repository, BandValidator $validator)
+    public function __construct(BandRepository $repository, BandValidator $validator,LocationRepository $locationRepository)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
@@ -102,11 +107,15 @@ class BandsController extends Controller
         }
     }
 
-    public function management(){
+    public function management(Request $request){
         $member_id = Auth::id();
+        $genres = Genre::all();
+        $locations = $this->locationRepository->all();
+//        $bands_search = $this->repository->query($request->all())->latest()->paginate(12);
         $bands = $this->repository->findWhere(['member_id' => $member_id]);
-//        dd($bands);
-        return view('bands.manager',compact('bands'));
+        $bands_search = $this->repository->query($request->all())->latest()->paginate(12);
+//        dd($bands_search);
+        return view('bands.manager',compact('bands','locations','genres','bands_search'));
     }
 
     /**
@@ -199,6 +208,7 @@ class BandsController extends Controller
      */
     public function destroy($id)
     {
+//        dd($id);
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
@@ -210,5 +220,9 @@ class BandsController extends Controller
         }
 
         return redirect()->back()->with('message', 'Band deleted.');
+    }
+    public function deleteBand($id) {
+        $deleted = $this->repository->delete($id);
+        return redirect()->back();
     }
 }
