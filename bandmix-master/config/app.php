@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
 
+
         /*
          * Package Service Providers...
          */
@@ -179,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Providers\RepositoryServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class
 
     ],
@@ -195,7 +197,7 @@ return [
     */
 
     'aliases' => [
-
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

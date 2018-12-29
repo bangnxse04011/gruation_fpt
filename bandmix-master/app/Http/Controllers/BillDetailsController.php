@@ -7,35 +7,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\NewsCreateRequest;
-use App\Http\Requests\NewsUpdateRequest;
-use App\Repositories\NewsRepository;
-use App\Validators\NewsValidator;
+use App\Http\Requests\BillDetailCreateRequest;
+use App\Http\Requests\BillDetailUpdateRequest;
+use App\Repositories\BillDetailRepository;
+use App\Validators\BillDetailValidator;
 
 /**
- * Class NewsController.
+ * Class BillDetailsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class NewsController extends Controller
+class BillDetailsController extends Controller
 {
     /**
-     * @var NewsRepository
+     * @var BillDetailRepository
      */
     protected $repository;
 
     /**
-     * @var NewsValidator
+     * @var BillDetailValidator
      */
     protected $validator;
 
     /**
-     * NewsController constructor.
+     * BillDetailsController constructor.
      *
-     * @param NewsRepository $repository
-     * @param NewsValidator $validator
+     * @param BillDetailRepository $repository
+     * @param BillDetailValidator $validator
      */
-    public function __construct(NewsRepository $repository, NewsValidator $validator)
+    public function __construct(BillDetailRepository $repository, BillDetailValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -48,37 +48,39 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->repository->orderBy('id','')->get();
-        dd( $news);
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $billDetails = $this->repository->all();
 
-//        $news_top = $this->repository->findWhere(['status' => '1']);
-////        dd($news_top);
-//        $news_middle = $this->repository->findWhere(['status' => '2']);
-//        $news_middle1 = $this->repository->findWhere(['status' => '3']);
-//        $news_end = $this->repository->findWhere(['status' => '4']);
-        return view('news.index', compact('news','news_top','news_middle','news_end','news_middle1'));
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $billDetails,
+            ]);
+        }
+
+        return view('billDetails.index', compact('billDetails'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  NewsCreateRequest $request
+     * @param  BillDetailCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(NewsCreateRequest $request)
+    public function store(BillDetailCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $news = $this->repository->create($request->all());
+            $billDetail = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'News created.',
-                'data'    => $news->toArray(),
+                'message' => 'BillDetail created.',
+                'data'    => $billDetail->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -108,16 +110,16 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = $this->repository->find($id);
+        $billDetail = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $news,
+                'data' => $billDetail,
             ]);
         }
 
-        return view('news.show', compact('news'));
+        return view('billDetails.show', compact('billDetail'));
     }
 
     /**
@@ -129,32 +131,32 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = $this->repository->find($id);
+        $billDetail = $this->repository->find($id);
 
-        return view('news.edit', compact('news'));
+        return view('billDetails.edit', compact('billDetail'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  NewsUpdateRequest $request
+     * @param  BillDetailUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(NewsUpdateRequest $request, $id)
+    public function update(BillDetailUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $news = $this->repository->update($request->all(), $id);
+            $billDetail = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'News updated.',
-                'data'    => $news->toArray(),
+                'message' => 'BillDetail updated.',
+                'data'    => $billDetail->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -192,11 +194,11 @@ class NewsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'News deleted.',
+                'message' => 'BillDetail deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'News deleted.');
+        return redirect()->back()->with('message', 'BillDetail deleted.');
     }
 }

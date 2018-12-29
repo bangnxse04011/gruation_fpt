@@ -55,7 +55,7 @@
 
         <div class="row">
             @foreach($events_search as $item2)
-            <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
+            <div class="col-xs-18 col-sm-6 col-md-3" style="height: 370px">
 
                 <div class="hovereffectE">
                     <img class="img-responsive" src="{{ url($item2->avatar) }}" alt="">
@@ -81,7 +81,7 @@
                             </div>
                             <div class="event-tags w-100">
 									<span class="tag-venues">
-										<span class="tag-venue smooth-trans label-default uppercase">{{$item2->locations->name}}</span>
+										{{--<span class="tag-venue smooth-trans label-default uppercase">{{$item2->locations->name}}</span>--}}
 									</span>
 
                             </div>

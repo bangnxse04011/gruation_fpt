@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Bill;
+use App\Entities\BillDetail;
+use App\Repositories\BillDetailRepository;
+use App\Repositories\BillRepository;
 use App\Repositories\EventRepository;
+use App\Repositories\MemberRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
@@ -32,18 +37,29 @@ class CartsController extends Controller
      * @var CartValidator
      */
     protected $validator;
+    protected $billRepository;
+    protected $billDetailRepository;
+    protected $cartRepository;
+    protected $memberRepository;
 
     /**
      * CartsController constructor.
      *
      * @param CartRepository $repository
      * @param CartValidator $validator
+     * @param EventRepository $eventRepository
+     * @param BillRepository $billRepository
+     * @param BillDetailRepository $billDetailRepository
      */
-    public function __construct(CartRepository $repository, CartValidator $validator, EventRepository $eventRepository)
+    public function __construct(CartRepository $repository, CartValidator $validator, EventRepository $eventRepository,BillRepository $billRepository,BillDetailRepository $billDetailRepository,CartRepository $cartRepository,MemberRepository $memberRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->eventRepository = $eventRepository;
+        $this->billRepository = $billRepository;
+        $this->billDetailRepository = $billDetailRepository;
+        $this->cartRepository = $cartRepository;
+        $this->memberRepository = $memberRepository;
     }
 
     /**
@@ -53,18 +69,21 @@ class CartsController extends Controller
      */
     public function index()
     {
-//            $event = $this->eventRepository->all();
-//        $this->eventRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-//        $carts = $this->eventRepository->all();
-//
-//        if (request()->wantsJson()) {
-//
-//            return response()->json([
-//                'data' => $carts,
-//            ]);
-//        }
+            $event = $this->eventRepository->all();
+            $book = $this->cartRepository->all();
+            $bill = $this->billRepository->all();
+            $bill_detail = $this->billDetailRepository->all();
+        $this->eventRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $carts = $this->eventRepository->all();
 
-        return view('cart.show');
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $carts,
+            ]);
+        }
+
+        return view('cart.show',compact('event','bill','bill_detail','book'));
     }
 
     /**
@@ -81,9 +100,9 @@ class CartsController extends Controller
         $data = $request->all();
         $data['member_id'] = Auth::id();
         $data['event_id'] = $request['event_id'];
-        $this->repository->create($data);
+//        dd($request->all());
         $event = $this->eventRepository->find($data['event_id']);
-        $total = $event->price*$data['number_of_ticket'];
+        $total = $event->price * $data['number_of_ticket'];
         Cart::add(['id' => $data['event_id'], 'name' => $event->name, 'qty' => 1, 'price' => $event->price,
             'options' => [
                 'location_detail' => $event->location_detail,
@@ -91,18 +110,63 @@ class CartsController extends Controller
                 'number_of_ticket' => $data['number_of_ticket'],
                 'total' => $total,
                 'member_id' => $data['member_id']
-            ]]);
-        ;
-        $event = $this->eventRepository->update(['vacancy' => $event->vacancy - $data['number_of_ticket']],$data['event_id']);
+            ]]);;
+        $event = $this->eventRepository->update(['vacancy' => $event->vacancy - $data['number_of_ticket']], $data['event_id']);
         return redirect()->route('cart.show')->with('success_message', 'Đã thêm thành công vào giỏ hàng');
     }
 
+    public function getCheckout(Request $request)
+    {
+        try {
+            //add to books
 
-    public function buySuccess(Request $request){
+            $cartInfo = Cart::content();
+//            dd($cartInfo);
+            $data = $request->all();
+//         $data['event_id'] = $request['event_id'];
+////        dd($request->all());
+//        $event = $this->eventRepository->find($data['event_id']);
+//            $count = $this->eventRepository->find($data['event_id']);
+//            dd( $this->eventRepository->find($data['event_id']));
+            $data['member_id'] = Auth::id();
+            $book =   $this->repository->create($data);
+
+             // add to bills
+            $bill = new Bill();
+            $bill->book_id = $book->id;
+            $bill->date_order = date('Y-m-d');
+            $bill->total = $data['total_price'];
+            $bill->note = $data['note'];
+            $bill->save();
+            //add to bill_details
+            foreach ( $cartInfo  as $key => $value)
+            {
+                $bill_detail = new BillDetail();
+                $bill_detail->bill_id = $bill->id;
+                $bill_detail->event_id = $value->id;
+                $bill_detail->number_of_ticket = $value->options->number_of_ticket;
+                $bill_detail->price = $value->price;
+                $bill_detail->save();
+            }
+            Cart::destroy();
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+        return redirect(route('members.manageBill', $data['member_id'] = Auth::id()))->with('success_message', 'Mua hàng thành công');
+    }
+
+    public function buySuccess(Request $request)
+    {
         $book = $request->all();
 
     }
-   
+
     public function empty()
     {
 

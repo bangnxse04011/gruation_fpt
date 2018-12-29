@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Bill;
+use App\Repositories\BillDetailRepository;
+use App\Repositories\BillRepository;
 use App\Repositories\CartRepository;
 use Illuminate\Http\Request;
 
@@ -12,6 +15,8 @@ use App\Http\Requests\MemberCreateRequest;
 use App\Http\Requests\MemberUpdateRequest;
 use App\Repositories\MemberRepository;
 use App\Validators\MemberValidator;
+use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
 
 /**
  * Class MembersController.
@@ -30,6 +35,8 @@ class MembersController extends Controller
      */
     protected $validator;
     protected $cartRepository;
+    protected $billRepository;
+    protected $billDetailRepository;
 
 
     /**
@@ -40,11 +47,13 @@ class MembersController extends Controller
      * @param CartRepository $cartRepository
      */
 
-    public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository)
+    public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository, BillRepository $billRepository, BillDetailRepository $billDetailRepository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
         $this->cartRepository = $cartRepository;
+        $this->billRepository = $billRepository;
+        $this->billDetailRepository = $billDetailRepository;
     }
 
     /**
@@ -72,13 +81,12 @@ class MembersController extends Controller
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
             $member = $this->repository->create($request->all());
             $request['slug'] = str_slug($member->name, '-') . '-n'.$member->id;
             $this->repository->update($request->only('slug'),$member->id);
             $response = [
                 'message' => 'Member created.',
-                'data'    => $member->toArray(),
+                'data' => $member->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -90,7 +98,7 @@ class MembersController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -150,7 +158,7 @@ class MembersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  MemberUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      *
@@ -161,15 +169,15 @@ class MembersController extends Controller
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-            if($request->hasFile($request['avatar'])){
+            if ($request->hasFile($request['avatar'])) {
                 $member = $this->repository->update($request->all(), $id);
-            }else{
+            } else {
                 $member = $this->repository->update($request->except('avatar'), $id);
             }
 
             $response = [
                 'message' => 'Member updated.',
-                'data'    => $member->toArray(),
+                'data' => $member->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -183,7 +191,7 @@ class MembersController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -213,5 +221,36 @@ class MembersController extends Controller
         }
 
         return redirect()->back()->with('message', 'Member deleted.');
+    }
+
+    public function getData()
+    {
+        $books = $this->cartRepository->all();
+
+        return DataTables::of($books)
+            ->addColumn('status', function ($item) {
+                $status = $item->status;
+                return view('partials.label', compact('status'));
+            })
+            ->addColumn('ship_form', function ($item) {
+
+                $ship_form = $item->ship_form;
+                return view('partials.ship_form', compact('ship_form'));
+            })
+            ->addColumn('total', function ($item) {
+//                dd($item->bills);
+                $total = $item->bills->total;
+                return $total;
+            })
+            ->rawColumns(['status','ship_form'])
+            ->make(true);
+    }
+
+    public function manageBill($id)
+    {
+        $member = $this->repository->find($id);
+//
+
+        return view('members.manage', compact('member'));
     }
 }

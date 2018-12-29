@@ -4,7 +4,8 @@
         <!--giỏ hàng-->
         <br>
         <h2 class="text-center">GIỎ HÀNG CỦA BẠN</h2>
-
+        <form action="{{ route('cart.checkout') }}" method="post">
+            {{ @csrf_field() }}
         <div class="container">
 
             @if(session()->has('success_message'))
@@ -26,7 +27,7 @@
                 </div>
             @endif
 
-                @if(\Gloudemans\Shoppingcart\Facades\Cart::count() >0)
+                <?php if(Cart::count() >0) : ?>
 
             <h2><?php echo Cart::count(); ?> mặt hàng trong giỏ hàng</h2>
             <table class="table table-hover table-condensed">
@@ -43,7 +44,8 @@
                 <?php $i = 0;
                 $total = 0;
                 ?>
-                @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content()  as $key=> $cart)
+                <?php foreach(Cart::content()  as $key=> $cart) :?>
+                {{--<input type="hidden" name="event_id[]" value="{{ $cart->id }}">--}}
                 <tr>
                     <?php $i++;
                         $total += $cart->options->total;
@@ -63,9 +65,11 @@
                     </td>
 
 
-                    <td data-th="Price">{{ number_format($cart->price) }} VNĐ</td>
+                    <td data-th="Price" name="price">{{ number_format($cart->price) }} VNĐ</td>
                     <td data-th="Quantity">
-                        <label class="form-control text-center" id="number-of-ticket{{$i}}" type="number">{{ $cart->options->number_of_ticket }}</label>
+
+                        <label class="form-control text-center"  id="number-of-ticket{{$i}}" type="number">{{ $cart->options->number_of_ticket }}</label>
+                        {{--<input type="hidden" name="number_of_ticket[]" value="{{ $cart->options->number_of_ticket }}>--}}
                     </td>
                     <td data-th="Subtotal" class="text-center">{{ number_format($cart->options->total) }} VNĐ</td>
                     <td class="actions" data-th="">
@@ -75,7 +79,7 @@
                         </a>
                     </td>
                 </tr>
-                @endforeach
+                <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -93,9 +97,9 @@
                 </tr>
                 </tfoot>
             </table>
-                    @else
+                    <?php else: ?>
                     <h3>Không có mặt hàng nào trong giỏ hàng</h3>
-                    @endif
+                    <?php endif; ?>
         </div>
         <!--Modal-->
         <div id="myModal" style="z-index: 999999 " class="modal fade" role="dialog">
@@ -108,9 +112,14 @@
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
                     <div class="modal-body" style="">
-                        <form action="{{ route('cart.buy') }}" method="post">
-                            {{ @csrf_field() }}
-                            {{--<input type="hidden" name="id" value="{{$event->id }}">--}}
+
+
+                            {{--<input type="hidden" name="book_id" value="{{ $cart->id }}">--}}
+
+                            <input type="hidden" name="date_order" value="">
+
+                            {{--<input type="hidden" name="event_id[]" value="{{$key->event_id}}">--}}
+
                             <input type="hidden" name="total_price" value="{{$total}}">
                             <input type="hidden" name="member_id" value="{{$cart->options->member_id}}">
                             <div class="row">
@@ -183,11 +192,12 @@
                             <span class="msg-error error"></span>
                             <br>
                             <button type="submit" class="btn btn-primary">Thanh Toán</button>
-                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
+        </form>
         <!--end giỏ hàng-->
     </section>
 @endsection
