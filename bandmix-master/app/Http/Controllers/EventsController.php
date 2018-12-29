@@ -20,6 +20,7 @@ use App\Repositories\LocationRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\EventCreateRequest;
@@ -145,17 +146,17 @@ class EventsController extends Controller
 //            dd($band_owner);
 
         } else {
-            if($request->hasFile('avatar')){
+            if ($request->hasFile('avatar')) {
                 $data['avatar'] = $this->uploadFile($request['avatar']);
             }
             $event = $this->repository->update($data, $data['event_id']);
             EventGenre::where('event_id', $data['event_id'])->delete();
             EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
             Act::where('event_id', $data['event_id'])->delete();
-            if(count($data['item_name']) > 1) {
+            if (count($data['item_name']) > 1) {
                 $event_id = $event->id;
                 $total_item = count($data['item_name']);
-                for($i = 1; $i < $total_item; $i++) {
+                for ($i = 1; $i < $total_item; $i++) {
                     $data_act[] = [
                         'act' => $data['item_name'][$i],
                         'band_id' => $data['band'][$i],
@@ -164,21 +165,85 @@ class EventsController extends Controller
                     $band = $this->bandRespository->find($data['band'][$i]);
                     $member = $this->memberRepository->find($band->member_id);
                     $member->notify(new InvoicePaid($band, $event));
-                } 
+                }
                 Act::insert($data_act);
             }
-
+            $messages = [
+                'required' => 'Trường :attribute bắt buộc nhập.',
+                'email' => 'Trường :attribute phải có định dạng email'
+            ];
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+                'email' => 'required|email',
+                'location_detail' => 'required',
+                'vacancy' => 'required|min:0',
+                'item_name' => 'required'
+            ], $messages);
         }
-//        for ($i = 0; $i < count($band_owner);$i++ ){
-//            $member = $this->memberRepository->find($band_owner[$i]);
-//        }
-//        $event->notify(new InvoicePaid());
-        $locations = $this->locationRespository->all();
-        $events_search = $this->repository->query($request->all())->latest()->paginate(12);
-        $events = $this->repository->findWhere([
-            'is_on_top' => 1
-        ]);
-        return redirect(route('events.manage',compact('events','events_search','locations')) );
+        if($validator->fails()){
+            return redirect(route('events.store'))->withErrors($validator)->withInput();
+        }else {
+            if (empty($data['event_id'])) {
+                $data['member_id'] = Auth::id();
+                $data['status'] = '2';
+                $data['slug'] = str_slug($data['name'], '-');
+                if ($request->hasFile('avatar')) {
+                    $data['avatar'] = $this->uploadFile($request['avatar']);
+                } else {
+                    $data['avatar'] = 'uploads/avatar/default.jpg';
+                }
+                $event = $this->repository->create($data);
+
+                EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+                if (count($data['item_name']) > 1) {
+                    $event_id = $event->id;
+                    $total_item = count($data['item_name']);
+                    for ($i = 1; $i < $total_item; $i++) {
+                        $data_act[] = [
+                            'act' => $data['item_name'][$i],
+                            'band_id' => $data['band'][$i],
+                            'event_id' => $event_id
+                        ];
+                        $band = Band::find($data['band'][$i]);
+                        // Mail::to($band->email)->send(new BandConfirm($event->name));
+                    }
+                    Act::insert($data_act);
+                }
+            } else {
+                if ($request->hasFile('avatar')) {
+                    $data['avatar'] = $this->uploadFile($request['avatar']);
+                }
+                $event = $this->repository->update($data, $data['event_id']);
+                EventGenre::where('event_id', $data['event_id'])->delete();
+                EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+                Act::where('event_id', $data['event_id'])->delete();
+                if (count($data['item_name']) > 1) {
+                    $event_id = $event->id;
+                    $total_item = count($data['item_name']);
+                    for ($i = 1; $i < $total_item; $i++) {
+                        $data_act[] = [
+                            'act' => $data['item_name'][$i],
+                            'band_id' => $data['band'][$i],
+                            'event_id' => $event_id
+                        ];
+                    }
+                    Act::insert($data_act);
+                }
+            }
+            $locations = $this->locationRespository->all();
+            $events_search = $this->repository->query($request->all())->latest()->paginate(12);
+            $events = $this->repository->findWhere([
+                'is_on_top' => 1
+            ]);
+            return redirect(route('events.manage', compact('events', 'events_search', 'locations')));
+
+            $locations = $this->locationRespository->all();
+            $events_search = $this->repository->query($request->all())->latest()->paginate(12);
+            $events = $this->repository->findWhere([
+                'is_on_top' => 1
+            ]);
+            return redirect(route('events.manage', compact('events', 'events_search', 'locations')));
+        }
     }
 
     public function contact($id){
