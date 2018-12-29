@@ -77,7 +77,7 @@
                     </p>
                     <p class="fieldset">
                         <label class="image-replace password" for="signup-password">Mật khẩu</label>
-                        <input class="full-width has-padding has-border validate[required, custom[password_Required], custom[password_Not_Spacing]]" id="password" type="password"  placeholder="Mật khẩu" name="password">
+                        <input class="full-width has-padding has-border validate[required,minSize[6], custom[password_Required], custom[password_Not_Spacing]]" id="password" type="password"  placeholder="Mật khẩu" name="password">
                         <a href="#0" class="hide-password">Hiện</a>
                     </p>
                     <p class="fieldset">

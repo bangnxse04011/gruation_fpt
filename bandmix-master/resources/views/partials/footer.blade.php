@@ -9,23 +9,23 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" placeholder="Họ và Tên" required="required" />
+                                <input type="text" name="guest_name" class="form-control" id="name" placeholder="Họ và Tên" required="required" />
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="name" placeholder="Địa chỉ Email" required="required" />
+                                    <input type="email"  name="email" class="form-control" id="name" placeholder="Địa chỉ Email" required="required" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" placeholder="Tiêu đề Thư" required="required" />
+                                    <input type="text" name="feedback_title" class="form-control" id="name" placeholder="Tiêu đề Thư" required="required" />
                                 </div>
                             </div>
                         </div>
                         <br>
                         <div class="col-md-6">
                             <div class="form-group">
-										<textarea name="message" id="message" class="form-control" rows="4" cols="25" required="required"
+										<textarea name="feedback_body" id="message" class="form-control" rows="4" cols="25" required="required"
                                                   placeholder="Nội dung"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">

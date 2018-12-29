@@ -77,12 +77,11 @@ class FeedbackController extends Controller
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $feedback = $this->repository->create($request->all());
-            dd($feedback);
             $response = [
                 'message' => 'Feedback created.',
                 'data'    => $feedback->toArray(),
             ];
-            return redirect($request->url())->with('message', $response['message']);
+            return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -91,7 +90,7 @@ class FeedbackController extends Controller
                 ]);
             }
 
-            return redirect($request->url())->withErrors($e->getMessageBag())->withInput();
+            return redirect()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -123,12 +122,12 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $feedback = $this->repository->find($id);
-
-        return view('feedback.edit', compact('feedback'));
-    }
+//    public function edit($id)
+//    {
+//        $feedback = $this->repository->find($id);
+//
+//        return view('feedback.edit', compact('feedback'));
+//    }
 
     /**
      * Update the specified resource in storage.
@@ -140,38 +139,38 @@ class FeedbackController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(FeedbackUpdateRequest $request, $id)
-    {
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $feedback = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Feedback updated.',
-                'data'    => $feedback->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
-    }
+//    public function update(FeedbackUpdateRequest $request, $id)
+//    {
+//        try {
+//
+//            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+//
+//            $feedback = $this->repository->update($request->all(), $id);
+//
+//            $response = [
+//                'message' => 'Feedback updated.',
+//                'data'    => $feedback->toArray(),
+//            ];
+//
+//            if ($request->wantsJson()) {
+//
+//                return response()->json($response);
+//            }
+//
+//            return redirect()->back()->with('message', $response['message']);
+//        } catch (ValidatorException $e) {
+//
+//            if ($request->wantsJson()) {
+//
+//                return response()->json([
+//                    'error'   => true,
+//                    'message' => $e->getMessageBag()
+//                ]);
+//            }
+//
+//            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+//        }
+//    }
 
 
     /**

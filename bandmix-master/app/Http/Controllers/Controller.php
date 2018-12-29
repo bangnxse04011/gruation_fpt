@@ -29,17 +29,5 @@ class Controller extends BaseController
 
         return $path.'/'.$fileName;
     }
-
-    public function ajaxSearch(Request $request, EventRepository $event, NewsRepository $news, BandRepository $band){
-        $key = $request->keyword;
-        $events = $event->query(['keyword' => $key])->get();
-        $filteredNews = $news->query(['keyword' => $key])->limit(3)->get();
-        $bands = $band->query(['keyword' => $key])->limit(3)->get();
-
-        return response()->json([
-            'events' => $events,
-            'news' => $filteredNews,
-            'bands' => $bands,
-        ]);
-    }
+    
 }

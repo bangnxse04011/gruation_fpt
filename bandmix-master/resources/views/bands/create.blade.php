@@ -48,8 +48,7 @@
                                     <label>Số Lượng Thành Viên :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input name="number_of_mem" type="number" class="form-control" required>
-
+                                    <input name="number_of_mem" type="number" class="form-control" min="1" required>
                                 </div>
 
                             </div>

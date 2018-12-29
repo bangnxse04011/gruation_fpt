@@ -59,8 +59,9 @@ class BandsController extends Controller
     public function index(Request $request)
     {
         $bands = $this->repository->query($request->all())->paginate(12);
+        $locations = $this->locationRepository->all();
         $genres = Genre::all();
-        return view('bands.index', compact('bands','genres'));
+        return view('bands.index', compact('bands','genres','locations'));
     }
 
     public function create()
@@ -206,21 +207,21 @@ class BandsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-//        dd($id);
-        $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Band deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Band deleted.');
-    }
+//    public function destroy($id)
+//    {
+////        dd($id);
+//        $deleted = $this->repository->delete($id);
+//
+//        if (request()->wantsJson()) {
+//
+//            return response()->json([
+//                'message' => 'Band deleted.',
+//                'deleted' => $deleted,
+//            ]);
+//        }
+//
+//        return redirect()->back()->with('message', 'Band deleted.');
+//    }
     public function deleteBand($id) {
         $deleted = $this->repository->delete($id);
         return redirect()->back();

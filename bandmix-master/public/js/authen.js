@@ -12,6 +12,10 @@ $(document).ready(function () {
             check_exit();
         }
     });
+    // $("#password").oninvalid(function () {
+    //     this.setCustomValidity('Hãy nhập ít nhất 6 ký tự');
+    // });
+
     
     /**
      *  Check exit email
@@ -56,7 +60,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response && response.MESSAGE != null) {
-                    jConfirm(response.MESSAGE, 'Thông báo', function (status) {
+                    jConfirm(response.MESSAGE, 'Thông báo   ', function (status) {
                         if(status) {
                             window.location.href = "/";
                         }

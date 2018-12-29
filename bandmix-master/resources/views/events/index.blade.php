@@ -20,7 +20,7 @@
                         <div class="overlayE">
                             <h2>{{ $item->name }}</h2>
                             <h2>{{ $item->price }}</h2>
-                            {{--<h2>{{ $item->location->name }}</h2>--}}
+                            <h2>{{ $item->locations->name }}</h2>
                             <a class="infoE" href="{{ route('events.show',$item->id) }}">Chi tiết</a>
                         </div>
                     </div>
@@ -33,9 +33,9 @@
             <h2>Danh Sách Sự Kiện</h2>
             <hr>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <form class="form-inline search-form">
-                <div class="form-group" style="margin-left: 40%">
+                <div class="form-group" >
                     <input type="text" value="{{request()->get('keyword')}}" class="form-control" name="keyword" placeholder="Tìm kiếm" aria-label="Search" style="width: 30%">
                         <select class="form-control select-op" name="search_select" >
                             <option value="" selected>Giá vé</option>
@@ -45,14 +45,11 @@
                         <select class="form-control select-op" name="search_location">
                             <option value="" selected>Địa điểm</option>
                             @foreach($locations as $location)
-                                <option {{ $location->id == request()->get('search_location') ? 'selected' : '' }} value="{{ $location->id }}" >{{ $location->name }}</option>
+                            <option {{ $location->id == request()->get('search_location') ? 'selected' : '' }} value="{{ $location->id }}" >{{ $location->name }}</option>
                             @endforeach
-
                         </select>
                         <button type="submit" class="btn btn-default searchA ">Tìm kiếm</button>
-                    </div>
-                    <p class="event_count">Tìm thấy {{count($events_search)}} sản phẩm</p>
-
+                </div>
             </form>
         </div>
 

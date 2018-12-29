@@ -5,6 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Notifications\Notifiable;
+
 
 /**
  * Class Member.
@@ -13,6 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  */
 class Member extends Model implements Transformable
 {
+    use Notifiable;
     use TransformableTrait;
 
     /**

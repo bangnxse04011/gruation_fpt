@@ -95,6 +95,9 @@
 
 			return this;
 		},
+
+
+
 		/**
 		* Validates either a form or a list of fields, shows prompts accordingly.
 		* Note: There is no ajax form validation with this method, only field ajax validation are evaluated
@@ -394,7 +397,9 @@
 
 			if (errorFound) {
 				if (options.scroll) {
-					var destination=first_err.offset().top;
+					// var destination=first_err.offset().top;
+					// var fixleft = first_err.offset().left;
+					var destination= form.scrollTop() + ( first_err.offset().top - form.position().top ) - (form.height()/2 ) + ( first_err.height()/2 ); // This is at around line 371
 					var fixleft = first_err.offset().left;
 
 					//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
@@ -430,12 +435,12 @@
 						});
 
 					} else {
-						$("html, body").animate({
-							scrollTop: destination
-						}, 1100, function(){
-							if(options.focusFirstField) first_err.focus();
-						});
-						$("html, body").animate({scrollLeft: fixleft},1100)
+						// $("html, body").animate({
+						// 	scrollTop: destination
+						// }, 1100, function(){
+						// 	if(options.focusFirstField) first_err.focus();
+						// });
+						// $("html, body").animate({scrollLeft: fixleft},1100)
 					}
 
 				} else if(options.focusFirstField)
@@ -1224,7 +1229,7 @@
 
 			if (len < min) {
 				var rule = options.allrules.minSize;
-				return rule.alertText + min + rule.alertText2;
+				return rule.alertText  + rule.alertText2 + min + rule.alertText3;
 			}
 		},
 		/**

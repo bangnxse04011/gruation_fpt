@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Entities\Slide;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

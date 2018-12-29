@@ -26,7 +26,8 @@
                 "minSize": {
                     "regex": "none",
                     "alertText": "* ",
-                    "alertText2": "文字以上で入力してください。"
+                    "alertText2": "Bạn vui lòng nhập ít nhất ",
+                    "alertText3": " ký tự!"
                 },
                 "groupRequired": {
                     "regex": "none",

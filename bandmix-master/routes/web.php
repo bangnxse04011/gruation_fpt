@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('events/{id}/review', 'EventsController@review')->name('events.review');
     Route::post('events/confirm', 'EventsController@confirm')->name('events.confirm');
     Route::post('cart/buy', 'CartController@buySuccess')->name('cart.buy');
+    //user
+    Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
+    Route::get('/user/{id}/notifications','MembersController@notiView')->name('member.noti');
 });
 //event
 Route::get('events','EventsController@index')->name('events.index');
@@ -63,7 +66,6 @@ Route::get('/news/{id}','NewsController@show')->name('news.show');
 
 //search
 Route::get('/user/{id}','MembersController@show')->name('members.index');
-Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
 Route::Post('/user/{id}','MembersController@update')->name('members.update');
 Route::get('/user/manage','MembersController@manage')->name('members.manage');
 //login

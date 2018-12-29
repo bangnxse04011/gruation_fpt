@@ -46,12 +46,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="lesson-menu">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="fa fa-bell" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <a href="{{route('member.noti',$member->id)}}"> <label class="pointer-user">Thông báo </label><label for="" style="color: red; margin-left: 2px;"> ({{ count($member->notifications)}})</label></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endif
             </div>
             <!--user information-->
             <div class="menu-right-chgpass">
-                <div class="col-sm-12" id="id_info">
+                <div class="col-sm-12" >
                     <div>
                         <div>
                             <strong><label>Tài khoản của tôi</label></strong>
@@ -60,111 +70,57 @@
                             <label>Quản lí thông tin cá nhân để bảo mật tài khoản</label>
                         </div>
                     </div>
-                        <div class="second-part-chgpass row">
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-4 input-with-label">
-                                        <label>Họ và tên:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <p>{{$member->name}}</p>
-                                    </div>
+                    <div class="second-part-chgpass row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4 input-with-label">
+                                    <label>Họ và tên:</label>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-4 input-with-label">
-                                        <label>Giới tính:</label>
-                                    </div>
-                                    <div class="col-sm-6 input-with-content">
-                                        <p>{{$member->gender == 1 ? 'Nam' : 'Nữ'}}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 input-with-label">
-                                        <label>Số điện thoại:</label>
-                                    </div>
-                                    <div class="col-sm-6 input-with-content">
-                                        <p>{{$member->phone_number}}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 input-with-label">
-                                        <label>Ngày sinh:</label>
-                                    </div>
-                                    <div class="col-sm-6 input-with-content">
-                                        <p>{{$member->dob}}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 input-with-label">
-                                        <label>Email:</label>
-                                    </div>
-                                    <div class=" col-sm-6 input-with-content">
-                                        <p>{{$member->email}}</p>
-                                    </div>
+                                <div class=" col-sm-6 input-with-content">
+                                    <p>{{$member->name}}</p>
                                 </div>
                             </div>
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-3 input-with-label">
-
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-4 input-with-label">
+                                    <label>Giới tính:</label>
+                                </div>
+                                <div class="col-sm-6 input-with-content">
+                                    <p>{{$member->gender == 1 ? 'Nam' : 'Nữ'}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 input-with-label">
+                                    <label>Số điện thoại:</label>
+                                </div>
+                                <div class="col-sm-6 input-with-content">
+                                    <p>{{$member->phone_number}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 input-with-label">
+                                    <label>Ngày sinh:</label>
+                                </div>
+                                <div class="col-sm-6 input-with-content">
+                                    <p>{{$member->dob}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 input-with-label">
+                                    <label>Email:</label>
+                                </div>
+                                <div class=" col-sm-6 input-with-content">
+                                    <p>{{$member->email}}</p>
                                 </div>
                             </div>
                         </div>
-                </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-3 input-with-label">
 
-                <div class="col-sm-12" id="change_pass">
-                    <div>
-                        <div>
-                            <strong><label>Đổi mật khẩu</label></strong>
-                        </div>
-                        <div class="textChgPass">
-                            <label>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu với người khác</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <form id="change_Pass_Form" class="form" method="POST" action="">
-                        {{ csrf_field() }}           
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-12 msg_error_rp" style="color:red; display:none; margin_bottom:20px"></div>
-                                <div class="col-sm-12 msg_success" style="color:green; display:none; margin_bottom:20px">Đổi mật khẩu thành công</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
-                                    <label>Mật khẩu hiện tại</label>
-                                </div>
-                                <div class=" col-sm-6 input-with-content">
-                                    <input id="old_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="old_pass" >
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
-                                    <label>Mật khẩu mới</label>
-                                </div>
-                                <div class=" col-sm-6 input-with-content">
-                                    <input id="new_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="password" >
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
-                                    <label>Nhập lại mật khẩu mới</label>
-                                </div>
-                                <div class=" col-sm-6 input-with-content">
-                                    <input id="re_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="re_pass" >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-5 input-with-label">
-                                </div>
-                                <div class=" col-sm-6 input-with-content">
-                                <button id="btnChangPass" type="button" class="btn btn-secondary btn-lg btn-block" data-url="{{ route('change-pass') }}">Đổi mật khẩu</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
             <!--END user information-->

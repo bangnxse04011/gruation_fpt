@@ -6,7 +6,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Brand -->
-            <a class="navbar-brand" href="#">BANDMIX</a>
+            <a class="navbar-brand" href="/">BANDMIX</a>
             <!-- Links -->
             <div class="collapse navbar-collapse" id="nav-content">
                 <ul class="navbar-nav col-12 col-md-8 col-lg-6">

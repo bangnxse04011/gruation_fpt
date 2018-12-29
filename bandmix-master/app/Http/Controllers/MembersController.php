@@ -31,7 +31,6 @@ class MembersController extends Controller
     protected $validator;
     protected $cartRepository;
 
-    protected $cartRepository;
 
     /**
      * MembersController constructor.
@@ -40,19 +39,12 @@ class MembersController extends Controller
      * @param MemberValidator $validator
      * @param CartRepository $cartRepository
      */
-<<<<<<< HEAD
-    public function __construct(MemberRepository $repository, MemberValidator $validator,CartRepository $cartRepository)
-=======
+
     public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository)
->>>>>>> origin/bandmix_new_bachnv
     {
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->cartRepository = $cartRepository;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/bandmix_new_bachnv
     }
 
     /**
@@ -82,7 +74,6 @@ class MembersController extends Controller
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $member = $this->repository->create($request->all());
-            dd($member);
             $request['slug'] = str_slug($member->name, '-') . '-n'.$member->id;
             $this->repository->update($request->only('slug'),$member->id);
             $response = [
@@ -107,12 +98,12 @@ class MembersController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
-    public function manage()
-    {
-        $member_id = Auth::id();
-        $cart = $this->cartRepository->findWhere(['member_id' => $member_id]);
-        return view('member.manage',compact('cart'));
+
+    public function notiView($id){
+        $member = $this->repository->find($id);
+        return view('members.notifications',compact('member'));
     }
+
 
     public function manage()
     {
@@ -120,7 +111,6 @@ class MembersController extends Controller
         $cart = $this->cartRepository->findWhere(['member_id' => $member_id]);
         return view('member.manage',compact('cart'));
     }
-
 
     /**
      * Display the specified resource.

@@ -8,6 +8,8 @@ use App\Entities\Event;
 use App\Entities\EventGenre;
 use App\Entities\Act;
 
+use App\Notifications\InvoicePaid;
+use App\Repositories\MemberRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BandConfirm;
 
@@ -44,6 +46,8 @@ class EventsController extends Controller
      */
     protected $validator;
     protected $bandRespository;
+    protected $eventHost;
+    protected $memberRepository;
 
     /**
      * EventsController constructor.
@@ -60,12 +64,15 @@ class EventsController extends Controller
      *  @param BandRepository $bandRepository
      */
 
-    public function __construct(EventRepository $repository, EventValidator $validator, LocationRepository $locationRepository, BandRepository $bandRepository)
+    public function __construct(MemberRepository $memberRepository, EventRepository $repository, EventValidator $validator, LocationRepository $locationRepository, BandRepository $bandRepository, Event $eventHost)
     {
+
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->locationRespository = $locationRepository;
         $this->bandRespository = $bandRepository;
+        $this->eventHost = $eventHost;
+        $this->memberRepository = $memberRepository;
     }
 
     /**
@@ -104,6 +111,7 @@ class EventsController extends Controller
      */
     public function store(EventCreateRequest $request)
     {
+        $band_owner = [];
         $data = $request->all();
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
@@ -126,11 +134,16 @@ class EventsController extends Controller
                         'band_id' => $data['band'][$i],
                         'event_id' => $event_id
                     ];
-                    $band = Band::find($data['band'][$i]);
+                    $band = $this->bandRespository->find($data['band'][$i]);
+                    $member = $this->memberRepository->find($band->member_id);
+                    $member->notify(new InvoicePaid($band, $event));
+
                     // Mail::to($band->email)->send(new BandConfirm($event->name));
                 } 
                 Act::insert($data_act);
             }
+//            dd($band_owner);
+
         } else {
             if($request->hasFile('avatar')){
                 $data['avatar'] = $this->uploadFile($request['avatar']);
@@ -148,11 +161,18 @@ class EventsController extends Controller
                         'band_id' => $data['band'][$i],
                         'event_id' => $event_id
                     ];
+                    $band = $this->bandRespository->find($data['band'][$i]);
+                    $member = $this->memberRepository->find($band->member_id);
+                    $member->notify(new InvoicePaid($band, $event));
                 } 
                 Act::insert($data_act);
             }
 
         }
+//        for ($i = 0; $i < count($band_owner);$i++ ){
+//            $member = $this->memberRepository->find($band_owner[$i]);
+//        }
+//        $event->notify(new InvoicePaid());
         $locations = $this->locationRespository->all();
         $events_search = $this->repository->query($request->all())->latest()->paginate(12);
         $events = $this->repository->findWhere([
@@ -300,41 +320,44 @@ class EventsController extends Controller
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $deleted = $this->repository->delete($id);
+//     */
+//    public function destroy($id)
+//    {
+//        $deleted = $this->repository->delete($id);
+//
+//        if (request()->wantsJson()) {
+//
+//            return response()->json([
+//                'message' => 'Event deleted.',
+//                'deleted' => $deleted,
+//            ]);
+//        }
+//
+//        return redirect()->back()->with('message', 'Event deleted.');
+//    }
 
-        if (request()->wantsJson()) {
+//    public function detail(Request $request, $id){
+//        // $event = $this->repository->findByField('id',$id)->first();
+//        $event_genre = Event::join('event_genre', 'events.id', '=', 'event_genre.event_id')
+//        ->join('genres', 'genres.id', '=', 'event_genre.genre_id')
+//        ->leftJoin('locations','locations.id', '=','events.location_id')
+//        ->selectRaw('events.* , locations.name as location_name, genres.name as genres_name')
+//        ->where('events.id', '=', $id)
+//        ->where('events.status', '=', 1)
+//        ->get();
+//
+//        $event = $event_genre->first();
+//        $acts = Act::where('event_id', $id)->get();
+//        $data['event_genre'] = $event_genre;
+//        $data['act'] = $acts;
+//        $data['event'] = $event;
+//
+//        return view('events.detail', $data);
+//    }
 
-            return response()->json([
-                'message' => 'Event deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
+    public function search($option = []){
 
-        return redirect()->back()->with('message', 'Event deleted.');
     }
-
-    public function detail(Request $request, $id){
-        // $event = $this->repository->findByField('id',$id)->first();
-        $event_genre = Event::join('event_genre', 'events.id', '=', 'event_genre.event_id')
-        ->join('genres', 'genres.id', '=', 'event_genre.genre_id')
-        ->leftJoin('locations','locations.id', '=','events.location_id')
-        ->selectRaw('events.* , locations.name as location_name, genres.name as genres_name')
-        ->where('events.id', '=', $id)
-        ->where('events.status', '=', 1)
-        ->get();
-
-        $event = $event_genre->first();
-        $acts = Act::where('event_id', $id)->get();
-        $data['event_genre'] = $event_genre;
-        $data['act'] = $acts;
-        $data['event'] = $event;
-
-        return view('events.detail', $data);
-    }
-
 
     public function deleteEvent($id) {
         $deleted = $this->repository->delete($id);
