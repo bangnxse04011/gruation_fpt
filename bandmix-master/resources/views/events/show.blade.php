@@ -42,7 +42,7 @@
                             <label>Địa điểm tổ chức:</label>
                         </div>
                         <div class=" col-sm-5 input-with-content">
-                            <label>{{ $event->location_detail.', '.$event->locations->name}}</label>
+                            {{--<label>{{ $event->location_detail.', '.$event->locations->name}}</label>--}}
                         </div>
                     </div>
 
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                         <div class=" col-sm-5 input-with-content">
-                                            <label>{{ $event->location_detail .', '. $event->locations->name }}</label>
+                                            {{--<label>{{ $event->location_detail .', '. $event->locations->name }}</label>--}}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -196,9 +196,17 @@
                                                     </div>
 
                                                     <div class="row">
+                                                        @if( $event->vacancy != 0)
                                                         <div class=" col-sm-6 input-with-content">
                                                             <button id="addToCart" class="btn btn-danger">Mua vé</button>
                                                         </div>
+
+                                                            @else
+                                                            <div class=" col-sm-6 input-with-content">
+                                                                <button disabled id="addToCart" class="btn btn-danger">Mua vé</button>
+                                                            </div>
+                                                            <span><p style="color: #9e2c2c;font-family: Arial;" >Sự kiện đã bán hết vé!!!!</p></span>
+                                                        @endif
                                                     </div>
                                                 </form>
                                             </div>
@@ -208,35 +216,5 @@
                             </div>
                             <!--END user information-->
                             <label>Mua Vé:</label>
-                        </div>
-                        <div class=" col-sm-6 input-with-content">
-                            <input type="number" class="form-control" name="fullName">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5 input-with-label">
-                            <label>Thành Tiền:</label>
-                        </div>
-                        <div class=" col-sm-6 input-with-content">
-                            <label>90.000 VND</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class=" col-sm-6 input-with-content">
-                            <a href="{{ route('cart.store',$event->id) }}" class="btn btn-danger">Mua vé</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-5 input-with-label">
-                        <label>Mô Tả Chi Tiết:</label>
-                    </div>
-                    <div class=" col-sm-5 input-with-content">
-                        <label>{!! $event->detail !!}</label>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-    </div>
 @endsection

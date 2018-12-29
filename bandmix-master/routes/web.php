@@ -34,9 +34,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/cart', 'CartsController@store')->name('cart.store');
     Route::get('/cart/{id}', 'CartsController@destroy')->name('cart.destroy');
     Route::get('empty', 'CartsController@empty')->name('cart.empty');
+    Route::post('/checkout','CartsController@getCheckout')->name('cart.checkout');
+    //band
     Route::get('/bands/edit/{id}', 'BandsController@edit')->name('bands.edit');
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
-
+//event
     Route::post('events', 'EventsController@store')->name('events.store');
     Route::get('events/{id}/review', 'EventsController@review')->name('events.review');
     Route::post('events/confirm', 'EventsController@confirm')->name('events.confirm');
@@ -62,10 +64,13 @@ Route::get('/news','NewsController@index')->name('news.index');
 Route::get('/news/{id}','NewsController@show')->name('news.show');
 
 //search
+Route::get('user/getData','MembersController@getData')->name('members.data');
 Route::get('/user/{id}','MembersController@show')->name('members.index');
 Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
 Route::Post('/user/{id}','MembersController@update')->name('members.update');
-Route::get('/user/manage','MembersController@manage')->name('members.manage');
+Route::get('/myBill/{id}','MembersController@manageBill')->name('members.manageBill');
+
+
 //login
 Auth::routes();
 Route::Post('/','Auth\LoginController@login')->name('login');

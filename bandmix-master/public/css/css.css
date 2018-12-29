@@ -1063,6 +1063,12 @@ a .round i {
     /*width: 107%;*/
 /*}*/
 
+.dataTables_length{
+    float: left;
+}
+#myTable{
+    width: 117%;
+}
 
 @media only screen and (max-width: 800px) {
     .search-container {

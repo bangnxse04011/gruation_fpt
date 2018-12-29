@@ -36,8 +36,9 @@
             </div>
             <!--bigNews-->
             <div class="row">
+                @foreach( $news_top as $top)
                 <div class="col-xs-18 col-sm-6 col-md-12">
-                    <a href=""><img src="images/news/BTS.jpg" class="img-resposive" style="width: 100%">
+                    <a href=""><img src="{{ url( $top->avatar ) }}" class="img-resposive" style="width: 100%; height: 45%;">
                     </a>
                     <div class="row">
                         <div class="col-sm-12" style="margin-top: 5px">
@@ -46,24 +47,26 @@
                     <div class="caption">
                         <div class="titleNews">
 						<span class="stext-105 cl3">
-                            <strong><a href=""><h3>Fan hồi hộp chờ đón nhóm nhạc BTS tới Việt Nam vào ngày 1/2/2019 tới đây</h3></a></strong>
+                            <strong><a href="{{ route('news.show',$top->id) }}"><h3>{{ $top->title }}</h3></a></strong>
 						</span>
                         </div>
                         <div class="infoNews">
                             <label>Bởi: Admin |</label>
-                            <label> FanBand |</label>
-                            <label> 20-12-2019 |</label>
+                            <label> {{ $top->category->name }} |</label>
+                            <label> {{ $top->created_at->format('Y-m-d') }}  |</label>
                         </div>
                         <div class="sapo">
-                            <p>Thông tin về chương trình đại nhạc hội quy tụ hàng loạt ngôi sao đình đám Hàn Quốc sắp diễn ra tại Việt Nam đang khiến fan Kpop không khỏi hoang mang và chờ đợi...
-                                <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
+                            <p>{{ substr($top->description,0,400).'......' }}
+                                <a href="{{ route('news.show',$top->id) }}" class="fa fa-info-circle"> Đọc tiếp </a></p>
                         </div>
                     </div>
                 </div>
+                    @endforeach
             </div><!--/row-->
             <div class="row">
+                @foreach( $news_middle as $middle )
                 <div class="col-xs-18 col-sm-6 col-md-6">
-                    <a href=""><img src="images/news/365.jpg" class="img-resposive"></a>
+                    <a href=""><img src="{{ url( $middle->avatar) }}" class="img-resposive"></a>
                     <div class="row">
                         <div class="col-sm-12" style="margin-top: 5px">
                         </div>
@@ -71,48 +74,28 @@
                     <div class="caption">
                         <div class="titleNews"
                         <span class="stext-105 cl3">
-                        <strong><a href=""><h4>365 trở lại sân khấu sau nhiều ngày vắng bóng</h4></a></strong>
+                        <strong><a href="{{ route('news.show',$middle->id) }}"><h4>{{ $middle->tittle }}</h4></a></strong>
 						</span>
                     </div>
                     <div class="infoNews">
                         <label>Bởi: Admin |</label>
-                        <label> FanBand |</label>
-                        <label> 20-12-2019 |</label>
+                        <label> {{ $middle->category->name }} |</label>
+                        <label> {{ $middle->created_at->format('Y-m-d') }} |</label>
                     </div>
                     <div class="sapo">
-                        <p>Trước khi tan rã, 365 là một trong những nhóm nhạc thần tượng đình đám. Sau vài tháng hoạt động riêng, nhóm đã có 1 liveshow tái hợp cực ấn tượng trong dịp đầu năm 2017...
-                            <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
+                        <p>{{ substr($middle->description,0,200).'...' }}
+                            <a href="{{ route('news.show',$middle->id) }}" class="fa fa-info-circle"> Đọc tiếp </a></p>
                     </div>
                 </div>
+                    @endforeach
             </div>
-            <div class="col-xs-18 col-sm-6 col-md-6">
-                <a href=""><img src="images/news/nhomnhac.jpg" class="img-resposive"></a>
-                <div class="row">
-                    <div class="col-sm-12" style="margin-top: 5px">
-                    </div>
-                </div>
-                <div class="caption">
-                    <div class="titleNews">
-                        <span class="stext-105 cl3">
-                        <strong><a href=""><h4>Việt Nam ngày càng xuất hiện thêm nhiều nhóm nhạc mới</h4></a></strong>
-                        </span>
-                    </div>
-                    <div class="infoNews">
-                        <label>Bởi: Admin |</label>
-                        <label> FanBand |</label>
-                        <label> 20-12-2019 |</label>
-                    </div>
-                    <div class="sapo">
-                        <p>Thị trường âm nhạc Việt Nam đang chuyển mình khi xuất hiện nhiều ban nhạc mới ra đời...
-                            <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <!--/////////-->
         <div class="row">
+            @foreach($news_middle1 as $middle1)
             <div class="col-xs-18 col-sm-6 col-md-4">
-                <a href=""><img src="images/news/BTS.jpg" class="img-resposive"></a>
+                <a href=""><img src="{{ url( $middle1->avatar) }}" class="img-resposive"></a>
                 <div class="row">
                     <div class="col-sm-12" style="margin-top: 5px">
                     </div>
@@ -120,24 +103,26 @@
                 <div class="caption">
                     <div class="titleNews">
 						<span class="stext-105 cl3">
-							<strong><a href="">Fan hồi hộp chờ đón nhóm nhạc BTS tới Việt Nam vào ngày 1/2/2019 tới đây</a></strong>
+							<strong><a href="{{ route('news.show',$middle1->id) }}">{{ $middle1->tittle }}</a></strong>
 						</span>
                     </div>
                     <div class="infoNews">
                         <label>Bởi: Admin |</label>
-                        <label> FanBand |</label>
-                        <label> 20-12-2019 |</label>
+                        <label> {{ $middle1->category->name }} |</label>
+                        <label> {{ $middle1->created_at->format('Y-m-d') }}|</label>
                     </div>
                     <div class="sapo">
-                        <p>Đây là lần thứ 3 nhóm nhạc BTS tới Việt Nam....
-                            <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
+                        <p>{{ substr($middle->description,0,50).'...' }}
+                            <a href="{{ route('news.show',$middle1->id) }}" class="fa fa-info-circle"> Đọc tiếp </a></p>
                     </div>
                 </div>
             </div>
+        @endforeach
 
+        @foreach($news_end as $end)
             <div class="col-xs-18 col-sm-6 col-md-4">
                 <div>
-                    <a href=""><img src="images/news/365.jpg" class="img-resposive"></a>
+                    <a href=""><img src="{{ url( $end->avatar) }}" class="img-resposive"></a>
                     <div class="row">
                         <div class="col-sm-12" style="margin-top: 5px">
                         </div>
@@ -145,71 +130,22 @@
                     <div class="caption">
                         <div class="titleNews">
 							<span class="stext-105 cl3">
-								<strong><a href="">365 trở lại sân khấu sau nhiều ngày vắng bóng</a></strong>
+								<strong><a href="{{ route('news.show',$end->id) }}">{{ $end->tittle }}</a></strong>
 							</span>
                         </div>
                         <div class="infoNews">
                             <label>Bởi: Admin |</label>
-                            <label> FanBand |</label>
-                            <label> 20-12-2019 |</label>
-                        </div>
-                        <div class="sapo">
-                            <p>Sau nhiều nghi vân tan giả, 365 đã trở lại sân khấu vào hôm qua...
-                                <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-18 col-sm-6 col-md-4">
-                <div>
-                    <a href=""><img src="images/news/nhomnhac.jpg" class="img-resposive"></a>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-top: 5px">
-                        </div>
-                    </div>
-                    <div class="caption">
-                        <div class="titleNews">
-							<span class="stext-105 cl3">
-								<strong><a href="">Việt Nam ngày càng xuất hiện thêm nhiều nhóm nhạc mới</a></strong>
-							</span>
-                        </div>
-                        <div class="infoNews">
-                            <label>Bởi: Admin |</label>
-                            <label> FanBand |</label>
-                            <label> 20-12-2019 |</label>
-                        </div>
-                        <div class="sapo">
-                            <p>Thị trường âm nhạc Việt Nam đang chuyển mình khi xuất hiện nhiều ban nhạc mới ra đời...
-                                <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-18 col-sm-6 col-md-4">
-                <div>
-                    <a href=""><img src="images/news/bannhac.jpg" class="img-resposive"></a>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-top: 5px">
-                        </div>
-                    </div>
-                    <div class="caption">
-                        <div class="titleNews">
-							<span class="stext-105 cl3">
-								<strong><a href="">Xuất hiện nhóm nhạc ABC làm siêu lòng Fan coffee acoustic</a></strong>
-							</span>
-                        </div>
-                        <div class="infoNews">
-                            <label>Bởi: Admin |</label>
-                            <label> FanBand |</label>
-                            <label> 20-12-2019 |</label>
+                            <label> {{ $end->category->name }} |</label>
+                            <label> {{ $end->created_at->format('Y-m-d') }} |</label>
                         </div>
                         <div class="sapo">
                             <p>Gần đây nhóm nhạc nhới xuất hiện ABC đã trở thành mối quan tâm của không ít các fan coffee ascoustic...
-                                <a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>
+                                <a href="{{ route('news.show',$end->id) }}l" class="fa fa-info-circle"> Đọc tiếp </a></p>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div><!--/row-->
 
         <div class="contact row">

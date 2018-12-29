@@ -12,6 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/libs/validationEngine.jquery.css') }}">
     <link rel="stylesheet" href="{{asset('css/libs/jquery.alerts.css') }}">
+    <link rel="stylesheet" href="{{ url('http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css') }}">
 
     @stack('header')
 </head>
@@ -50,8 +51,7 @@
 <!-- add lib valid data -->
 <script src="{{ asset('js/authen.js') }}"></script>
 <script src="{{ asset('js/account_info.js') }}"></script>
-
-
+        <script type="text/javascript" src="" href="{{url('http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script src="{{url('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js')}}"></script>
 <script src="//cdn.ckeditor.com/4.10.1/full/ckeditor.js"></script>

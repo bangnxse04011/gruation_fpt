@@ -21,6 +21,10 @@ class Cart extends Model implements Transformable
      * @var array
      */
     protected $table = 'books';
-    protected $fillable = ['book_time','total_price','number_of_ticket','member_id','event_id','number_phone','address','name','email','note'];
+    protected $fillable = ['name','email','address','number_phone','event_id','member_id','status','ship_form'];
+    public function bills()
+    {
+        return $this->hasOne('App\Entities\Bill','book_id');
+    }
 
 }

@@ -42,7 +42,7 @@
                                 <i class="fa fa-usd" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <a href="#"> <label class="pointer-user">Quản lý thanh toán</label></a>
+                                <a href="{{ route('members.manageBill',$member->id) }}"> <label class="pointer-user">Quản lý thanh toán</label></a>
                             </div>
                         </div>
                     </div>

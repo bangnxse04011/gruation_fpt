@@ -1,192 +1,135 @@
 @extends('layouts.master')
 @push('header')
     <link rel="stylesheet" href="{{url('css/member.css')}}">
+    {{--<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">--}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+    //css data tables
 @endpush
 @section('content')
-    {{--<h1>alo alo alo</h1>--}}
-    {{--<div class="card-outside">--}}
-        {{--<div class="cart_status row">--}}
-            {{--<div class="col-sm-3 menu_left">--}}
-                {{--<div class="rounded-circle">--}}
-                    {{--<div>--}}
-                        {{--<p>--}}
-                            {{--<img src="{{url($member->avatar)}}" style="height: 255px; width: 255px;">--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<div class="textUser" style="">--}}
-                        {{--<div>--}}
-                            {{--<label>--}}
-                                {{--<h4>{{$member->name}}</h4>--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div>--}}
-                    {{--<div class="change-user-infor">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-sm-2">--}}
-                                {{--<i class="fa fa-user-circle-o" aria-hidden="true"></i>--}}
-                            {{--</div>--}}
-                            {{--<div>--}}
-                                {{--<label >Thông tin cá nhân</label>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="menu-child">--}}
-                            {{--<a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user">Chỉnh sửa thông tin</label></a>--}}
-                        {{--</div>--}}
-                        {{--<div class="menu-child">--}}
-                            {{--<a href="#"><label class="pointer-user">Đổi mật khẩu</label></a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="change-user-infor">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-sm-2">--}}
-                                {{--<i class="fa fa-usd" aria-hidden="true"></i>--}}
-                            {{--</div>--}}
-                            {{--<div>--}}
-                                {{--<a href="#"> <label class="pointer-user">Quản lý thanh toán</label></a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="lesson-menu">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-sm-2">--}}
-                                {{--<i class="fa fa-bell" aria-hidden="true"></i>--}}
-                            {{--</div>--}}
-                            {{--<div>--}}
-                                {{--<a href="#"> <label class="pointer-user">Thông báo </label><label for=""> ( 0 )</label></a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+    <div class="card-outside">
+        <div class="cart_status row">
+            <div class="col-sm-3 menu_left">
+                <div class="rounded-circle">
+                    <div>
+                        <p>
+                            <img src="{{url($member->avatar)}}" style="height: 255px; width: 255px;">
+                        </p>
+                    </div>
+                    <div class="textUser" style="">
+                        <div style="text-align: center">
+                            <h4>{{$member->name}}</h4>
+                        </div>
+                    </div>
+                </div>
+                @if($member->id == Auth::id())
+                    <div>
+                        <div class="change-user-infor">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <label>Thông tin cá nhân</label>
+                                </div>
+                            </div>
+                            <div class="menu-child">
+                                <a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user">Chỉnh sửa
+                                        thông tin</label></a>
+                            </div>
+                            <div class="menu-child">
+                                <a href="#"><label class="pointer-user" id="changePass">Đổi mật khẩu</label></a>
+                            </div>
+                        </div>
+                        <div class="change-user-infor">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-usd" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <a href="{{ route('members.manageBill',$member->id) }}"> <label
+                                                class="pointer-user">Quản lý
+                                            thanh toán</label></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="menu-right-chgpass">
+                <div class="col-sm-12" id="id_info">
+                    <div class="row tab-outside">
+                        <div class="col-sm-6 text-center">
+                            <div class="tablink" onclick="button_switch(event,'learned-content') ">Đã mua</div>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <div class="tablink active_tab" onclick="button_switch(event,'pending-content') ">Chờ thanh
+                                toán
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pending-content" class="tab-content" style="display: block;">
+                        <br>
+                        <div class="text-center margin-10">
+                            <h2>Chi tiết các đơn hàng chờ thanh toán</h2>
+                            <br>
+                            <div class="da-hoc-content row">
+                                <form action="">
+                                    <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
+                                        <div class="dataTables_length" id="myTable_length">
 
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<!--user information-->--}}
-            {{--<div class="menu-right-chgpass">--}}
-                {{--<div class="col-sm-12" id="id_info">--}}
-                    {{--<div>--}}
-                        {{--<div>--}}
-                            {{--<strong><label>Tài khoản của tôi</label></strong>--}}
-                        {{--</div>--}}
-                        {{--<div class="textChgPass">--}}
-                            {{--<label>Quản lí thông tin cá nhân để bảo mật tài khoản</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<form>--}}
-                        {{--<input type="hidden" name="_method" value="POST">--}}
-                        {{--<input type="hidden" name="_token" value="l6eIIFcNCFAwOP5i0q7D0Y8OtLmacnsja5pqPCf3">--}}
-                        {{--<div class="second-part-chgpass row">--}}
-                            {{--<div class="col-sm-12">--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-4 input-with-label">--}}
-                                        {{--<label>Họ và tên:</label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class=" col-sm-6 input-with-content">--}}
-                                        {{--<p>{{$member->name}}</p>--}}
+                                            <table style=" width: 101%;" class="table table-bordered" id="eventsTable">
+                                                <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày đặt hàng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Phương thức thanh toán</th>
+                                                </tr>
+                                                </thead>
+                                            </table>
 
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-4 input-with-label">--}}
-                                        {{--<label>Giới tính:</label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-sm-6 input-with-content">--}}
-                                        {{--<p>{{$member->gender == 1 ? 'Nam' : 'Nữ'}}</p>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-4 input-with-label">--}}
-                                        {{--<label>Số điện thoại:</label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-sm-6 input-with-content">--}}
-                                        {{--<p>{{$member->phone_number}}</p>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-4 input-with-label">--}}
-                                        {{--<label>Ngày sinh:</label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-sm-6 input-with-content">--}}
-                                        {{--<p>{{$member->dob}}</p>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-4 input-with-label">--}}
-                                        {{--<label>Email:</label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class=" col-sm-6 input-with-content">--}}
-                                        {{--<p>{{$member->email}}</p>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-sm-8">--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-sm-3 input-with-label">--}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-
-                {{--<div class="col-sm-12" id="change_pass">--}}
-                    {{--<div>--}}
-                        {{--<div>--}}
-                            {{--<strong><label>Đổi mật khẩu</label></strong>--}}
-                        {{--</div>--}}
-                        {{--<div class="textChgPass">--}}
-                            {{--<label>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu với người khác</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<form id="change_Pass_Form" class="form" method="POST" action="">--}}
-                        {{--{{ csrf_field() }}--}}
-                        {{--<div class="col-sm-8">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-sm-12 msg_error_rp" style="color:red; display:none; margin_bottom:20px"></div>--}}
-                                {{--<div class="col-sm-12 msg_success" style="color:green; display:none; margin_bottom:20px">Đổi mật khẩu thành công</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-sm-5 input-with-label">--}}
-                                    {{--<label>Mật khẩu hiện tại</label>--}}
-                                {{--</div>--}}
-                                {{--<div class=" col-sm-6 input-with-content">--}}
-                                    {{--<input id="old_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="old_pass" >--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-sm-5 input-with-label">--}}
-                                    {{--<label>Mật khẩu mới</label>--}}
-                                {{--</div>--}}
-                                {{--<div class=" col-sm-6 input-with-content">--}}
-                                    {{--<input id="new_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="password" >--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-sm-5 input-with-label">--}}
-                                    {{--<label>Nhập lại mật khẩu mới</label>--}}
-                                {{--</div>--}}
-                                {{--<div class=" col-sm-6 input-with-content">--}}
-                                    {{--<input id="re_pass" type="password" class="form-control validate[required, custom[password_Required], custom[password_Not_Spacing]]" name="re_pass" >--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="col-sm-8">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-sm-5 input-with-label">--}}
-                                {{--</div>--}}
-                                {{--<div class=" col-sm-6 input-with-content">--}}
-                                    {{--<button id="btnChangPass" type="button" class="btn btn-secondary btn-lg btn-block" data-url="{{ route('change-pass') }}">Đổi mật khẩu</button>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                {{--</div>--}}
-
-                {{--</form>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<!--END user information-->--}}
-    {{--</div>--}}
-    {{--</div>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+@push('footer')
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- DataTables -->
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#eventsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('members.data') }}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'total', name: 'total'},
+                    {data: 'address', name: 'address'},
+                    {data: 'status', name: 'status'},
+                    {data: 'ship_form', name: 'ship_form'},
+                ],
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ bản ghi " +
+                        "mỗi trang",
+                    "zeroRecords": "Không tìm thấy kết quả phù hợp",
+                    "info": "Hiển thị trang  _PAGE_ trên tổng _PAGES_",
+                    "infoEmpty": "Không có bản ghi phù hợp",
+                    "infoFiltered": "(Tổng số kết quả _MAX_ )",
+                    "search":"Tìm kiếm:",
+                }
+            });
+        });
+    </script>
+@endpush

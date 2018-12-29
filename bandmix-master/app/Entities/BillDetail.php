@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class News.
+ * Class BillDetail.
  *
  * @package namespace App\Entities;
  */
-class News extends Model implements Transformable
+class BillDetail extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -20,10 +20,11 @@ class News extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
-
-    public function category()
+    protected $table = 'bill_details';
+    protected $fillable = ['bill_id','event_id','number_of_ticket','price'];
+    public function bill()
     {
-        return $this->belongsTo('App\Entities\Category');
+        return $this->belongsTo('App\Entities\Bill');
     }
+
 }

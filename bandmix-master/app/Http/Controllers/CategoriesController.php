@@ -7,35 +7,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\NewsCreateRequest;
-use App\Http\Requests\NewsUpdateRequest;
-use App\Repositories\NewsRepository;
-use App\Validators\NewsValidator;
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
+use App\Repositories\CategoryRepository;
+use App\Validators\CategoryValidator;
 
 /**
- * Class NewsController.
+ * Class CategoriesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class NewsController extends Controller
+class CategoriesController extends Controller
 {
     /**
-     * @var NewsRepository
+     * @var CategoryRepository
      */
     protected $repository;
 
     /**
-     * @var NewsValidator
+     * @var CategoryValidator
      */
     protected $validator;
 
     /**
-     * NewsController constructor.
+     * CategoriesController constructor.
      *
-     * @param NewsRepository $repository
-     * @param NewsValidator $validator
+     * @param CategoryRepository $repository
+     * @param CategoryValidator $validator
      */
-    public function __construct(NewsRepository $repository, NewsValidator $validator)
+    public function __construct(CategoryRepository $repository, CategoryValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -48,37 +48,39 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->repository->orderBy('id','')->get();
-        dd( $news);
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $categories = $this->repository->all();
 
-//        $news_top = $this->repository->findWhere(['status' => '1']);
-////        dd($news_top);
-//        $news_middle = $this->repository->findWhere(['status' => '2']);
-//        $news_middle1 = $this->repository->findWhere(['status' => '3']);
-//        $news_end = $this->repository->findWhere(['status' => '4']);
-        return view('news.index', compact('news','news_top','news_middle','news_end','news_middle1'));
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $categories,
+            ]);
+        }
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  NewsCreateRequest $request
+     * @param  CategoryCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(NewsCreateRequest $request)
+    public function store(CategoryCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $news = $this->repository->create($request->all());
+            $category = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'News created.',
-                'data'    => $news->toArray(),
+                'message' => 'Category created.',
+                'data'    => $category->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -108,16 +110,16 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = $this->repository->find($id);
+        $category = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $news,
+                'data' => $category,
             ]);
         }
 
-        return view('news.show', compact('news'));
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -129,32 +131,32 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = $this->repository->find($id);
+        $category = $this->repository->find($id);
 
-        return view('news.edit', compact('news'));
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  NewsUpdateRequest $request
+     * @param  CategoryUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(NewsUpdateRequest $request, $id)
+    public function update(CategoryUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $news = $this->repository->update($request->all(), $id);
+            $category = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'News updated.',
-                'data'    => $news->toArray(),
+                'message' => 'Category updated.',
+                'data'    => $category->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -192,11 +194,11 @@ class NewsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'News deleted.',
+                'message' => 'Category deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'News deleted.');
+        return redirect()->back()->with('message', 'Category deleted.');
     }
 }
