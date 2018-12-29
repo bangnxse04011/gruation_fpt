@@ -121,13 +121,7 @@ class CartsController extends Controller
             //add to books
 
             $cartInfo = Cart::content();
-//            dd($cartInfo);
             $data = $request->all();
-//         $data['event_id'] = $request['event_id'];
-////        dd($request->all());
-//        $event = $this->eventRepository->find($data['event_id']);
-//            $count = $this->eventRepository->find($data['event_id']);
-//            dd( $this->eventRepository->find($data['event_id']));
             $data['member_id'] = Auth::id();
             $book =   $this->repository->create($data);
 
