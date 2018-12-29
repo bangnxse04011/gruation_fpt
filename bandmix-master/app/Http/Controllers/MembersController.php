@@ -249,8 +249,6 @@ class MembersController extends Controller
     public function manageBill($id)
     {
         $member = $this->repository->find($id);
-//
-
         return view('members.manage', compact('member'));
     }
 }

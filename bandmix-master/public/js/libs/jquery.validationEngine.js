@@ -1229,7 +1229,7 @@
 
 			if (len < min) {
 				var rule = options.allrules.minSize;
-				return rule.alertText  + rule.alertText2 + min + rule.alertText3;
+				return rule.alertText2 + min + rule.alertText3;
 			}
 		},
 		/**
