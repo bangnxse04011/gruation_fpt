@@ -61,6 +61,15 @@
                 <div class="menu-right-chgpass">
                     <div class="col-sm-12">
                         <div class="second-part-chgpass row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5 input-with-label">
+                                    <label>Giới thiệu</label>
+                                </div>
+                                <div class=" col-sm-12 input-with-content">
+                                    <label>{{ $band->description}}</label>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-sm-6 input-with-label">

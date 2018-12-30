@@ -17,15 +17,22 @@
             </div>
             <!--user information-->
             <div class="menu-right-chgpass">
-                <div class="col-sm-12">
-                    <div class="second-part-chgpass row">
+                <div class="second-part-chgpass row">
+                    <div class="col-sm-12">
+                        <div>
+                            <strong><label>Giới Thiệu</label></strong>
+                        </div>
+                        <div class="">
+                            <textarea type="textarea" class="form-control" placeholder="Giói thiệu chung" rows="3" maxlength="140" name="description" required></textarea>
+                        </div>
+                        <hr>
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label> Tên Ban Nhạc :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input name="name" type="text" class="form-control"
+                                    <input name="name" type="text" maxlength="20" class="form-control"
                                             placeholder="Tên ban nhạc" required>
                                 </div>
                                 <div class="col-sm-3 input-with-label">
@@ -36,13 +43,12 @@
 
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label>Số điện thoại:</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input  name="phone_manager" type="text" class="form-control" >
+                                    <input  name="phone_manager" maxlength="11" type="text" class="form-control" >
                                 </div>
                                 <div class="col-sm-3 input-with-label">
                                     <label>Số Lượng Thành Viên :</label>
@@ -52,7 +58,6 @@
                                 </div>
 
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label for="locations">Địa điểm hoạt động:</label>

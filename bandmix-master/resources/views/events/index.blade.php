@@ -27,7 +27,6 @@
                 </div>
             @endforeach
         </div> <!-- row -->
-
         <!-- List Event -->
         <div class="title">
             <h2>Danh Sách Sự Kiện</h2>
@@ -54,58 +53,56 @@
         </div>
 
         <div class="row">
-            @foreach($events_search as $item2)
-            <div class="col-xs-18 col-sm-6 col-md-3" style="height: 370px">
+            @foreach($events_search as $event)
+                <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
 
-                <div class="hovereffectE">
-                    <img class="img-responsive" src="{{ url($item2->avatar) }}" alt="">
-                    <div class="overlayE">
-                        <h2>{{ $item2->name }}</h2>
-                        <p >
-                            {{ substr($item2->description,0,50).'....' }}
-                        </p>
+                    <div class="hovereffectE">
+                        <img class="img-responsive" src="{{ url($event->avatar) }}" alt="">
+                        <div class="overlayE">
+                            <h2>{{ $event->name }}</h2>
+                            <p >
+                                {{$event->description}}
+                            </p>
+                        </div>
                     </div>
-                </div>
+                    <div class="card-body relative">
+                        <div class="table w-100 margin-bottom-0">
 
-                <div class="card-body relative">
-                    <div class="table w-100 margin-bottom-0">
-
-                        <a class="eventTitle" href="{{route('events.show', $item2->id)}}"target="_blank">
-                            <h4 style="text-align: center">{{ $item2->name }}</h4>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="table-cell" style="width: 170px;">
-                            <div class="event-price w-100">
-                                <span class="color-6">Gía vé :</span> <strong> {{ number_format($item2->price) }} VNĐ</strong>
-                            </div>
-                            <div class="event-tags w-100">
+                            <a class="eventTitle" href="{{route('events.show', $event->id)}}">
+                                <h4 style="text-align: center">{{ $event->name }}</h4>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="table-cell" style="width: 170px;">
+                                <div class="event-price w-100">
+                                    <span class="color-6">Gía vé :</span> <strong> {{ number_format($event->price) }} VNĐ</strong>
+                                </div>
+                                <div class="event-tags w-100">
 									<span class="tag-venues">
-										{{--<span class="tag-venue smooth-trans label-default uppercase">{{$item2->locations->name}}</span>--}}
+										<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>
 									</span>
 
-                            </div>
-                        </div>
-                        <div class="event-date">
-                            <div class="relative">
-                                <div class="date-month">
-                                    {{date("F", strtotime($item2->date))}}
                                 </div>
-                                <div class="date-detail">
-                                    <div class="date-num color-6">
-                                        {{date("d", strtotime($item2->date))}}
+                            </div>
+                            <div class="event-date">
+                                <div class="relative">
+                                    <div class="date-month">
+                                        {{date("F", strtotime($event->date))}}
                                     </div>
-                                    <div class="date-day">
-                                        {{date("D", strtotime($item2->date))}}
+                                    <div class="date-detail">
+                                        <div class="date-num color-6">
+                                            {{date("d", strtotime($event->date))}}
+                                        </div>
+                                        <div class="date-day">
+                                            {{date("D", strtotime($event->date))}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
-
             {{$events_search->links()}}
         </div> <!-- row -->
         <div class="title">
@@ -119,7 +116,6 @@
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/hAs-l3vqaaE" frameborder="0"
                             allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
-
             </div>
 
             <div class="col-xs-18 col-sm-6 col-md-3">
@@ -128,6 +124,7 @@
                             allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
+
             <div class="col-xs-18 col-sm-6 col-md-3">
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/7NJqUN9TClM" frameborder="0"

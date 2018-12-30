@@ -42,17 +42,16 @@
                     <div class="col-xs-18 col-sm-6 col-md-3">
                         <div class="hovereffect">
                             <img class="img-responsive" src="{{url($band->avatar)}}" alt="">
-
                             <div class="overlay">
                                 <p>
-                                    Đây là ban nhạc được đánh giá cao, quy tụ nhiều nhân tài nghệ sĩ tại Hà Nội
+                                    {{$band->description}}
                                 </p>
                                 <a class="info" href="{{url('/bands/'.$band->slug)}}">Chi tiết</a>
                             </div>
                         </div>
                         <div class="overLayB">
-                            <h4>{{$band->name}}</h4>
-                            <a href="{{route('bands.delete',[$band->id])}}" class="btn btn-danger " style="width: 100%">
+                            <a class="info" href="{{url('/bands/'.$band->slug)}}" style=" "><h4>{{$band->name}}</h4></a>
+                            <a href="{{route('bands.delete',[$band->id])}}" class="btn btn-danger" style="width: 100%;">
                                 <i class="fa fa-trash-o"></i> Xoá
                             </a>
                         </div>

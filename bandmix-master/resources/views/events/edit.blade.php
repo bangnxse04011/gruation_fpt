@@ -42,6 +42,10 @@
                             <div class="menu-child">
                                 <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
                             </div>
+                            <form action="{{route('events.destroy', $event->id)}}" method="delete">
+                                {{csrf_field()}}
+                                <button type="submit" id="btn-delete" class="btn btn-danger" >Xóa sự kiện</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -114,7 +118,7 @@
                                             <select class="form-control" name="genre" required>
                                                 <option value="">Thể loại</option>
                                                 @foreach($genres as $genre)
-                                                    <option value="{{$genre->id}}" {{$event->genres->id == $genre->id ? 'selected' : ''}} >{{$genre->name}}</option>
+                                                    <option value="{{$genre->id}}" {{$event->genre->id == $genre->id ? 'selected' : ''}} >{{$genre->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -179,7 +183,6 @@
                                             </div>
                                             <div class=" col-sm-2">
                                                 <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
-                                                <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                             </div>
                                         </div>
 
@@ -205,7 +208,6 @@
                                                     </select>
                                                 </div>
                                                 <div class=" col-sm-2">
-                                                    <span class="btn btn-danger btnRemove"><i class="fa fa-remove"></i></span>
                                                     <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                                 </div>
                                             </div>

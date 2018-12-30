@@ -165,7 +165,7 @@ audio, canvas, img, video {
 }
 .overLayB{
     width: 95%;
-    margin-top: 59%;
+    margin-top: 63%;
     opacity: 1;
     background-color: rgba(0,0,0,0.5);
     padding: 5px;
@@ -174,7 +174,14 @@ audio, canvas, img, video {
     text-align: center;
     border-bottom-left-radius:3px;
     border-bottom-right-radius:3px;
+}
 
+.overLayB>a{
+    text-decoration: none;
+    color: white;
+}
+.overLayB>a :hover{
+    color: #98cbe8;
 }
 
 .hovereffect:hover .overlay {

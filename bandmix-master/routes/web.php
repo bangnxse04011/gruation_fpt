@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
 //event
     Route::post('events', 'EventsController@store')->name('events.store');
+    Route::DELETE('event/delete/{id}','EventsController@destroy')->name('events.destroy');
     Route::get('events/{id}/review', 'EventsController@review')->name('events.review');
     Route::post('events/confirm', 'EventsController@confirm')->name('events.confirm');
     Route::post('cart/buy', 'CartController@buySuccess')->name('cart.buy');
@@ -56,7 +57,7 @@ Route::get('/event/manage','EventsController@manage')->name('events.manage');
 Route::get('/events/{id}','EventsController@show')->name('events.show');
 Route::get('/event/detail/{id}','EventsController@detail')->name('events.detail');
 Route::get('/events/{id}/edit','EventsController@edit')->name('events.edit');
-Route::get('/events/{id}/delete','EventsController@deleteEvent')->name('events.delete');
+//Route::get('/events/{id}/delete','EventsController@deleteEvent')->name('events.delete');
 Route::get('/', 'HomePageController@index')->name('homepage');
 //band
 Route::get('/bands','BandsController@index')->name('bands.index');

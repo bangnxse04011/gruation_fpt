@@ -46,7 +46,7 @@
                         <div class="overlayE">
                             <h2>{{ $event->name }}</h2>
                             <p >
-                                {{ substr($event->description,0,50).'....' }}
+                                {{$event->description}}
                             </p>
                         </div>
                     </div>

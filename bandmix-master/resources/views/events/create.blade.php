@@ -29,16 +29,13 @@
         <!--user information-->
         <div class="menu-right-chgpass">
             <div class="col-sm-12">
-
                 <div>
                     <strong><label>Giới Thiệu</label></strong>
                 </div>
                 <div class="">
-                            <textarea type="textarea" class="form-control"
-                                      placeholder="Giói thiệu chung" rows="3" name="description" required>
-                        </textarea>
+                    <textarea maxlength="250" type="textarea" class="form-control" placeholder="Giói thiệu chung" rows="3" name="description" required></textarea>
                 </div>
-                <div enctype="multipart/form-data">
+                <div>
                     <div class="second-part-chgpass row">
                         <div class="col-sm-12">
                             <div class="row">
@@ -46,7 +43,7 @@
                                     <label> Tên Sự Kiện :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control" maxlength="27"
                                            placeholder="Tên Sự Kiện" name="name" required>
                                 </div>
                                 <div class="col-sm-3 input-with-label">
@@ -84,14 +81,14 @@
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
                                     <input type="text" class="form-control"
-                                           placeholder="Địa điểm tổ chức" name="location_detail" required>
+                                           placeholder="Địa điểm tổ chức" maxlength="100" name="location_detail" required>
 
                                 </div>
                                 <div class="col-sm-3 input-with-label">
                                     <label>Thể Loại yêu cầu:</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <select class="form-control" name="genre" required>
+                                    <select class="form-control" name="genre_id" required>
                                         <option value="">Thể loại</option>
                                         @foreach($genres as $genre)
                                             <option {{ $genre->id == request()->get('genre') ? 'selected':'' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
@@ -105,7 +102,7 @@
                                     <label>Số Lượng vé :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="number" class="form-control" name="vacancy">
+                                    <input type="number" class="form-control" min="0" name="vacancy">
                                 </div>
                                 <div class="col-sm-3 input-with-label">
                                     <label>Email chương trình :</label>
@@ -119,14 +116,14 @@
                                     <label>Hot-line :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="text" class="form-control" name="number_phone" required>
+                                    <input type="text" class="form-control" maxlength="11" name="number_phone" required>
                                 </div>
 
                                 <div class="col-sm-3 input-with-label">
                                     <label>Giá vé :</label>
                                 </div>
                                 <div class=" col-sm-3 input-with-content">
-                                    <input type="number" class="form-control" name="price">
+                                    <input type="number" class="form-control" min="1000" name="price">
                                 </div>
                             </div>
                             <div class="row">
@@ -145,7 +142,7 @@
                                     </div>
 
                                     <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]">
+                                        <input type="Text" class="form-control" placeholder="Tên tiết mục" maxlength="100" name="item_name[]">
                                     </div>
 
                                     <div class="col-sm-2 input-with-label">
@@ -170,7 +167,7 @@
                                     </div>
 
                                     <div class=" col-sm-3 input-with-content">
-                                        <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required>
+                                        <input type="Text" class="form-control" placeholder="Tên tiết mục"  maxlength="100" name="item_name[]" required>
                                     </div>
 
                                     <div class="col-sm-2 input-with-label">

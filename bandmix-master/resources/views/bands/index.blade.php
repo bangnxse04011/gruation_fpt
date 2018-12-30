@@ -37,12 +37,14 @@
                 <div class="hovereffect">
                     <img class="img-responsive" src="{{$band->avatar}}" alt="">
                     <div class="overlay">
-                        <h2>{{$band->name}}</h2>
                         <p>
-                            {{substr($band->about,0,50).'...'}}
+                            {{$band->description}}
                         </p>
                         <a class="info" href="{{route('bands.show', $band->slug)}}">Chi tiết</a>
                     </div>
+                </div>
+                <div class="overLayB">
+                    <a class="info" href="{{url('/bands/'.$band->slug)}}"><h4>{{$band->name}}</h4></a>
                 </div>
             </div>
         @endforeach

@@ -20,7 +20,7 @@ class Band extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name','genre_id','doc','avatar','status','about','location_id','achievements','like_count','rate','phone_manager','member_id','slug','number_of_mem'];
+    protected $fillable = ['name','description','genre_id','doc','avatar','status','about','location_id','achievements','like_count','rate','phone_manager','member_id','slug','number_of_mem'];
 
     public function member()
     {

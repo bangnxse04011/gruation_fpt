@@ -19,8 +19,15 @@
             </div>
             <!--user information-->
             <div class="menu-right-chgpass">
-                <div class="col-sm-12">
-                    <div class="second-part-chgpass row">
+                <div class="second-part-chgpass row">
+                    <div class="col-sm-12">
+                        <div>
+                            <strong><label>Giới Thiệu</label></strong>
+                        </div>
+                        <div >
+                            <textarea type="textarea" class="form-control" placeholder="Giói thiệu chung" rows="3" name="description" required></textarea>
+                        </div>
+                        <hr>
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
@@ -39,7 +46,6 @@
 
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label>Số điện thoại:</label>
@@ -56,7 +62,6 @@
                                 </div>
 
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label for="locations">Địa điểm hoạt động:</label>
@@ -81,23 +86,11 @@
                                     </select>
                                 </div>
                             </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-                                    <label>Mô Tả Chi Tiết:</label>
-                                </div>
-                                <div class=" col-sm-9 input-with-content">
-                                    <textarea name="about" class="form-control"
-                                              placeholder="Mô tả về ban nhạc của bạn" rows="10"
-                                              required>{{$band->about}}</textarea>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
                                     <label>Thành tựu</label>
                                 </div>
-                                <div class=" col-sm-9 input-with-content">
+                                <div class=" col-sm-12 input-with-content">
                                 <textarea name="achievements" class="form-control"
                                           placeholder="Ban nhạc của bạn đã có những giải thưởng hay những vị trí nào trong các cuộc thi?" rows="4"
                                           required>{{$band->achievements}}</textarea>
@@ -105,25 +98,29 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-3 input-with-label">
-                                    <label>Sản Phẩm</label>
+                                    <label>Mô Tả Chi Tiết:</label>
                                 </div>
-                                <div class=" col-sm-5 input-with-content">
-                                    <input type="file" class="form-control-file" id="myFile" >
+                                <div class=" col-sm-12 input-with-content">
+                                    <textarea name="about" class="form-control"
+                                              placeholder="Mô tả về ban nhạc của bạn" rows="10"
+                                              required>{{$band->about}}</textarea>
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3 input-with-label">
-
+                            <div class="col-sm-3 input-with-label">
+                                <label>Sản Phẩm</label>
+                            </div>
+                            <div class=" col-sm-5 input-with-content">
+                                    <input type="file" class="form-control-file" id="myFile" >
                                 </div>
-                                <div class=" col-sm-1 input-with-content">
+                            <br>
+                            <div class="row justify-content-center">
+                                <div class=" col-sm-1">
                                     <a class="btn btn-danger"  href="{{route('bands.show', $band->slug)}}">Huỷ</a>
                                 </div>
-                                <div class=" col-sm-1 input-with-content">
+                                <div class=" col-sm-1">
                                     <button type="submit" class="btn btn-success">Lưu chỉnh sửa</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -135,6 +132,7 @@
     <script type="text/javascript" src="{{url('js/main.js')}}"></script>
     <script type="text/javascript" src="{{url('js/avatar.js')}}"></script>
     <script>
+
         $(document).ready(function () {
 
             $(document).on('click','#btn-delete',function (event) {
@@ -161,5 +159,9 @@
             //     alert();
             // });
         });
+    </script>
+    <script>
+        CKEDITOR.replace( 'about' );
+        //avatar load
     </script>
 @endpush

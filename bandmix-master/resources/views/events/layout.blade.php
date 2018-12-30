@@ -35,10 +35,7 @@
                         <div class="menu-child">
                             <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
                         </div>
-                        <form action="{{route('events.delete', $event->id)}}" method="delete">
-                            {{csrf_field()}}
-                            <button type="submit" id="btn-delete" class="btn btn-danger" >Xóa sự kiện</button>
-                        </form>
+
                     </div>
 
                 </div>

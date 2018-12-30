@@ -27,7 +27,7 @@ class Event extends Model implements Transformable
     public function locations(){
         return $this->belongsTo('App\Entities\Location','location_id');
     }
-    public function genres()
+    public function genre()
     {
         return $this->belongsTo('App\Entities\Genre');
     }
@@ -38,8 +38,8 @@ class Event extends Model implements Transformable
     public function  bands(){
         return $this->belongsToMany('App\Entities\Band','act','event_id','band_id')->withPivot('act');
     }
-    public function members(){
-        return $this->belongsToMany('App\Entities\Member','books','event_id','member_id');
+    public function member(){
+        return $this->belongsTo('App\Entities\Member');
     }
 
 }
