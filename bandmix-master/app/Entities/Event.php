@@ -31,15 +31,12 @@ class Event extends Model implements Transformable
     {
         return $this->belongsTo('App\Entities\Genre');
     }
-    public function item()
-    {
-        return $this->belongsToMany(('App\Entities\Item'));
-    }
     public function  bands(){
         return $this->belongsToMany('App\Entities\Band','act','event_id','band_id')->withPivot('act');
     }
-    public function member(){
+    public function member()
+    {
         return $this->belongsTo('App\Entities\Member');
-
+    }
 
 }

@@ -115,6 +115,7 @@ class EventsController extends Controller
         if(empty($data['event_id'])) {
             $data['member_id'] = Auth::id();
             $data['status'] = '2';
+            $data['ticket_also'] = $data['vacancy'];
             $data['slug'] = str_slug($data['name'], '-');
             if($request->hasFile('avatar')){
                 $data['avatar'] = $this->uploadFile($request['avatar']);
@@ -123,7 +124,7 @@ class EventsController extends Controller
             }
             $event = $this->repository->create($data);
 
-            EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre']]);
+            EventGenre::create(['event_id' => $event->id, 'genre_id' => $data['genre_id']]);
             if(count($data['item_name']) > 1) {
                 $event_id = $event->id;
                 $total_item = count($data['item_name']);
@@ -141,7 +142,6 @@ class EventsController extends Controller
                 } 
                 Act::insert($data_act);
             }
-
         } else {
             if($request->hasFile('avatar')){
                 $data['avatar'] = $this->uploadFile($request['avatar']);

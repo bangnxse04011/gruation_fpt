@@ -40,10 +40,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::PUT('/bands/{slug}', 'BandsController@update')->name('bands.update');
 //event
     Route::post('events', 'EventsController@store')->name('events.store');
-    Route::DELETE('event/delete/{id}','EventsController@destroy')->name('events.destroy');
+    Route::DELETE('event/{event}','EventsController@destroy')->name('events.destroy');
     Route::get('events/{id}/review', 'EventsController@review')->name('events.review');
     Route::post('events/confirm', 'EventsController@confirm')->name('events.confirm');
-    Route::post('cart/buy', 'CartController@buySuccess')->name('cart.buy');
     //user
     Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
     Route::get('/user/{id}/notifications','MembersController@notiView')->name('member.noti');

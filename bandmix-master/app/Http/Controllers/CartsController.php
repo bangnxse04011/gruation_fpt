@@ -150,7 +150,7 @@ class CartsController extends Controller
                 $event_id = $value->id;
                 $event = $this->eventRepository->find($event_id);
 
-              $ticket = $this->eventRepository->update(['ticket_also' => $event->vacancy - $value->options->number_of_ticket],$event_id);
+              $this->eventRepository->update(['ticket_also' => $event->ticket_also - $value->options->number_of_ticket],$event_id);
 //              dd( $event->vacancy -  $value->options->number_of_ticket);
 
             }
