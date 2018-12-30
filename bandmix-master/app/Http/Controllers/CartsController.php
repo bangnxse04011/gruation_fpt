@@ -111,7 +111,8 @@ class CartsController extends Controller
                 'total' => $total,
                 'member_id' => $data['member_id']
             ]]);;
-        $event = $this->eventRepository->update(['vacancy' => $event->vacancy - $data['number_of_ticket']], $data['event_id']);
+//        $ticket  = $this->eventRepository->update(['vacancy' => $event->vacancy - $data['number_of_ticket']], $data['event_id']);
+//        dd($event->vacancy - $data['number_of_ticket']);
         return redirect()->route('cart.show')->with('success_message', 'Đã thêm thành công vào giỏ hàng');
     }
 
@@ -121,9 +122,12 @@ class CartsController extends Controller
             //add to books
 
             $cartInfo = Cart::content();
+
+//            dd($cartInfo);
             $data = $request->all();
             $data['member_id'] = Auth::id();
             $book =   $this->repository->create($data);
+
 
              // add to bills
             $bill = new Bill();
@@ -139,8 +143,16 @@ class CartsController extends Controller
                 $bill_detail->bill_id = $bill->id;
                 $bill_detail->event_id = $value->id;
                 $bill_detail->number_of_ticket = $value->options->number_of_ticket;
+//                dd( $value->options->number_of_ticket);
                 $bill_detail->price = $value->price;
                 $bill_detail->save();
+
+                $event_id = $value->id;
+                $event = $this->eventRepository->find($event_id);
+
+              $ticket = $this->eventRepository->update(['ticket_also' => $event->vacancy - $value->options->number_of_ticket],$event_id);
+//              dd( $event->vacancy -  $value->options->number_of_ticket);
+
             }
             Cart::destroy();
         } catch (ValidatorException $e) {

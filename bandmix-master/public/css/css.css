@@ -1076,7 +1076,9 @@ a .round i {
 #myTable{
     width: 117%;
 }
-
+.ticket{
+    margin-left: 6%;
+}
 @media only screen and (max-width: 800px) {
     .search-container {
         display: none;

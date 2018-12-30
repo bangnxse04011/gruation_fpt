@@ -72,20 +72,11 @@
             </div>
             <div class="menu-right-chgpass">
                 <div class="col-sm-12" id="id_info">
-                    <div class="row tab-outside">
-                        <div class="col-sm-6 text-center">
-                            <div class="tablink" onclick="button_switch(event,'learned-content') ">Đã mua</div>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <div class="tablink active_tab" onclick="button_switch(event,'pending-content') ">Chờ thanh
-                                toán
-                            </div>
-                        </div>
-                    </div>
+
                     <div id="pending-content" class="tab-content" style="display: block;">
                         <br>
                         <div class="text-center margin-10">
-                            <h2>Chi tiết các đơn hàng chờ thanh toán</h2>
+                            <h2>Quản lý chi tiết các sự kiện đã tạo</h2>
                             <br>
                             <div class="da-hoc-content row">
                                 <form action="">
@@ -95,11 +86,12 @@
                                             <table style=" width: 101%;" class="table table-bordered" id="eventsTable">
                                                 <thead>
                                                 <tr>
-                                                    <th>Mã đơn hàng</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày đặt hàng</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Phương thức thanh toán</th>
+                                                    <th>Stt</th>
+                                                    <th>Tên sự kiện</th>
+                                                    <th>Số lượng vé</th>
+                                                    <th>Giá vé (VND)</th>
+                                                    <th>Số vé còn</th>
+
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -127,13 +119,13 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('members.data') }}',
-                columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'total', name: 'total'},
-                    {data: 'address', name: 'address'},
-                    {data: 'status', name: 'status'},
-                    {data: 'ship_form', name: 'ship_form'},
-                ],
+                // columns: [
+                //     {data: 'id', name: 'id'},
+                //     {data: 'total', name: 'total'},
+                //     {data: 'address', name: 'address'},
+                //     {data: 'status', name: 'status'},
+                //     {data: 'ship_form', name: 'ship_form'},
+                // ],
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ bản ghi " +
                         "mỗi trang",

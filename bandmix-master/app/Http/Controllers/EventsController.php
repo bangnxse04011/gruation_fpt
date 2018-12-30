@@ -313,18 +313,28 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
 //     */
-//    public function destroy($id)
-//    {
+    public function destroy($id)
+    {
+        $deleted = $this->repository->delete($id);
+        dd($deleted);
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'message' => 'Event deleted.',
+                'deleted' => $deleted,
+            ]);
+        }
+        return redirect('/event/manage')->with('message', 'Event deleted.');
+    }
+
+
+    public function search($option = []){
+
+    }
+
+//    public function deleteEvent($id) {
 //        $deleted = $this->repository->delete($id);
-//        dd($id);
-//        if (request()->wantsJson()) {
-//
-//            return response()->json([
-//                'message' => 'Event deleted.',
-//                'deleted' => $deleted,
-//            ]);
-//        }
-//        return redirect('/events')->with('message', 'Event deleted.');
+//        return redirect('/event/manage');
 //    }
 
 }

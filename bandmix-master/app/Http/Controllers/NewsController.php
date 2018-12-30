@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\News;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\NewsCreateRequest;
@@ -48,15 +50,14 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->repository->orderBy('id','')->get();
-        dd( $news);
-
-//        $news_top = $this->repository->findWhere(['status' => '1']);
-////        dd($news_top);
-//        $news_middle = $this->repository->findWhere(['status' => '2']);
-//        $news_middle1 = $this->repository->findWhere(['status' => '3']);
-//        $news_end = $this->repository->findWhere(['status' => '4']);
-        return view('news.index', compact('news','news_top','news_middle','news_end','news_middle1'));
+        $news = News::find(DB::table('news')->max('id') );
+        $news1 = News::find(DB::table('news')->max('id')-1 );
+        $news2 = News::find(DB::table('news')->max('id')-2 );
+        $news3 = News::find(DB::table('news')->max('id')-3 );
+        $news4 = News::find(DB::table('news')->max('id')-4);
+        $news5 = News::find(DB::table('news')->max('id')-5 );
+        $news6 = News::find(DB::table('news')->max('id')-6 );
+        return view('news.index', compact('news','news1','news2','news3','news4','news5','news6'));
     }
 
     /**

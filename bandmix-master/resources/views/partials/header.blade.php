@@ -87,10 +87,6 @@
             <div class="modal-content modal-contentCart ">
                 <div class="modal-header .modal-headerCart">
                     <i class="fa fa-shopping-cart cart-icon"></i><span class="badge"><?php echo Cart::count(); ?></span>
-                    <div class="shopping-cart-total">
-                        <span class="lighter-text">Tổng:</span>
-                        <span class="main-color-text">350.000 VND</span>
-                    </div>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body modal-bodyCart" style="">
@@ -99,14 +95,14 @@
                     <!--end shopping-cart-header -->
 
                     <ul class="shopping-cart-items">
-                        @foreach (\Gloudemans\Shoppingcart\Facades\Cart::content() as $key => $cart)
+                        <?php foreach (Cart::content() as $key => $cart): ?>
                             <li class="items">
                                 <img src="{{url($cart->options->avatar)}}" alt="item1" />
                                 <span class="item-name">{{ $cart->name }}</span>
                                 <span class="item-price">Giá vé : {{ $cart->price }}</span>
                                 <span class="item-quantity">Số lượng vé đặt : {{ $cart->options->number_of_ticket }} vé</span>
                             </li>
-                        @endforeach
+                        <?php endforeach; ?>
                     </ul>
                     <a href="{{route('cart.show')}}" class="btnSeeCart">Chi Tiết Giỏ Hàng</a>
                     <!--</div>-->
