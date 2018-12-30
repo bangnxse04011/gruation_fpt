@@ -106,20 +106,7 @@ class EventsController extends Controller
     public function store(EventCreateRequest $request)
     {
         $data = $request->all();
-        $messages = [
-            'required' => 'Trường :attribute bắt buộc nhập.',
-            'email'    => 'Trường :attribute phải có định dạng email'
-        ];
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required|max:255',
-            'email'    => 'required|email',
-            'location_detail' => 'required',
-            'vacancy' => 'required|min:0',
-            'item_name' => 'required'
-        ], $messages);
-        if($validator->fails()){
-            return redirect(route('events.store'))->withErrors($validator)->withInput();
-        }else {
+
 
 
             if (empty($data['event_id'])) {
@@ -177,7 +164,7 @@ class EventsController extends Controller
             ]);
             return redirect(route('events.manage', compact('events', 'events_search', 'locations')));
         }
-    }
+
 
     public function contact($id){
         $event = $this->repository->find($id);

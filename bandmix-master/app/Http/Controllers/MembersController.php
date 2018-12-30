@@ -6,6 +6,7 @@ use App\Entities\Bill;
 use App\Repositories\BillDetailRepository;
 use App\Repositories\BillRepository;
 use App\Repositories\CartRepository;
+use App\Repositories\EventRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -37,6 +38,7 @@ class MembersController extends Controller
     protected $cartRepository;
     protected $billRepository;
     protected $billDetailRepository;
+    protected $eventRepository;
 
 
     /**
@@ -45,16 +47,21 @@ class MembersController extends Controller
      * @param MemberRepository $repository
      * @param MemberValidator $validator
      * @param CartRepository $cartRepository
+     * @param BillRepository $billRepository
+     * @param BillDetailRepository $billDetailRepository
      */
 
 
-    public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository, BillRepository $billRepository, BillDetailRepository $billDetailRepository)
+    public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository,
+                                BillRepository $billRepository, BillDetailRepository $billDetailRepository,EventRepository $eventRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->cartRepository = $cartRepository;
         $this->billRepository = $billRepository;
         $this->billDetailRepository = $billDetailRepository;
+        $this->eventRepository = $eventRepository;
+
     }
 
     /**
@@ -215,7 +222,8 @@ class MembersController extends Controller
 
     public function getData()
     {
-        $books = $this->cartRepository->all();
+        $member_id = Auth::id();
+        $books = $this->cartRepository->findWhere(['member_id' => $member_id]);
 
         return DataTables::of($books)
             ->addColumn('status', function ($item) {
@@ -239,8 +247,34 @@ class MembersController extends Controller
     public function manageBill($id)
     {
         $member = $this->repository->find($id);
+//        dd($member);
 //
 
         return view('members.manage', compact('member'));
+    }
+    public function getDataBook()
+    {
+        $member_id = Auth::id();
+
+        $event = $this->eventRepository->findWhere(['member_id' => $member_id]);
+
+
+        return DataTables::of($event)
+
+            ->make(true);
+    }
+    public function manageBooks($id)
+    {
+        $member = $this->repository->find($id);
+//
+
+        return view('members.manageBook', compact('member'));
+    }
+    public function manageMoneys($id)
+    {
+        $member = $this->repository->find($id);
+//
+
+        return view('members.manageMoney', compact('member'));
     }
 }

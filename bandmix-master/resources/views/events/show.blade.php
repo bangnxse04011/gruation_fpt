@@ -162,15 +162,24 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="second-part-chgpass row">
 
+                                        <div class="second-part-chgpass row">
+                                            @if(Auth::id() != $event->member_id)
                                             <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-5 input-with-label">
+                                                        <label>Số Lượng Vé :</label>
+                                                    </div>
+                                                    <div class=" col-sm-6 input-with-content">
+                                                        <label>{{$event->vacancy}}</label>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-sm-5 input-with-label">
                                                         <label>Số Lượng Vé Còn:</label>
                                                     </div>
                                                     <div class=" col-sm-6 input-with-content">
-                                                        <label>{{$event->vacancy}}</label>
+                                                        <label>{{$event->ticket_also}}</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -196,7 +205,7 @@
                                                     </div>
 
                                                     <div class="row">
-                                                        @if( $event->vacancy != 0)
+                                                        @if( $event->ticket_also != 0)
                                                         <div class=" col-sm-6 input-with-content">
                                                             <button id="addToCart" class="btn btn-danger">Mua vé</button>
                                                         </div>
@@ -210,6 +219,9 @@
                                                     </div>
                                                 </form>
                                             </div>
+                                            @else
+                                                <p>Hãy xem sự kiện của bạn</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

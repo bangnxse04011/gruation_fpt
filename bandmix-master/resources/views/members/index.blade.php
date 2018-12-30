@@ -23,16 +23,18 @@
                     <div class="change-user-infor">
                         <div class="row">
                             <div class="col-sm-2">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                <i class="fas fa-user-tie" aria-hidden="true"></i>
                             </div>
                             <div>
                                  <label >Thông tin cá nhân</label>
                             </div>
                         </div>
                         <div class="menu-child">
+
                             <a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user" >Chỉnh sửa thông tin</label></a>
                         </div>
                         <div class="menu-child">
+
                             <a href="#"><label class="pointer-user" id="changePass">Đổi mật khẩu</label></a>
                         </div>
                     </div>
@@ -45,6 +47,21 @@
                                 <a href="{{ route('members.manageBill',$member->id) }}"> <label class="pointer-user">Quản lý thanh toán</label></a>
                             </div>
                         </div>
+                    </div>
+                    <div class="change-user-infor">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="fas fa-ticket-alt" aria-hidden="true"></i>
+                            </div>
+                            <div class="ticket">
+                                <label>Quản lý vé</label>
+                            </div>
+                        </div>
+                        <div class="menu-child">
+
+                            <a href="{{ route('members.manageBook',$member->id) }}"> <label class="pointer-user">Quản lý đơn hàng</label></a>
+                        </div>
+
                     </div>
                 </div>
                 @endif

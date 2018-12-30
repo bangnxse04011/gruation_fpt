@@ -64,11 +64,15 @@ Route::get('/news','NewsController@index')->name('news.index');
 Route::get('/news/{id}','NewsController@show')->name('news.show');
 
 //search
+Route::get('/myBook/{id}','MembersController@manageBooks')->name('members.manageBook');
+Route::get('user/getDataBook','MembersController@getDataBook')->name('members.dataBook');
 Route::get('user/getData','MembersController@getData')->name('members.data');
 Route::get('/user/{id}','MembersController@show')->name('members.index');
 Route::get('/user/edit/{id}','MembersController@edit')->name('members.edit');
 Route::Post('/user/{id}','MembersController@update')->name('members.update');
 Route::get('/myBill/{id}','MembersController@manageBill')->name('members.manageBill');
+
+
 
 
 //login
