@@ -42,8 +42,22 @@
                                     <i class="fa fa-usd" aria-hidden="true"></i>
                                 </div>
                                 <div>
-                                    <a href="#"> <label class="pointer-user">Quản lý thanh toán</label></a>
+                                    <a href="{{ route('members.manageBill',$member->id) }}"> <label class="pointer-user">Lịch sử giao dịch</label></a>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="change-user-infor">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-ticket"></i>
+                                </div>
+                                <div class="ticket">
+                                    <label>Quản lý vé</label>
+                                </div>
+                            </div>
+                            <div class="menu-child">
+
+                                <a href="{{ route('members.manageBook',$member->id) }}"> <label class="pointer-user">Quản lý đơn hàng</label></a>
                             </div>
                         </div>
                         <div class="lesson-menu">
@@ -64,12 +78,12 @@
                 <div class="col-sm-12" >
                     <h4>Thông báo của bạn</h4>
                     @foreach($member->unreadNotifications as $notification)
-                    <div class="noti-border">
-                        <a class="noti" href="{{route('events.show',$notification->data['event']['id'])}}">
-                            <div class="noti-title">Ban nhạc {{$notification->data['band']['name']}}</div>
-                            <div>Sự kiện {{$notification->data['event']['name']}} đã mời ban nhạc của bạn tham gia biểu diễn!</div>
-                        </a>
-                    </div>
+                        <div class="noti-border">
+                            <a class="noti" href="{{route('events.show',$notification->data['event']['id'])}}">
+                                <div class="noti-title">Ban nhạc {{$notification->data['band']['name']}}</div>
+                                <div>Sự kiện {{$notification->data['event']['name']}} đã mời ban nhạc của bạn tham gia biểu diễn!</div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
                 <hr>

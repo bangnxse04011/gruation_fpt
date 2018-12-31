@@ -76,7 +76,7 @@ Route::Post('/user/{id}','MembersController@update')->name('members.update');
 Route::get('/myBill/{id}','MembersController@manageBill')->name('members.manageBill');
 
 
-
+ Route::get('/About_us','AboutUsController@index')->name('about.index');
 
 //login
 Auth::routes();

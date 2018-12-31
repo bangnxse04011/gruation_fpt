@@ -26,31 +26,58 @@
                         </div>
                     </div>
                     <div>
-                        <div class="change-user-infor" style="font-weight: bold">
+                        <div class="change-user-infor">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    <i class="fa fa-user-circle"></i>
                                 </div>
                                 <div>
                                     <label >Thông tin cá nhân</label>
                                 </div>
                             </div>
-                            <div class="menu-child" style="font-weight: bold">
+                            <div class="menu-child">
+
                                 <a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user" >Chỉnh sửa thông tin</label></a>
                             </div>
-                            <div class="menu-child" style="font-weight: bold">
+                            <div class="menu-child">
+
                                 <a href="#"><label class="pointer-user" id="changePass">Đổi mật khẩu</label></a>
                             </div>
                         </div>
-                        <div class="change-user-infor" style="font-weight: bold">
+                        <div class="change-user-infor">
                             <div class="row">
                                 <div class="col-sm-2">
                                     <i class="fa fa-usd" aria-hidden="true"></i>
                                 </div>
                                 <div>
-                                    <a href="{{ route('members.manageBill',$member->id) }}"> <label class="pointer-user">Quản lý thanh toán</label></a>
+                                    <a href="{{ route('members.manageBill',$member->id) }}"> <label class="pointer-user">Lịch sử giao dịch</label></a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="change-user-infor">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-ticket"></i>
+                                </div>
+                                <div class="ticket">
+                                    <label>Quản lý vé</label>
+                                </div>
+                            </div>
+                            <div class="menu-child">
+
+                                <a href="{{ route('members.manageBook',$member->id) }}"> <label class="pointer-user">Quản lý đơn hàng</label></a>
+                            </div>
+                        </div>
+                        <div class="lesson-menu">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <a href="{{route('member.noti',$member->id)}}"> <label class="pointer-user">Thông báo </label><label for="" style="color: red; margin-left: 2px;"> ({{ count($member->notifications)}})</label></a>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
