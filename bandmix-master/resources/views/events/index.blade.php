@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="event-tags w-100">
 									<span class="tag-venues">
-										<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>
+										{{--<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>--}}
 									</span>
 
                                 </div>

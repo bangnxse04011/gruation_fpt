@@ -27,17 +27,19 @@
                         <div class="change-user-infor">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    <i class="fa fa-user-circle"></i>
                                 </div>
                                 <div>
                                     <label>Thông tin cá nhân</label>
                                 </div>
                             </div>
                             <div class="menu-child">
+
                                 <a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user">Chỉnh sửa
                                         thông tin</label></a>
                             </div>
                             <div class="menu-child">
+
                                 <a href="#"><label class="pointer-user" id="changePass">Đổi mật khẩu</label></a>
                             </div>
                         </div>
@@ -48,40 +50,44 @@
                                 </div>
                                 <div>
                                     <a href="{{ route('members.manageBill',$member->id) }}"> <label
-                                                class="pointer-user">Quản lý
-                                            thanh toán</label></a>
+                                                class="pointer-user">Lịch sử giao dịch</label></a>
                                 </div>
                             </div>
                         </div>
                         <div class="change-user-infor">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <i class="fas fa-ticket-alt" aria-hidden="true"></i>
+                                    <i class="fa fa-ticket"></i>
                                 </div>
                                 <div class="ticket">
                                     <label>Quản lý vé</label>
                                 </div>
                             </div>
                             <div class="menu-child">
-                                <a href="{{ route('members.manageBook',$member->id) }}"> <label class="pointer-user">Quản lý đơn hàng</label></a>
+
+                                <a href="{{ route('members.manageBook',$member->id) }}"> <label class="pointer-user">Quản
+                                        lý đơn hàng</label></a>
+                            </div>
+                        </div>
+                        <div class="lesson-menu">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <a href="{{route('member.noti',$member->id)}}"> <label class="pointer-user">Thông
+                                            báo </label><label for="" style="color: red; margin-left: 2px;">
+                                            ({{ count($member->notifications)}})</label></a>
+                                </div>
                             </div>
 
                         </div>
+
                     </div>
                 @endif
             </div>
             <div class="menu-right-chgpass">
                 <div class="col-sm-12" id="id_info">
-                    <div class="row tab-outside">
-                        <div class="col-sm-6 text-center">
-                            <div class="tablink" onclick="button_switch(event,'learned-content') ">Đã mua</div>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <div class="tablink active_tab" onclick="button_switch(event,'pending-content') ">Chờ thanh
-                                toán
-                            </div>
-                        </div>
-                    </div>
                     <div id="pending-content" class="tab-content" style="display: block;">
                         <br>
                         <div class="text-center margin-10">
@@ -109,7 +115,6 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -122,7 +127,7 @@
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $('#eventsTable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -141,7 +146,7 @@
                     "info": "Hiển thị trang  _PAGE_ trên tổng _PAGES_",
                     "infoEmpty": "Không có bản ghi phù hợp",
                     "infoFiltered": "(Tổng số kết quả _MAX_ )",
-                    "search":"Tìm kiếm:",
+                    "search": "Tìm kiếm:",
                 }
             });
         });

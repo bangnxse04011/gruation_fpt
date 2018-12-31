@@ -53,7 +53,7 @@ class MembersController extends Controller
 
 
     public function __construct(MemberRepository $repository, MemberValidator $validator, CartRepository $cartRepository,
-                                BillRepository $billRepository, BillDetailRepository $billDetailRepository,EventRepository $eventRepository)
+                                BillRepository $billRepository, BillDetailRepository $billDetailRepository, EventRepository $eventRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
@@ -90,8 +90,8 @@ class MembersController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
             $member = $this->repository->create($request->all());
-            $request['slug'] = str_slug($member->name, '-') . '-n'.$member->id;
-            $this->repository->update($request->only('slug'),$member->id);
+            $request['slug'] = str_slug($member->name, '-') . '-n' . $member->id;
+            $this->repository->update($request->only('slug'), $member->id);
             $response = [
                 'message' => 'Member created.',
                 'data' => $member->toArray(),
@@ -115,9 +115,10 @@ class MembersController extends Controller
         }
     }
 
-    public function notiView($id){
+    public function notiView($id)
+    {
         $member = $this->repository->find($id);
-        return view('members.notifications',compact('member'));
+        return view('members.notifications', compact('member'));
     }
 
 
@@ -125,7 +126,7 @@ class MembersController extends Controller
     {
         $member_id = Auth::id();
         $cart = $this->cartRepository->findWhere(['member_id' => $member_id]);
-        return view('member.manage',compact('cart'));
+        return view('member.manage', compact('cart'));
     }
 
     /**
@@ -251,7 +252,7 @@ class MembersController extends Controller
                 $total = $item->bills->total;
                 return $total;
             })
-            ->rawColumns(['status','ship_form'])
+            ->rawColumns(['status', 'ship_form'])
             ->make(true);
     }
 
@@ -260,26 +261,20 @@ class MembersController extends Controller
         $member = $this->repository->find($id);
         return view('members.manage', compact('member'));
     }
+
     public function getDataBook()
     {
         $member_id = Auth::id();
-
         $event = $this->eventRepository->findWhere(['member_id' => $member_id]);
-
-
         return DataTables::of($event)
-
             ->make(true);
     }
+
     public function manageBooks($id)
     {
         $member = $this->repository->find($id);
-        return view('members.manageBook', compact('member'));
+        $event = $this->eventRepository->findWhere(['member_id' => $member->id]);
+        return view('members.manageBook', compact('member', 'event'));
     }
-    public function manageMoneys($id)
-    {
-        $member = $this->repository->find($id);
 
-        return view('members.manageMoney', compact('member'));
-    }
 }

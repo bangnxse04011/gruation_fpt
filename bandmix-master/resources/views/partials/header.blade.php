@@ -24,7 +24,7 @@
                         <a class="nav-link " href="{{route('news.index')}}">TIN TỨC</a>
                     </li>
                     <li class="">
-                        <a class="nav-link " href="aboutus.html">GIỚI THIỆU</a>
+                        <a class="nav-link " href="{{ route('about.index') }}">GIỚI THIỆU</a>
                     </li>
                 </ul>
                 <div style="display: flex; justify-content: flex-end; align-items: center" class="col-6">

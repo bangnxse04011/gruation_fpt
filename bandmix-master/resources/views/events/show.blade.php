@@ -35,7 +35,7 @@
                             <label>Địa điểm tổ chức:</label>
                         </div>
                         <div class=" col-sm-5 input-with-content">
-                            <label>{{ $event->location_detail.', '.$event->locations->name}}</label>
+                            {{--<label>{{ $event->location_detail.', '.$event->locations->name}}</label>--}}
                         </div>
                     </div>
                     <div class="row">

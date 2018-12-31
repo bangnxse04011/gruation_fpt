@@ -140,6 +140,7 @@ class CartsController extends Controller
             foreach ( $cartInfo  as $key => $value)
             {
                 $bill_detail = new BillDetail();
+                $bill_detail->book_id = $book->id;
                 $bill_detail->bill_id = $bill->id;
                 $bill_detail->event_id = $value->id;
                 $bill_detail->number_of_ticket = $value->options->number_of_ticket;
@@ -267,17 +268,7 @@ class CartsController extends Controller
      */
     public function destroy($id)
     {
-
         Cart::remove($id);
-//        $deleted = $this->repository->delete($id);
-//        if (request()->wantsJson()) {
-//
-//            return response()->json([
-//                'message' => 'Cart deleted.',
-//                'deleted' => $deleted,
-//            ]);
-//        }
-
         return redirect()->back()->with('message', 'Cart deleted.');
     }
 }
