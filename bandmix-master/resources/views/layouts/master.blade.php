@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{asset('css/libs/validationEngine.jquery.css') }}">
     <link rel="stylesheet" href="{{asset('css/libs/jquery.alerts.css') }}">
     <link rel="stylesheet" href="{{ url('http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    {{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">--}}
 
     @stack('header')
 </head>
@@ -81,7 +81,34 @@
         })
     })
 </script>
+<script>
+    $(document).ready(function () {
 
+        $(document).on('click','#btn-delete',function (event) {
+            // confirm('cos xoa hay khong');
+
+            var form = $(this).parent('form');
+            event.preventDefault();
+
+            swal({
+                title: "Bạn có chắc chắn muốn xóa ?",
+                text: "Một khi đã xóa thì không thể lấy lại dữ liệu",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+
+        // $('.btn-delete').click(function () {
+        //     alert();
+        // });
+    });
+</script>
 
 @stack('footer')
 

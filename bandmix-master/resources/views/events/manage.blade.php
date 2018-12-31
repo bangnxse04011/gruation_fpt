@@ -86,7 +86,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        <form action="{{route('events.delete',$event->id)}}" style="margin: 0;padding: 0">
+                            <label href="" id="btn-delete" class="btn btn-danger" style="width: 100%;">
+                                <i class="fa fa-trash-o"></i> Xoá
+                            </label>
+                        </form>
                         <div class="iconSED">
                             @if($event->status == 2)
                             <a href="{{route('events.review',$event->id)}}" class="btn btn-default btnicon">

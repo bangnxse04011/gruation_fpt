@@ -49,9 +49,9 @@
                                 <a class="info" href="{{url('/bands/'.$band->slug)}}">Chi tiết</a>
                             </div>
                         </div>
-                        <div class="overLayB">
+                        <div class="overLayB" style="margin-top:58%">
                             <a class="info" href="{{url('/bands/'.$band->slug)}}" style=" "><h4>{{$band->name}}</h4></a>
-                            <a href="{{route('bands.delete',[$band->id])}}" class="btn btn-danger" style="width: 100%;">
+                            <a href="{{route('bands.delete',[$band->id])}}" class="btn btn-danger" id="btn-delete" style="width: 100%;">
                                 <i class="fa fa-trash-o"></i> Xoá
                             </a>
                         </div>

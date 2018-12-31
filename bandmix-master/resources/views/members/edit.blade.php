@@ -118,7 +118,7 @@
                                             <label>Email</label>
                                         </div>
                                         <div class=" col-sm-6 input-with-content">
-                                            <input id="email" type="text" class="form-control" value="{{$member->email}}" name="email">
+                                            <label>{{$member->email}}</label>
 
                                         </div>
                                     </div>

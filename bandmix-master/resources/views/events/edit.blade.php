@@ -42,10 +42,10 @@
                             <div class="menu-child">
                                 <a href="{{route('events.contact',$event->id)}}"><label class="pointer-user">Thông tin liên hệ</label></a>
                             </div>
-                            <form action="{{route('events.destroy', $event->id)}}" method="delete">
-                                {{csrf_field()}}
-                                <button type="submit" id="btn-delete" class="btn btn-danger" >Xóa sự kiện</button>
-                            </form>
+                            {{--<form action="{{route('events.destroy', $event->id)}}" method="DELETE">--}}
+                                {{--{{csrf_field()}}--}}
+                                {{--<button type="submit" id="btn-delete" class="btn btn-danger" >Xóa sự kiện</button>--}}
+                            {{--</form>--}}
                         </div>
                     </div>
                 </div>

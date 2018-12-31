@@ -142,7 +142,9 @@ class RegisterController extends Controller
     public function reset_Pass(Request $request) {
         $email = $request->email;
         $user = Member::where('email', $email)->get();
+
         if(count($user) > 0) {
+
             $new_pass = str_random(10);
             $new_pass_hash = Hash::make($new_pass);    
             Member::where('email', $request->email)->update(['password' => $new_pass_hash]);

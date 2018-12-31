@@ -37,9 +37,6 @@
                                 <a href="{{route('members.edit', $member->id)}}"> <label class="pointer-user">Chỉnh sửa
                                         thông tin</label></a>
                             </div>
-                            <div class="menu-child">
-                                <a href="#"><label class="pointer-user" id="changePass">Đổi mật khẩu</label></a>
-                            </div>
                         </div>
                         <div class="change-user-infor">
                             <div class="row">

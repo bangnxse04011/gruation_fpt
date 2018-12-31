@@ -138,26 +138,27 @@
                                             </div>
 
                                             <div class=" col-sm-3 input-with-content">
-                                                <input type="Text" class="form-control" placeholder="Tên tiết mục " name="item_name[]" required value="{{ $act->act }}">
+                                                <label>{{ $act->act }}</label>
                                             </div>
-
                                             <div class="col-sm-2 input-with-label">
                                                 <label> Ban nhạc:</label>
                                             </div>
-
                                             <div class=" col-sm-3 input-with-content">
-                                                <select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>
-                                                    @foreach($bands as $band)
-                                                        <option {{ $act->band_id == $band->id ? 'selected' : '' }} value="{{ $band->id }}">{{ $band->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label>{{ $act->act }}</label>
                                             </div>
+
+                                            {{--<div class=" col-sm-3 input-with-content">--}}
+                                                {{--<select class="form-control" data-toggle="modal" data-target="#modalOnline" name="band[]" required>--}}
+                                                    {{--@foreach($bands as $band)--}}
+                                                        {{--<option {{ $act->band_id == $band->id ? 'selected' : '' }} value="{{ $band->id }}">{{ $band->name }}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
                                             <div class=" col-sm-2">
                                                 <span class="btn btn-primary btnPlus"><i class="fa fa fa-plus"></i></span>
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-5 input-with-label">

@@ -86,9 +86,7 @@ class EventsController extends Controller
     {
         $locations = $this->locationRespository->all();
         $events_search = $this->repository->query($request->all())->latest()->paginate(12);
-        $events = $this->repository->findWhere([
-            'is_on_top' => 1
-        ]);
+        $events = Event::query()->where('status','=','1')->orderBy('date', 'desc')->paginate('4');
         return view('events.index', compact('events','events_search','locations'));
     }
 
@@ -316,7 +314,6 @@ class EventsController extends Controller
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
-        dd($deleted);
         if (request()->wantsJson()) {
 
             return response()->json([
@@ -332,9 +329,9 @@ class EventsController extends Controller
 
     }
 
-//    public function deleteEvent($id) {
-//        $deleted = $this->repository->delete($id);
-//        return redirect('/event/manage');
-//    }
+    public function deleteEvent($id) {
+        $deleted = $this->repository->delete($id);
+        return redirect('/event/manage');
+    }
 
 }

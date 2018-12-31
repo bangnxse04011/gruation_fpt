@@ -10,7 +10,6 @@
                         <h3 data-animation="animated bounceInLeft">
                             Đẳng Cấp - Chuyên Nghiệp
                         </h3>
-                        <button class="btn btn-primary" data-animation="animated zoomInUp">Button</button>
                     </div>
                 </div>
             @endforeach

@@ -32,7 +32,7 @@
             </div><!--/row-->
             <!-- Top Ban Nhạc -->
             <div class="title">
-                <h2>Top Ban Nhạc</h2>
+                <h2>Ban Nhạc Mới</h2>
                 <hr>
             </div>
             <div class="row">
@@ -68,38 +68,37 @@
             </div>
             <!-- Top Event -->
             <div class="title">
-                <h2>Top Sự Kiện</h2>
+                <h2>Sự Kiện Mới</h2>
                 <hr>
             </div>
             <div class="row">
                 @foreach($events as $event)
-                    <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="col-xs-18 col-sm-6 col-md-4" style="height: 370px">
+
                         <div class="hovereffectE">
                             <img class="img-responsive" src="{{ url($event->avatar) }}" alt="">
-
                             <div class="overlayE">
                                 <h2>{{ $event->name }}</h2>
-                                <p>
-                                    {{ substr($event->description,0,50).'....' }}
+                                <p >
+                                    {{$event->description}}
                                 </p>
-                                <a class="infoE" href="{{route('events.show', $event->id)}}">Chi tiết</a>
                             </div>
                         </div>
                         <div class="card-body relative">
                             <div class="table w-100 margin-bottom-0">
 
-                                <a class="eventTitle" href="{{route('events.show', $event->id)}}" title="Liên Hoan Âm Nhạc" target="_blank">
-                                    <h4>{{ $event->name }}</h4>
+                                <a class="eventTitle" href="{{route('events.show', $event->id)}}">
+                                    <h4 style="text-align: center">{{ $event->name }}</h4>
                                 </a>
                             </div>
                             <div class="row">
-                                <div class="table-cell">
+                                <div class="table-cell" style="width: 170px;">
                                     <div class="event-price w-100">
-                                        <span class="color-6">Từ</span> <strong> {{ number_format($event->price) }} VNĐ</strong>
+                                        <span class="color-6">Gía vé :</span> <strong> {{ number_format($event->price) }} VNĐ</strong>
                                     </div>
                                     <div class="event-tags w-100">
 									<span class="tag-venues">
-										{{--<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>--}}
+										<span class="tag-venue smooth-trans label-default uppercase">{{$event->locations->name}}</span>
 									</span>
 
                                     </div>

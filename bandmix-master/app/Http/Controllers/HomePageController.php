@@ -32,11 +32,11 @@ public function __construct(NewsRepository $newsRepository)
         //     'is_show_home'=> 1,
         // ]);
 
-        $news = News::where('is_show_home', '=',1)->paginate('4');
+        $news = News::orderBy('created_at', 'desc')->paginate('4');
 
-        $bands = Band::orderBy('rate', 'desc')->paginate('4');
+        $bands = Band::orderBy('created_at', 'desc')->paginate('4');
 
-        $events = Event::orderBy('date', 'desc')->paginate('4');
+        $events = Event::query()->where('status','=','1')->orderBy('date', 'desc')->paginate('4');
 
         $data['news'] = $news;
         $data['bands'] = $bands;

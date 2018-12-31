@@ -1,6 +1,6 @@
 $.ajaxSetup({
   headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
 jQuery(document).ready(function($){
@@ -117,10 +117,10 @@ jQuery(document).ready(function($){
     let email = $('#reset-email').val()
     if(email != '') {
       if(validateEmail(email)) {
-        let url = $(this).data('url')
+        let url = $(this).data('url');
         $.ajax({
+          type: 'post',
           url: url,
-          type: "POST",
           data: {
             'email' : email
           },
@@ -131,9 +131,9 @@ jQuery(document).ready(function($){
             } else {
               $('.msg_success').show()
               setTimeout(function() {
-                $('.msg_success').hide()
+              $('.msg_success').hide()
               }, 5000)
-            }              
+            }
           }
         });
       } else {
@@ -148,12 +148,7 @@ jQuery(document).ready(function($){
       $('.reset_pass_error').css('visibility', 'visible')
       $('.reset_pass_error').css('opacity', 1)
     }
-    
-    
-
-   
   })
-
 });
 
 function validateEmail(email) {

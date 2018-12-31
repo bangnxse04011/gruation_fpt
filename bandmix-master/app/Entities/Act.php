@@ -14,7 +14,6 @@ use Prettus\Repository\Traits\TransformableTrait;
 class Act extends Model implements Transformable
 {
     use TransformableTrait;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -22,5 +21,4 @@ class Act extends Model implements Transformable
      */
     protected $table = 'act';
     protected $fillable = ['act', 'band_id', 'event_id'];
-
 }
