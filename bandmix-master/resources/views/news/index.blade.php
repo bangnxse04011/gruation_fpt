@@ -10,7 +10,7 @@
             <div class="row">
                 {{--@foreach( $news->getAttributes() as $new)--}}
                 <div class="col-xs-18 col-sm-6 col-md-12">
-                    <a href=""><img src="{{ url( $news->avatar ) }}" class="img-resposive" style="width: 100%; height: 45%;">
+                    <a href=""><img src="{{ url( $news->avatar ) }}" class="img-resposive" style="width: 100%;">
                     </a>
                     <div class="row">
                         <div class="col-sm-12" style="margin-top: 5px">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="caption">
-                        <div class="titleNews"
+                        <div class="titleNews">
                         <span class="stext-105 cl3">
                         <strong><a href="{{ route('news.show',$news1->id) }}"><h4>{{ $news1->title }}</h4></a></strong>
 						</span>
@@ -243,61 +243,6 @@
             {{--@endforeach--}}
         </div><!--/row-->
 
-        <div class="contact row">
-            <div class="col-md-8">
-                <div class="well well-sm contactleft">
-
-                    <h5> Liên hệ với chúng tôi :</h5>
-                    <form>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="name" placeholder="Họ và Tên" required="required" />
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="name" placeholder="Địa chỉ Email" required="required" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" placeholder="Tiêu đề Thư" required="required" />
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-md-6">
-                                <div class="form-group">
-										<textarea name="message" id="message" class="form-control" rows="4" cols="25" required="required"
-                                                  placeholder="Nội dung"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
-                                    Gửi </button>
-                            </div>
-                            <div class="">
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <form>
-                    <legend><span class="glyphicon glyphicon-globe"></span>Địa Chỉ : </legend>
-                    <address>
-                        <strong> BandMix</strong><br>
-                        Đại học FPT, khu công nghệ cao Hoà Lạc<br>
-                        Km 29, Đại Lộ Thăng Long, xã Thạch Hoà, huyện Thạch Thất, TP Hà Nội<br>
-                        <strong>Phone :</strong>
-                        (+84) 0123456789 <br>
-                        <strong>Email:</strong>
-                        <a href="mailto:#">bandmix@gmail.com</a>
-                    </address>
-
-                </form>
-            </div>
-
-        </div> <!-- row -->
         </div> <!-- container -->
     </section>
     @endsection

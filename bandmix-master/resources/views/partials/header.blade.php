@@ -33,8 +33,8 @@
                             <div class="input-group-prepend">
                                 <form action="{{route('masterSearching')}}">
                                     <div class="input-group-prepend">
-                                        <input class="form-control" id="search-bar" name="searchValue" type="text" placeholder="Tìm kiếm" aria-label="Search">
-                                        <button type="submit"  class="input-group-text cyan lighten-2 button" id="search-button">
+                                        <input class="form-control searchMText" id="search-bar" name="searchValue" type="text" placeholder="Tìm kiếm" aria-label="Search">
+                                        <button type="submit"  class="input-group-text cyan lighten-2 button searchM" id="search-button">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
@@ -72,7 +72,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul  class="nav navbar-nav"data-toggle="modal" data-target="#modalCart">
+                    <ul  class="nav "data-toggle="modal" data-target="#modalCart" style="padding-left: 5%;">
                         <i  class="fa fa-shopping-cart cart-icon"></i><span class="badge"><?php echo Cart::count(); ?></span>
                     </ul>
                     @endguest

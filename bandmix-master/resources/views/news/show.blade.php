@@ -1,15 +1,14 @@
 @extends('layouts.master')
 @section('content')
-<section>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-18 col-sm-6 col-md-12">
                 <a href=""><img class="img-news" src="{{ url( $news->avatar) }}" class="img-resposive">
                 </a>
-                <div class="row">
-                    <div class="col-sm-12" style="margin-top: 5px">
-                    </div>
-                </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-12" style="margin-top: 5px">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="caption">
                     <div class="infoNews">
                         <label>Bởi: Admin |</label>
@@ -23,18 +22,19 @@
                     </div>
 
                     <div class="sapo">
-                        <p>{{ $news->body }}</p>
+                        <p>{!! $news->body !!}</p>
                             {{--<a href="newdetail.html" class="fa fa-info-circle"> Đọc tiếp </a></p>--}}
                     </div>
                 </div>
             </div>
         </div><!--/row-->
-        <div class="tab-rate">
-            <div class="fb-comments" data-href="https://www.facebook.com/Soriking" data-numposts="5"></div>
-        </div>
     </div>
-</section>
+    <div class="tab-rate">
+        <div class="fb-comments" data-href="https://www.facebook.com/Soriking" data-numposts="5"></div>
+    </div>
+
 @endsection
+
 @push('footer')
     <div id="fb-root"></div>
     <script>(function(d, s, id) {

@@ -84,7 +84,7 @@
                         </div>
                     </div>
             </div>
-        @endif
+
 
         <!--user information-->
             <div class="menu-right-chgpass">

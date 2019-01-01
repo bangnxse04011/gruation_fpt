@@ -40,7 +40,8 @@
                         <p>
                             {{$band->description}}
                         </p>
-                        <a class="info" href="{{route('bands.show', $band->slug)}}">Chi tiết</a>
+                        <a class="info"  href="{{route('bands.show', $band->slug)}}">Chi tiết</a>
+
                     </div>
                 </div>
                 <div class="overLayB">

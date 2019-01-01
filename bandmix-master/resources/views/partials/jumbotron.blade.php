@@ -5,7 +5,7 @@
             <!-- first slide -->
             @foreach($g_slides as $slide)
                 <div class="carousel-item {{$slide->is_on_top == 1 ? 'active':''}}">
-                    <img class="d-block w-100" src="{{$slide->url}}" alt="First slide">
+                    <img class="d-block w-100" src="{{url($slide->url)}}" alt="First slide">
                     <div class="carousel-caption d-md-block">
                         <h3 data-animation="animated bounceInLeft">
                             Đẳng Cấp - Chuyên Nghiệp

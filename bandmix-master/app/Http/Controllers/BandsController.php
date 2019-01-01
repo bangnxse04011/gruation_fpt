@@ -130,6 +130,7 @@ class BandsController extends Controller
     {
 
         $band_collection = $this->repository->findWhere(['slug' => $slug]);
+//        dd($band_collection);
         if (request()->wantsJson()) {
 
             return response()->json([

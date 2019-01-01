@@ -27,7 +27,7 @@
                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                 </div>
                                 <div>
-                                    <a href="{{route('bands.show',$band->slug)}}"> <label class="pointer-user">Thông tin Ban Nhạc</label></a>
+                                    <a href="{{ route('bands.show',$band->slug )}}"> <label class="pointer-user">Thông tin Ban Nhạc</label></a>
                                 </div>
                             </div>
                         </div>
@@ -137,9 +137,12 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!--END user information-->
+
             </div>
+
 @endsection
 @push('footer')
     <script type="text/javascript" src="{{url('js/main.js')}}"></script>

@@ -50,7 +50,6 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::find(DB::table('news')->max('id') );
-        dd($news);
         $news1 = News::find(DB::table('news')->max('id')-1 );
         $news2 = News::find(DB::table('news')->max('id')-2 );
         $news3 = News::find(DB::table('news')->max('id')-3 );

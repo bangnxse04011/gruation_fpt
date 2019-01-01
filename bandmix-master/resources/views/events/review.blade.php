@@ -172,7 +172,7 @@
                             <input type="hidden" name="status" value="1">
                             <div class="col-md-12" style="display: flex; justify-content: center">
                                 <div class="input-with-content">
-                                    <input type="submit" class="btn btn-danger" value="Lưu lại">
+                                    <input type="submit" class="btn btn-danger" value="Duyệt sự kiện">
                                 </div>
                             </div>
                         </div>
